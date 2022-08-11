@@ -25,7 +25,7 @@
         <!--回答卡片-->
         <div>
             <div class="flex flex1 column">
-                <div class="flex flex1 column m-backcolor">
+                <div class="flex flex1 column m-backcolor" th:each="answer : ${answerAndPassage}">
                     <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
                     <div class="flex flex1" style="margin-left: 8px">
                         <div class="flex column" style="flex: 3">
