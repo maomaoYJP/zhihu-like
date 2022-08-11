@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ZH-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>问题</title>
+    <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+</head>
+<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
+    <div class="m-backcolor">
+        <div class="flex m-mg8 column">
+            <div class="flex">
+                <div class="m-font-gray">返回</div>
+                <div class="flex1" style="text-align: center">问题</div>
+                <div class="m-font-gray" id="search_btn" style="margin-right: 8px">搜索</div>
+            </div>
+            <div id="search_area" hidden="false" style="text-align: center" class="m-backcolor">
+                <label for="creationSearch"></label>
+                <input type="text" id="creationSearch" placeholder="搜索">
+            </div>
+        </div>
+    </div>
+    <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px">
+        <div>
+            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <span class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
+        </div>
+        <div style="margin-left: 8px;">
+            JavaScript怎么学?
+        </div>
+        <div class="m-mg8">
+            <div class="m-font-gray" style="font-size: 10px" >10 回答</div>
+        </div>
+    </div>
+    <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px">
+        <div>
+            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <span class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
+        </div>
+        <div style="margin-left: 8px;">
+            JavaScript怎么学?
+        </div>
+        <div class="m-mg8">
+            <div class="m-font-gray" style="font-size: 10px" >10 回答</div>
+        </div>
+    </div>
+    <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px">
+        <div>
+            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <span class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
+        </div>
+        <div style="margin-left: 8px;">
+            JavaScript怎么学?
+        </div>
+        <div class="m-mg8">
+            <div class="m-font-gray" style="font-size: 10px" >10 回答</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    let search_btn = document.getElementById("search_btn");
+    let search_area = document.getElementById("search_area");
+
+    //点击搜索显示或关闭搜索框
+    search_btn.addEventListener("click", function () {
+        search_area.hidden = search_area.hidden ? false : true;
+    })
+</script>
+</html>

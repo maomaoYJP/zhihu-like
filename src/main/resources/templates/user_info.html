@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ZH-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+</head>
+<body class="flex flex1 column" style="margin: 0">
+    <div class="m-mg8">
+        <div>
+            <form method="post" enctype="multipart/form-data" id="file_upload">
+                <img id="image-preview" style="border-radius: 50%;width: 50px;height: 50px">
+                <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
+                <p id="info"></p>
+            </form>
+        </div>
+        <div>基本资料</div>
+        <form action="">
+            <div class="flex flex1" style="margin-top: 8px">
+                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="username">昵称</label>
+                <input type="text" id="username" placeholder="昵称">
+            </div>
+            <div class="flex flex1" style="margin-top: 8px">
+                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="introduce">介绍</label>
+                <input type="text" id="introduce" placeholder="介绍">
+            </div>
+            <div class="flex flex1" style="margin-top: 8px">
+                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="sex">性别</label>
+                <input type="text" id="sex" placeholder="性别">
+            </div>
+            <div class="flex flex1" style="margin-top: 8px">
+                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="birthday">生日</label>
+                <input type="text" id="birthday" placeholder="生日">
+            </div>
+            <div class="flex flex1" style="margin-top: 8px">
+                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="occupation">职业</label>
+                <input type="text" id="occupation" placeholder="职业">
+            </div>
+            <div class="flex flex1" style="justify-content: flex-end;margin-right: 8px">
+                <button type="submit">保存</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script type="text/javascript">
+    let fileInput = document.getElementById('file');
+    let info = document.getElementById('info');
+    let preview = document.getElementById('image-preview');
+
+    fileInput.addEventListener("change",function () {
+        preview.style.backgroundImage = "";
+        info.innerHTML = "";
+        if(!fileInput.value){
+            info.innerHTML = "没有选择文件";
+            return ;
+        }
+        let file = fileInput.files[0];
+        let size = file.size;
+        if(size > 1024 * 1024){
+            alert("文件大小超出限制");
+            info.innerHTML = "文件大小超出限制";
+            return false;
+        }
+        // 读取文件
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        //读取完成之后，得到结果，传给preview
+        reader.onload = function (e) {
+            let result = e.target.result;
+            preview.src = result;
+        }
+    })
+</script>
+</html>

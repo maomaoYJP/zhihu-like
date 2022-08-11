@@ -1,0 +1,137 @@
+/*关于flex*/
+
+.flex{
+    display: flex;
+}
+
+.flex1{
+    flex: 1;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+/*关于颜色*/
+.m-backcolor{
+    background-color: #f6f6f6;
+}
+
+.m-font-gray{
+    color: #999999;
+}
+
+.m-headActive{
+    color:black;
+    font-size: 18px;
+}
+
+/*布局*/
+.m-mg8{
+    margin-left: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.m-mgl8{
+    margin-left: 8px;
+}
+
+/*图片*/
+.m-headPicture-circle{
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+}
+
+/*激活*/
+.m-activeDown{
+    border-bottom: 2px solid blue;
+}
+
+/*按钮*/
+.m-pill{
+    border-radius: 30px;
+    background-color:white;
+    border: 1px solid #eeeeee;
+    padding: 1px 6px;
+}
+
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 1px 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.m-passage{
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    padding: 1px 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.m-answer{
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    padding: 1px 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.m-more{
+
+}
+
+.m-delete{
+
+}

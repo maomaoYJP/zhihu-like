@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ZH-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>提问题</title>
+    <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+</head>
+<body class="flex column" style="background-color: #e8e8e8;margin: 0">
+
+    <div class="m-backcolor">
+        <div class="flex m-mg8">
+            <div class="m-font-gray">返回</div>
+            <div class="flex1" style="text-align: center;margin-left: -30px">提问</div>
+        </div>
+    </div>
+    <div class="m-backcolor" style="margin-top: 3px">
+        <div class="m-mg8" style="margin-left: 50px" id="raise">新提问</div>
+    </div>
+    <div class="m-backcolor" style="margin-top: 4px">
+        <div style="text-align: center">我的提问</div>
+    </div>
+    <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px">
+        <div>
+            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <span class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
+        </div>
+        <div style="margin-left: 8px;">
+            JavaScript怎么学?
+        </div>
+        <div class="m-mg8">
+            <div class="flex" style="justify-content: space-between">
+                <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">10 回答</div>
+                <span class="m-more" style="margin-right: 8px;user-select: none" >. . .</span>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px">
+        <div>
+            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <span class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
+        </div>
+        <div style="margin-left: 8px;">
+            JavaScript怎么学?
+        </div>
+        <div class="m-mg8">
+            <div class="flex" style="justify-content: space-between">
+                <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">10 回答</div>
+                <span class="m-more" style="margin-right: 8px;user-select: none" >. . .</span>
+            </div>
+        </div>
+    </div>
+
+    <!--提问框-->
+    <div id="raise_question" hidden="true" style="margin-top: 200px">
+        <div style="position: fixed;bottom: 0;width: 100%">
+            <div class="flex flex1 column" style="background-color: white;border-radius: 10px">
+                <div style="text-align: center" >请尽量把问题描述具体哦！</div>
+                <div style="text-align: center;margin-top: 16px">
+                    <label for="question"></label>
+                    <input type="text" id="question" placeholder="输入提问的内容" style="width: 100%">
+                </div>
+                <div style="margin-top: 16px;text-align: right;margin-right: 8px;margin-bottom: 8px">
+                    <button>提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--编辑-->
+    <div id="edit" hidden="true" style="margin-top: 200px">
+        <div style="position: fixed;bottom: 0;width: 100%">
+            <div class="flex flex1 column" style="background-color: white;border-radius: 10px">
+                <div style="margin-left: 10px;margin-top: 10px;margin-bottom: 20px">操作</div>
+                <div class="flex flex1 column" style="margin-right: 20px">
+                    <div style="margin-left: 20px;margin-bottom: 12px;font-size: 15px;border-bottom: 1px solid #EBEBEB">编辑</div>
+                    <div style="margin-left: 20px;margin-bottom: 12px;font-size: 15px;border-bottom: 1px solid #EBEBEB">删除</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let delete_open = document.querySelectorAll(".m-more");
+    let edit_btn = document.getElementById("edit");
+    let raise = document.getElementById("raise");
+    let raise_question = document.getElementById("raise_question");
+
+    raise.addEventListener("click", function () {
+        raise_question.hidden = raise_question.hidden ? false : true;
+    })
+    //点击开启删除按钮
+    for (let i = 0; i < delete_open.length; i++){
+        delete_open[i].addEventListener("click",function () {
+            edit_btn.hidden = edit_btn.hidden ? false : true;
+        })
+    }
+
+</script>
+</html>

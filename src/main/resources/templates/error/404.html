@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ZH-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+    <link rel="stylesheet" href="../../static/css/maomao.css" th:href="@{/css/maomao.css}">
+</head>
+<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
+    <div class="m-backcolor">
+        <div class="flex m-mg8" style="justify-content: space-between">
+            <div class="m-font-gray">返回</div>
+            <div class="m-font-gray" style="margin-right: 8px">首页</div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <h3>哎呀！页面没找到</h3>
+        <div hidden="true" >请求地址：<span th:text="${url}"></span></div>
+    </div>
+</body>
+</html>
