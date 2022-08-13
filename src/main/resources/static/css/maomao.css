@@ -45,9 +45,20 @@
     height: 23px;
 }
 
+.m-cardPicture{
+    width: 80px;
+    height: 60px;
+    margin-right: 5px;
+    border-radius: 5px
+}
+
 /*激活*/
 .m-activeDown{
     border-bottom: 2px solid blue;
+}
+
+.m-activeDown-while{
+    border-bottom: 2px solid #999999;
 }
 
 /*按钮*/
@@ -126,6 +137,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.m-underlineCancel{
+    text-decoration: none;
 }
 
 .m-more{

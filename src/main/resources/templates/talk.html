@@ -7,48 +7,18 @@
 </head>
 <body class="flex flex1 column m-backcolor">
     <div class="flex flex1 m-backcolor" style="justify-content: space-evenly">
-        <a class="m-font-gray m-mg8 m-headActive">说说</a>
-        <a class="m-font-gray m-mg8">推荐</a>
-        <a class="m-font-gray m-mg8">热榜</a>
+        <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">说说</a>
+        <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel">推荐</a>
+        <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel">热榜</a>
     </div>
-    <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB">
+    <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talkList}">
         <div>
-            <img alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <img th:src="${talk.getUser().getPortrait()}" alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
         </div>
         <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-            <div>毛毛</div>
-            <div style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-            <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-        </div>
-    </div>
-    <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB">
-        <div>
-            <img alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-        </div>
-        <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-            <div>毛毛</div>
-            <div style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-            <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-        </div>
-    </div>
-    <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB">
-        <div>
-            <img alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-        </div>
-        <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-            <div>毛毛</div>
-            <div style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-            <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-        </div>
-    </div>
-    <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB">
-        <div>
-            <img alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-        </div>
-        <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-            <div>毛毛</div>
-            <div style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-            <div class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
+            <div th:text="${talk.getUser().getNickname()}">毛毛</div>
+            <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
+            <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
         </div>
     </div>
     <!--底部导航-->

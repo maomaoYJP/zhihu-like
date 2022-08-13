@@ -1,6 +1,6 @@
-package com.maomao.blog.handler;
+package com.maomao.zhihu.handler;
 
-import com.maomao.blog.exception.PageNotFindException;
+import com.maomao.zhihu.exception.PageNotFindException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

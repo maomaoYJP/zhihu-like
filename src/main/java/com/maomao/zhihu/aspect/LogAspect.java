@@ -1,4 +1,4 @@
-package com.maomao.blog.aspect;
+package com.maomao.zhihu.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -23,7 +23,7 @@ public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("execution(* com.maomao.blog.controller.*.*(..))")
+    @Pointcut("execution(* com.maomao.zhihu.controller.*.*(..))")
     public void log(){ }
 
     @Before("log()")
