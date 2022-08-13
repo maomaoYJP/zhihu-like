@@ -4,6 +4,8 @@ import com.maomao.zhihu.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
 * @author 86155
 * @description 针对表【user(用户)】的数据库操作Mapper
@@ -13,6 +15,9 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
     //通过 id 查询用户
     User getUserById(@Param("user_id")Long userId);
+
+    //通过 用户id 查询用户的粉丝
+    List<User> getFollowsByUserId(@Param("id")Long id);
 }
 
 
