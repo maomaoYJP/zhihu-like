@@ -22,8 +22,8 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk>
     TalkMapper talkMapper;
 
     @Override
-    public List<Talk> getAllTalk() {
-        return talkMapper.getAllTalk();
+    public List<Talk> getManyTalk() {
+        return talkMapper.getManyTalk();
     }
 }
 

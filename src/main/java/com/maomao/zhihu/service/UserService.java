@@ -13,6 +13,6 @@ import java.util.List;
 */
 public interface UserService extends IService<User> {
 
-    //获得所有用户的说说
-    List<Talk> getAllTalk();
+    //登录验证
+    User checkUser(String username,String password);
 }

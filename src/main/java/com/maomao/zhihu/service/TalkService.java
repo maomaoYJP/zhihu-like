@@ -12,5 +12,6 @@ import java.util.List;
 */
 public interface TalkService extends IService<Talk> {
 
-    List<Talk> getAllTalk();
+    //获得所有的说说
+    List<Talk> getManyTalk();
 }

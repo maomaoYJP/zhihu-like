@@ -27,7 +27,5 @@ public class TalkMapperTest {
     public void getAllTalk() {
 //        List<Talk> allTalk = talkMapper.getAllTalk();
 //        allTalk.forEach(System.out::println);
-        List<Passage> allPassageCard = passageMapper.getAllPassageCard();
-        allPassageCard.forEach(System.out::println);
     }
 }

@@ -22,8 +22,8 @@ public class PassageServiceImpl extends ServiceImpl<PassageMapper, Passage>
     PassageMapper passageMapper;
 
     @Override
-    public List<Passage> getAllPassageCard() {
-        return passageMapper.getAllPassageCard();
+    public List<Passage> getAllPassage() {
+        return passageMapper.getManyPassage();
     }
 }
 

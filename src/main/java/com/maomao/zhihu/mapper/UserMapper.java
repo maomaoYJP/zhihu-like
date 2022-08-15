@@ -13,11 +13,15 @@ import java.util.List;
 * @Entity com.maomao.zhihu.entity.User
 */
 public interface UserMapper extends BaseMapper<User> {
-    //通过 id 查询用户
+
+    //通过id查询用户
     User getUserById(@Param("user_id")Long userId);
 
-    //通过 用户id 查询用户的粉丝
+    //通过id查询用户粉丝
     List<User> getFollowsByUserId(@Param("id")Long id);
+
+    //获得所有用户信息
+    List<User> getManyUser();
 }
 
 

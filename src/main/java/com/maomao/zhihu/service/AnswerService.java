@@ -14,9 +14,4 @@ import java.util.List;
 */
 public interface AnswerService extends IService<Answer> {
 
-    //获得所有的回答卡片
-    List<Question> getAllAnswerCard();
-
-    //查询问题排行
-    List<Question> getQuestionRank();
 }

@@ -1,5 +1,6 @@
 package com.maomao.zhihu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
@@ -7,6 +8,7 @@ import com.maomao.zhihu.mapper.TalkMapper;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.mapper.UserMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,11 +23,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
     @Resource
-    TalkMapper talkMapper;
+    UserService userService;
 
     @Override
-    public List<Talk> getAllTalk() {
-        return talkMapper.getAllTalk();
+    public User checkUser(String username, String password) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",username).eq("password",password);
+        User user = userService.getOne(wrapper);
+        return user;
     }
 }
 

@@ -3,6 +3,7 @@ package com.maomao.zhihu.mapper;
 import com.maomao.zhihu.entity.Question;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.maomao.zhihu.queryvo.QuestionAnswer;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,13 @@ import java.util.List;
 */
 public interface QuestionMapper extends BaseMapper<Question> {
 
-    List<Question> getManyQuestionAnswer();
+    //根据id 获得问题
+    List<Question> getQuestionById(@Param("id")Long id);
+
+    //查询全部问题
+    List<Question> getManyQuestion();
+
+
 }
 
 

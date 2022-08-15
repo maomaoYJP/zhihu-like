@@ -1,7 +1,10 @@
 package com.maomao.zhihu.mapper;
 
+import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Question;
+import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.queryvo.QuestionAnswer;
+import com.maomao.zhihu.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,11 +23,17 @@ import static org.junit.Assert.*;
 public class QuestionMapperTest {
 
     @Resource
+    UserMapper userMapper;
+    @Resource
+    PassageMapper passageMapper;
+    @Resource
     QuestionMapper questionMapper;
 
     @Test
     public void getManyQuestionAnswer() {
-        List<Question> manyQuestionAnswer = questionMapper.getManyQuestionAnswer();
-        manyQuestionAnswer.forEach(System.out::println);
+//        List<User> manyUser = userMapper.getManyUser();
+//        manyUser.forEach(System.out::println);
+        List<Question> questionById = questionMapper.getManyQuestion();
+        questionById.forEach(System.out::println);
     }
 }

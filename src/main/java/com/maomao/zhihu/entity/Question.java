@@ -52,6 +52,9 @@ public class Question implements Serializable {
     private List<Answer> answers;
 
     @TableField(exist = false)
+    private User user;
+
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
 }

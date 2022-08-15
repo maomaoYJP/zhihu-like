@@ -12,6 +12,6 @@ import java.util.List;
 */
 public interface PassageService extends IService<Passage> {
 
-    //获得所有文章卡片
-    List<Passage> getAllPassageCard();
+    //获得所有文章
+    List<Passage> getAllPassage();
 }

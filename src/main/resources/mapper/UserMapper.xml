@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maomao.zhihu.mapper.UserMapper">
+
+    <resultMap id="AmpleResultMap" type="com.maomao.zhihu.entity.User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="occupation" column="occupation" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="BIT"/>
+        <result property="portrait" column="portrait" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <collection property="talk" select="com.maomao.zhihu.mapper.TalkMapper.getManyTalk" column="id"/>
+        <collection property="passage" select="com.maomao.zhihu.mapper.PassageMapper.getManyPassage" column="id"/>
+        <collection property="follows" select="com.maomao.zhihu.mapper.UserMapper.getFollowsByUserId" column="id"/>
+        <collection property="question" select="com.maomao.zhihu.mapper.QuestionMapper.getManyQuestion" column="id"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.maomao.zhihu.entity.User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="occupation" column="occupation" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="BIT"/>
+        <result property="portrait" column="portrait" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nickname,username,
+        password,sex,email,
+        introduce,birthday,occupation,
+        type,portrait,create_time,
+        update_time,is_delete
+    </sql>
+    <select id="getUserById" resultMap="BaseResultMap">
+        select * from `user` where id = #{id} and is_delete = 0
+    </select>
+
+    <select id="getFollowsByUserId" resultType="com.maomao.zhihu.entity.User">
+         SELECT * FROM (SELECT * FROM user_follow a WHERE user_id = #{id}) a LEFT JOIN `user` b ON a.follow_id = b.id
+    </select>
+
+    <select id="getManyUser" resultMap="AmpleResultMap">
+        select * from user where is_delete = 0
+    </select>
+
+
+</mapper>

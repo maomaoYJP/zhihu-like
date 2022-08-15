@@ -22,33 +22,6 @@ import java.util.List;
 @Service
 public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
     implements AnswerService{
-
-    @Resource
-    QuestionMapper questionMapper;
-
-    @Override
-    public List<Question> getAllAnswerCard() {
-        return questionMapper.getManyQuestionAnswer();
-    }
-
-    @Override
-    public List<Question> getQuestionRank() {
-        List<Question> questionList = questionMapper.getManyQuestionAnswer();
-        questionList.sort(new Comparator<Question>() {
-            @Override
-            public int compare(Question o1, Question o2) {
-                int view1 = 0,view2 = 0;
-                for (Answer answer : o1.getAnswers()) {
-                    view1 += answer.getViews();
-                }
-                for (Answer answer : o2.getAnswers()) {
-                    view2 += answer.getViews();
-                }
-                return view1 - view2;
-            }
-        });
-        return questionList;
-    }
 }
 
 

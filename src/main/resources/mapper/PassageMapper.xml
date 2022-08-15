@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maomao.zhihu.mapper.PassageMapper">
+
+    <resultMap id="BaseResultMap" type="com.maomao.zhihu.entity.Passage">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="views" column="views" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <association property="user"
+                     select="com.maomao.zhihu.mapper.UserMapper.getUserById"
+                     column="id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,content,views,create_time,
+        update_time,is_delete
+    </sql>
+    <select id="getPassageById" resultMap="BaseResultMap">
+        SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id
+        where is_delete = 0 and b.user_id = #{id}
+    </select>
+    <select id="getManyPassage" resultMap="BaseResultMap">
+        select * from passage where is_delete = 0
+    </select>
+</mapper>

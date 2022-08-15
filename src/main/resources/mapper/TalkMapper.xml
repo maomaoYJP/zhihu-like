@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maomao.zhihu.mapper.TalkMapper">
+
+    <resultMap id="BaseResultMap" type="com.maomao.zhihu.entity.Talk">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <association property="user"
+                     select="com.maomao.zhihu.mapper.UserMapper.getUserById"
+                     column="user_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,content,create_time,
+        is_delete
+    </sql>
+    <select id="getTalkById" resultMap="BaseResultMap">
+        SELECT * FROM talk a LEFT JOIN talk_user b ON a.id = b.talk_id WHERE is_delete = 0 AND b.user_id = #{userId}
+    </select>
+    <select id="getManyTalk" resultMap="BaseResultMap">
+        SELECT * FROM talk a LEFT JOIN talk_user b ON a.id = b.talk_id WHERE is_delete = 0
+    </select>
+</mapper>

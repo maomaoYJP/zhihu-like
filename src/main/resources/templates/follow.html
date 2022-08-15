@@ -6,88 +6,33 @@
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
 </head>
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
-    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px">
-        <div class="m-mg8 flex flex1">
-            <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-            <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛 2022-08-09 · 发布了回答</div>
-        </div>
-        <div class="flex1">
-            <div style="margin-left: 25px">
-                <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
-                <div class="flex flex1" style="margin-left: 8px">
-                    <div class="flex column" style="flex: 3">
-                        <div class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                    </div>
-                    <div style="flex: 1">
-                        <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    </div>
-                </div>
-                <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
-            </div>
-
+    <div th:if="${#strings.isEmpty(session.get('user'))}">
+        <div class="flex flex1" style="justify-content: center">
+            <div>请先 </div>
+            <a th:href="@{/login}" class="btn ">登录</a>
         </div>
     </div>
-    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px">
-        <div class="m-mg8 flex flex1">
-            <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-            <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09 · 发布了回答</div>
-        </div>
-        <div class="flex1">
-            <div style="margin-left: 25px">
-                <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
-                <div class="flex flex1" style="margin-left: 8px">
-                    <div class="flex column" style="flex: 3">
-                        <div class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                    </div>
-                    <div style="flex: 1">
-                        <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    </div>
-                </div>
-                <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
+    <div th:if="${!#strings.isEmpty(session.get('user'))}">
+        <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px">
+            <div class="m-mg8 flex flex1">
+                <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
+                <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛 2022-08-09 · 发布了回答</div>
             </div>
-
-        </div>
-    </div>
-    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px">
-        <div class="m-mg8 flex flex1">
-            <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-            <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09 · 发布了回答</div>
-        </div>
-        <div class="flex1">
-            <div style="margin-left: 25px">
-                <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
-                <div class="flex flex1" style="margin-left: 8px">
-                    <div class="flex column" style="flex: 3">
-                        <div class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+            <div class="flex1">
+                <div style="margin-left: 25px">
+                    <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
+                    <div class="flex flex1" style="margin-left: 8px">
+                        <div class="flex column" style="flex: 3">
+                            <div class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                        </div>
+                        <div style="flex: 1">
+                            <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                        </div>
                     </div>
-                    <div style="flex: 1">
-                        <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    </div>
+                    <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
                 </div>
-                <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
-            </div>
 
-        </div>
-    </div>
-    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px">
-        <div class="m-mg8 flex flex1">
-            <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-            <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09 · 发布了回答</div>
-        </div>
-        <div class="flex1">
-            <div style="margin-left: 25px">
-                <div class="flex1 m-mg8">标题：毛毛为何这么厉害</div>
-                <div class="flex flex1" style="margin-left: 8px">
-                    <div class="flex column" style="flex: 3">
-                        <div class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                    </div>
-                    <div style="flex: 1">
-                        <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    </div>
-                </div>
-                <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
             </div>
-
         </div>
     </div>
 

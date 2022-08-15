@@ -2,6 +2,7 @@ package com.maomao.zhihu.mapper;
 
 import com.maomao.zhihu.entity.Passage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,8 +14,11 @@ import java.util.List;
 */
 public interface PassageMapper extends BaseMapper<Passage> {
 
-    //获得所有文章卡片
-    List<Passage> getAllPassageCard();
+    //根据id获得文章
+    List<Passage> getPassageById(@Param("id")Long id);
+
+    //获得所有文章
+    List<Passage> getManyPassage();
 }
 
 

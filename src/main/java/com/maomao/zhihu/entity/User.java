@@ -88,8 +88,21 @@ public class User implements Serializable {
      */
     private Boolean isDelete;
 
+    //关注
     @TableField(exist = false)
     private List<User> follows;
+
+    //文章
+    @TableField(exist = false)
+    private List<Passage> passage;
+
+    //问题
+    @TableField(exist = false)
+    private List<Question> question;
+
+    //说说说
+    @TableField(exist = false)
+    private List<Talk> talk;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
