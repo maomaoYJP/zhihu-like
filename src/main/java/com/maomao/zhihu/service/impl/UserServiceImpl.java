@@ -24,6 +24,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Resource
     UserService userService;
+    @Resource
+    UserMapper userMapper;
 
     @Override
     public User checkUser(String username, String password) {
@@ -31,6 +33,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         wrapper.eq("username",username).eq("password",password);
         User user = userService.getOne(wrapper);
         return user;
+    }
+
+    @Override
+    public User getManyUserById(Long id) {
+        return userMapper.getManyUserById(id);
+    }
+
+    @Override
+    public List<User> getFollowsById(Long id) {
+        return userMapper.getFollowsByUserId(id);
     }
 }
 

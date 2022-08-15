@@ -15,13 +15,13 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
 
     //通过id查询用户
-    User getUserById(@Param("user_id")Long userId);
+    User getUserById(@Param("user_id")Long id);
 
     //通过id查询用户粉丝
     List<User> getFollowsByUserId(@Param("id")Long id);
 
-    //获得所有用户信息
-    List<User> getManyUser();
+    //根据id获得用户详细信息
+    User getManyUserById(Long id);
 }
 
 

@@ -29,31 +29,14 @@
                      select="com.maomao.zhihu.mapper.UserMapper.getUserById"
                      column="user_id">
         </association>
-        <collection property="answers" ofType="com.maomao.zhihu.entity.Answer">
-            <id property="id" column="answer_id" jdbcType="BIGINT"/>
-            <result property="content" column="content" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="isDelete" column="is_delete" jdbcType="BIT"/>
-            <association property="user"
-                         select="com.maomao.zhihu.mapper.UserMapper.getUserById"
-                         column="user_id">
-            </association>
-        </collection>
+        <collection property="answers" select="com.maomao.zhihu.mapper.AnswerMapper.getAnswerById" column="id"/>
     </resultMap>
     <select id="getQuestionById" resultMap="QuestionAnswerResultMap">
-        SELECT a.id,a.title,a.introduce,a.create_time,a.update_time,a.is_delete,a.user_id,
-        b.id answer_id,b.content,b.create_time,b.update_time,b.is_delete
-        FROM (SELECT * FROM question a LEFT JOIN question_answer b ON a.id = b.question_id where a.is_delete = 0) a
-        LEFT JOIN answer b
-        ON a.answer_id = b.id
-        where a.id = #{id}
+        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.user_id
+        where is_delete = 0 and b.user_id = #{id}
     </select>
     <select id="getManyQuestion" resultMap="QuestionAnswerResultMap">
-        SELECT a.id,a.title,a.introduce,a.create_time,a.update_time,a.is_delete,a.user_id,
-        b.id answer_id,b.content,b.create_time,b.update_time,b.is_delete
-        FROM (SELECT * FROM question a LEFT JOIN question_answer b ON a.id = b.question_id where a.is_delete = 0) a
-        LEFT JOIN answer b
-        ON a.answer_id = b.id
+        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.user_id
+        where is_delete = 0
     </select>
 </mapper>

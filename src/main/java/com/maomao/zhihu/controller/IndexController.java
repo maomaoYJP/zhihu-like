@@ -1,19 +1,18 @@
 package com.maomao.zhihu.controller;
 
 import com.maomao.zhihu.entity.*;
-import com.maomao.zhihu.mapper.PassageMapper;
-import com.maomao.zhihu.mapper.QuestionMapper;
-import com.maomao.zhihu.queryvo.QuestionAnswer;
-import com.maomao.zhihu.service.AnswerService;
 import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.TalkService;
+import com.maomao.zhihu.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -30,6 +29,8 @@ public class IndexController {
     TalkService talkService;
     @Resource
     PassageService passageService;
+    @Resource
+    UserService userService;
 
     //首页
     //回答页
@@ -65,9 +66,67 @@ public class IndexController {
     }
 
     //首页关注页
-    @RequestMapping("/follow")
-    public String followPage(HttpSession session){
+    @RequestMapping("/follow/**")
+    public String followPage(HttpSession session, Model model){
+        if(session.getAttribute("user") == null){
+            return "follow";
+        }
         User user = (User)session.getAttribute("user");
+        Long id = user.getId();
+        //通过用户的id获得用户的关注
+        List<User> follows = userService.getFollowsById(id);
+        //初始化
+        List<Question> question = new ArrayList<>();
+        List<Passage> passage = new ArrayList<>();
+        List<Talk> talk = new ArrayList<>();
+        //遍历关注列表，获得问题，文章，说说
+        for (User follow : follows) {
+            Long id1 = follow.getId();
+            if(id1.equals(id)){
+                continue;
+            }
+            User detailUser = userService.getManyUserById(id);
+            question.addAll(detailUser.getQuestion());
+            passage.addAll(detailUser.getPassage());
+            talk.addAll(detailUser.getTalk());
+        }
+        //按时间先后排序
+        sortList.sortQuestion(question);
+        sortList.sortPassage(passage);
+        sortList.sortTalk(talk);
+        model.addAttribute("questions",question);
+        model.addAttribute("passages",passage);
+        model.addAttribute("talks",talk);
         return "follow";
+    }
+}
+
+class sortList{
+
+    public static void sortQuestion(List<Question> questions){
+        questions.sort(new Comparator<Question>() {
+            @Override
+            public int compare(Question o1, Question o2) {
+                return o2.getCreateTime().compareTo(o1.getCreateTime());
+            }
+        });
+    }
+
+    public static void sortPassage(List<Passage> passages){
+        passages.sort(new Comparator<Passage>() {
+            @Override
+            public int compare(Passage o1, Passage o2) {
+                return o2.getCreateTime().compareTo(o1.getCreateTime());
+            }
+        });
+    }
+
+    public static void sortTalk(List<Talk> talks){
+        talks.sort(new Comparator<Talk>() {
+            @Override
+            public int compare(Talk o1, Talk o2) {
+                return o2.getCreateTime().compareTo(o1.getCreateTime());
+            }
+        });
     }
 }

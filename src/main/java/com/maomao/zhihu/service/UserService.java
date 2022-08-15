@@ -15,4 +15,10 @@ public interface UserService extends IService<User> {
 
     //登录验证
     User checkUser(String username,String password);
+
+    //根据id获得用户详细信息
+    User getManyUserById(Long id);
+
+    //根据id获得用户的粉丝信息
+    List<User> getFollowsById(Long id);
 }
