@@ -49,6 +49,13 @@
         type,portrait,create_time,
         update_time,is_delete
     </sql>
+    <insert id="addFollowById">
+        INSERT INTO user_follow (user_id, follow_id) VALUES (#{userId}, #{followId})
+    </insert>
+    <delete id="removeFollowById">
+        DELETE FROM user_follow WHERE user_id = #{userId} AND follow_id = #{followId}
+    </delete>
+
     <select id="getUserById" resultMap="BaseResultMap">
         select * from `user` where id = #{id} and is_delete = 0
     </select>
@@ -59,6 +66,10 @@
 
     <select id="getManyUserById" resultMap="AmpleResultMap">
         select * from user where is_delete = 0 and id = #{id}
+    </select>
+
+    <select id="getBeFollowedByFollowId" resultType="com.maomao.zhihu.entity.User">
+        SELECT * FROM (SELECT * FROM user_follow a WHERE follow_id = #{id}) a LEFT JOIN `user` b ON a.user_id = b.id
     </select>
 
 

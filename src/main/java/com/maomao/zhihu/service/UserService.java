@@ -19,6 +19,15 @@ public interface UserService extends IService<User> {
     //根据id获得用户详细信息
     User getManyUserById(Long id);
 
-    //根据id获得用户的粉丝信息
+    //根据id获得用户的关注信息
     List<User> getFollowsById(Long id);
+
+    //根据id获得用户粉丝
+    List<User> getBeFollowedById(Long id);
+
+    //根据id添加粉丝
+    boolean addFollowById(Long userId, Long followId);
+
+    //根据id删除粉丝
+    boolean removeFollowById(Long userId, Long followId);
 }

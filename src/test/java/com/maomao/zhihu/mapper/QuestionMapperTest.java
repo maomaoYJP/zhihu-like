@@ -35,5 +35,7 @@ public class QuestionMapperTest {
 //        manyUser.forEach(System.out::println);
 //        List<Question> questionById = questionMapper.getManyQuestion();
 //        questionById.forEach(System.out::println);
+//        List<User> beFollowedByFollowId = userMapper.getBeFollowedByFollowId(2L);
+//        beFollowedByFollowId.forEach(System.out::println);
     }
 }

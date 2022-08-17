@@ -99,6 +99,14 @@ public class IndexController {
         model.addAttribute("talks",talk);
         return "follow";
     }
+
+    //首页 我的页
+    @RequestMapping("/personal")
+    public String personalPage(){
+
+        return "personal";
+    }
+
 }
 
 class sortList{

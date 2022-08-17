@@ -37,4 +37,10 @@ public class LoginController {
             return "login";
         }
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("user");
+        return "personal";
+    }
 }

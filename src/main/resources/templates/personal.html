@@ -7,12 +7,21 @@
 </head>
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="flex flex1 m-backcolor">
-        <div class="flex flex1 m-mg8">
-            <img style="border-radius: 50%;width: 40px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-            <div style="margin-top: 8px;margin-left: 6px">毛毛</div>
+        <div th:if="${!#strings.isEmpty(session.get('user'))}" class="flex flex1">
+            <div class="flex flex1 m-mg8">
+                <img style="border-radius: 50%;width: 40px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
+                <div style="margin-top: 8px;margin-left: 6px">毛毛</div>
+            </div>
+            <a th:href="@{/home}" class="flex flex1 m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">个人主页</a>
+        </div>
+        <div th:if="${#strings.isEmpty(session.get('user'))}" class="flex flex1">
+            <div class="flex flex1 m-mg8">
+                <img style="border-radius: 50%;width: 40px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
+                <div style="margin-top: 8px;margin-left: 6px">未登录</div>
+            </div>
+            <a th:href="@{/login}" class="flex flex1 btn m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">登录</a>
         </div>
 
-        <div class="flex flex1" style="justify-content: flex-end;margin-right: 8px;margin-top: 16px">个人主页</div>
     </div>
 
     <div class="flex flex1 m-backcolor" style="justify-content: space-around">
@@ -22,7 +31,7 @@
         </div>
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
             <div>10</div>
-            <div>关注</div>
+            <a th:href="@{followList}" class="m-underlineCancel m-black">关注</a>
         </div>
         <div class="flex column m-mg8" style="text-align: center">
             <div>10</div>
@@ -50,14 +59,16 @@
         <div class="m-mg8">更多</div>
         <div class="m-mg8" style="margin-left: 20px">找到我</div>
         <div class="m-mg8" style="margin-left: 20px">问题建议</div>
+        <a th:href="@{/logout}" th:if="${!#strings.isEmpty(session.get('user'))}" class="m-mg8 m-underlineCancel" style="margin-left: 20px">注销</a>
+        <div class="m-mg8" style="margin-left: 20px"></div>
     </div>
     <!--底部导航-->
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a>首页</a>
-                <a>关注</a>
-                <a>我的</a>
+                <a th:href="@{/}" class="m-underlineCancel">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
             </div>
         </div>
     </div>

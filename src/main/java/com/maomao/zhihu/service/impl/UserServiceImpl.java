@@ -8,6 +8,7 @@ import com.maomao.zhihu.mapper.TalkMapper;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.mapper.UserMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -43,6 +44,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public List<User> getFollowsById(Long id) {
         return userMapper.getFollowsByUserId(id);
+    }
+
+    @Override
+    public List<User> getBeFollowedById(Long id) {
+        return userMapper.getBeFollowedByFollowId(id);
+    }
+
+    @Override
+    @Transactional
+    public boolean addFollowById(Long userId, Long followId) {
+        return userMapper.addFollowById(userId,followId);
+    }
+
+    @Override
+    @Transactional
+    public boolean removeFollowById(Long userId, Long followId) {
+        return userMapper.removeFollowById(userId,followId);
     }
 }
 
