@@ -5,11 +5,16 @@ import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.TalkService;
 import com.maomao.zhihu.service.UserService;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -65,9 +70,10 @@ public class IndexController {
         return "recommend";
     }
 
-    //首页关注页
+    //首页关注页 回答
     @RequestMapping("/follow/**")
-    public String followPage(HttpSession session, Model model){
+    public String followPage(HttpSession session, Model model, HttpServletRequest request){
+        //用户未登录
         if(session.getAttribute("user") == null){
             return "follow";
         }
@@ -97,8 +103,10 @@ public class IndexController {
         model.addAttribute("questions",question);
         model.addAttribute("passages",passage);
         model.addAttribute("talks",talk);
+
         return "follow";
     }
+
 
     //首页 我的页
     @RequestMapping("/personal")

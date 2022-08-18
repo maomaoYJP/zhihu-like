@@ -7,7 +7,7 @@
 </head>
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 1px;height: 25px">
-        <a id="answer_btn" th:href="@{/follow}" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 10px;margin-top: 4px">回答</a>
+        <a id="answer_btn" th:href="@{/follow}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">回答</a>
         <a id="passage_btn" th:href="@{/follow/passage}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">文章</a>
         <a id="talk_btn" th:href="@{/follow/talk}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">说说</a>
     </div>
@@ -17,6 +17,7 @@
             <a th:href="@{/login}" class="btn ">登录</a>
         </div>
     </div>
+
     <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/follow'}">
         <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px" th:each="question : ${questions}">
             <div class="m-mg8 flex flex1">
@@ -68,17 +69,18 @@
         </div>
     </div>
     <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/follow/talk'}">
-        <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
-            <div>
-                <img th:src="${talk.getUser().getPortrait()}" alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-            </div>
-            <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-                <div th:text="${talk.getUser().getNickname()}">毛毛</div>
-                <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-                <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
+            <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
+                <div>
+                    <img th:src="${talk.getUser().getPortrait()}" alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                </div>
+                <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
+                    <div th:text="${talk.getUser().getNickname()}">毛毛</div>
+                    <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
+                    <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
+                </div>
             </div>
         </div>
-    </div>
+
 
     <!--底部导航-->
     <div style="margin-top: 50px">
@@ -91,4 +93,39 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script>
+    let answer_btn = document.getElementById("answer_btn");
+    let passage_btn = document.getElementById("passage_btn");
+    let talk_btn = document.getElementById("talk_btn");
+
+    $("#answer_btn").click(function () {
+        answer_btn.classList.add("m-activeDown-while");
+        passage_btn.removeAttribute("class","m-activeDown-while");
+        talk_btn.removeAttribute("class","m-activeDown-while");
+
+        // $("#answer_btn").load("/follow",{
+        // },function (responseTxt, statusTxt, xhr) {
+        // });
+    })
+    $("#passage_btn").click(function () {
+        passage_btn.classList.add("m-activeDown-while");
+        answer_btn.removeAttribute("class","m-activeDown-while");
+        talk_btn.removeAttribute("class","m-activeDown-while");
+
+        // $("#passage_btn").load("/follow/passage",{
+        // },function (responseTxt, statusTxt, xhr) {
+        // });
+    })
+
+    $("#talk_btn").click(function () {
+        talk_btn.classList.add("m-activeDown-while");
+        answer_btn.removeAttribute("class","m-activeDown-while");
+        passage_btn.removeAttribute("class","m-activeDown-while");
+
+        // $("#talk_btn").load("/follow/talk",{
+        // },function (responseTxt, statusTxt, xhr) {
+        // });
+    })
+</script>
 </html>

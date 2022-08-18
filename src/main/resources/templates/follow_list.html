@@ -13,7 +13,7 @@
             <div th:if="${#request.getRequestURL()=='http://localhost:8080/beFollowedList'}" class="flex1" style="text-align: center;margin-left: -30px">粉丝</div>
         </div>
     </div>
-    <div class="flex flex1 column">
+    <div th:if="${#request.getRequestURL()=='http://localhost:8080/followList'}" class="flex flex1 column">
         <div th:each="follow : ${follows}" class="flex m-backcolor" style="margin-bottom: 1px">
             <img th:src="${follow.getPortrait()}" alt="" class="m-headPicture-circle m-mg8" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
             <div class="flex column m-mg8">
@@ -22,36 +22,47 @@
                 <div th:text="${follow.getIntroduce()}" class="m-font-gray" style="font-size: 10px">这是关注列表</div>
             </div>
             <div class="flex1" style="text-align: right">
-                <button  th:fragment="isFollow" value="1" id="follow-btn" style="margin-right: 8px;margin-top: 14px">取关</button>
+                <button name="follow-btn" class="m-cancelFollow" style="margin-right: 8px;margin-top: 14px">取关</button>
+            </div>
+        </div>
+    </div>
+    <div th:if="${#request.getRequestURL()=='http://localhost:8080/beFollowedList'}" class="flex flex1 column">
+        <div th:each="follow,followStat : ${follows}" class="flex m-backcolor" style="margin-bottom: 1px">
+            <img th:src="${follow.getPortrait()}" alt="" class="m-headPicture-circle m-mg8" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <div class="flex column m-mg8">
+                <div th:text="${follow.getNickname()}" style="font-size: 13px" >毛毛</div>
+                <input th:value="${follow.getId()}" hidden="true" name="followId"/>
+                <div th:text="${follow.getIntroduce()}" class="m-font-gray" style="font-size: 10px">这是关注列表</div>
+            </div>
+            <div class="flex1" style="text-align: right">
+                <button th:if="${followStat.index <= followSize - 1}" value="1" name="follow-btn" class="m-cancelFollow" style="margin-right: 8px;margin-top: 14px">取关</button>
+                <button th:if="${followStat.index > followSize - 1}" value="0" name="follow-btn" style="margin-right: 8px;margin-top: 14px">关注</button>
             </div>
         </div>
     </div>
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script>
-    let follow_btn = document.getElementById("follow-btn");
-    follow_btn.addEventListener("click",function () {
-        follow_btn.value === "1" ? addFollow() : removeFollow();
+    $(function () {
+
     })
 
-    addFollow = function() {
-        $("#follow-btn").load("/addFollow",{
-            "followId" : $("[name = 'followId']").val()
-        },function (responseTxt, statusTxt, xhr) {
-        });
-        follow_btn.className = "m-cancelFollow";
-        follow_btn.value = 0;
-        follow_btn.innerText = "关注";
+
+    $("[name= 'follow-btn']").click(function (e) {
+        this.value === "0" ? addFollow(e) : removeFollow(e);
+    })
+    addFollow = function(e) {
+        document.location.href = "/addFollow/"+ $("[name = 'followId']").val()
+        e.target.className = "m-cancelFollow";
+        e.target.value = 1;
+        e.target.innerText = "取关";
     }
 
-    removeFollow = function () {
-        $("#follow-btn").load("/removeFollow",{
-            "followId" : $("[name = 'followId']").val()
-        },function (responseTxt, statusTxt, xhr) {
-        });
-        follow_btn.removeAttribute("class","m-cancelFollow");
-        follow_btn.value = 1;
-        follow_btn.innerText = "取关";
+    removeFollow = function (e) {
+        document.location.href = "/removeFollow/"+ $("[name = 'followId']").val()
+        e.target.removeAttribute("class","m-cancelFollow");
+        e.target.value = 0;
+        e.target.innerText = "关注";
     }
 </script>
 
