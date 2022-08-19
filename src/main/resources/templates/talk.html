@@ -13,7 +13,7 @@
     </div>
     <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talkList}">
         <div>
-            <img th:src="${talk.getUser().getPortrait()}" alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
         </div>
         <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
             <div th:text="${talk.getUser().getNickname()}">毛毛</div>

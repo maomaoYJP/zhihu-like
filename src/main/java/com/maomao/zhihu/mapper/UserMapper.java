@@ -24,7 +24,7 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> getBeFollowedByFollowId(Long id);
 
     //根据id获得用户详细信息
-    User getManyUserById(Long id);
+    User getUserinfoById(Long id);
 
     //根据id添加粉丝
     boolean addFollowById(Long userId, Long followId);

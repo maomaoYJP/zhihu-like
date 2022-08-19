@@ -37,8 +37,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public User getManyUserById(Long id) {
-        return userMapper.getManyUserById(id);
+    public User getUserinfoById(Long id) {
+        return userMapper.getUserinfoById(id);
     }
 
     @Override
@@ -61,6 +61,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Transactional
     public boolean removeFollowById(Long userId, Long followId) {
         return userMapper.removeFollowById(userId,followId);
+    }
+
+    @Override
+    public boolean saveEditData(User user) {
+        return userService.saveOrUpdate(user);
     }
 }
 

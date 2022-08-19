@@ -64,7 +64,7 @@
          SELECT * FROM (SELECT * FROM user_follow a WHERE user_id = #{id}) a LEFT JOIN `user` b ON a.follow_id = b.id
     </select>
 
-    <select id="getManyUserById" resultMap="AmpleResultMap">
+    <select id="getUserinfoById" resultMap="AmpleResultMap">
         select * from user where is_delete = 0 and id = #{id}
     </select>
 

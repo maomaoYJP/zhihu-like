@@ -17,7 +17,7 @@ public interface UserService extends IService<User> {
     User checkUser(String username,String password);
 
     //根据id获得用户详细信息
-    User getManyUserById(Long id);
+    User getUserinfoById(Long id);
 
     //根据id获得用户的关注信息
     List<User> getFollowsById(Long id);
@@ -30,4 +30,8 @@ public interface UserService extends IService<User> {
 
     //根据id删除粉丝
     boolean removeFollowById(Long userId, Long followId);
+
+    //保存、修改用户资料
+    boolean saveEditData(User user);
+
 }

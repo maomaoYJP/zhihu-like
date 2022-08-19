@@ -49,7 +49,7 @@
                 <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
                 <div th:text="${passage.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
                 <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
-                <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了回答</div>
+                <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了文章</div>
             </div>
             <div class="flex1">
                 <div style="margin-left: 25px">
@@ -68,18 +68,18 @@
             </div>
         </div>
     </div>
-    <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/follow/talk'}">
-            <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
-                <div>
-                    <img th:src="${talk.getUser().getPortrait()}" alt="" style="width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                </div>
-                <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-                    <div th:text="${talk.getUser().getNickname()}">毛毛</div>
-                    <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-                    <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-                </div>
+    <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/home/talk'}" style="margin-left: 10px">
+        <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
+            <div>
+                <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            </div>
+            <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
+                <div th:text="${talk.getUser().getNickname()}">毛毛</div>
+                <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
+                <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
             </div>
         </div>
+    </div>
 
 
     <!--底部导航-->

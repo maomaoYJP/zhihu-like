@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class IndexController {
             if(id1.equals(id)){
                 continue;
             }
-            User detailUser = userService.getManyUserById(id);
+            User detailUser = userService.getUserinfoById(id);
             question.addAll(detailUser.getQuestion());
             passage.addAll(detailUser.getPassage());
             talk.addAll(detailUser.getTalk());
@@ -110,7 +111,7 @@ public class IndexController {
 
     //首页 我的页
     @RequestMapping("/personal")
-    public String personalPage(){
+    public String personalPage(HttpSession session){
 
         return "personal";
     }
