@@ -13,17 +13,24 @@
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
         <association property="user"
                      select="com.maomao.zhihu.mapper.UserMapper.getUserById"
-                     column="user_id">
-        </association>
+                     column="user_id"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,content,views,create_time,
         update_time,is_delete
     </sql>
+
+    <delete id="deleteAnswer">
+        DELETE a,b FROM answer_user a LEFT JOIN question_answer b ON a.answer_id = b.answer_id
+        WHERE a.answer_id = #{answerId}
+    </delete>
+
     <select id="getAnswerById" resultMap="BaseResultMap">
-        SELECT * FROM (SELECT * FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id
-        WHERE is_delete = 0 and b.question_id = #{id})a LEFT JOIN answer_user b ON a.id = b.answer_id
+         SELECT * FROM
+         (SELECT a.answer_id,b.user_id FROM question_answer a LEFT JOIN answer_user b ON a.answer_id = b.answer_id
+         WHERE a.question_id = #{id}) a LEFT JOIN answer b ON a.answer_id = b.id
+         WHERE user_id = ( SELECT user_id FROM question_user a WHERE a.question_id = #{id})
     </select>
 
 </mapper>

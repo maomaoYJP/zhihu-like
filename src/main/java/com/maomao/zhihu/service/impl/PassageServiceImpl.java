@@ -2,11 +2,14 @@ package com.maomao.zhihu.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maomao.zhihu.entity.Passage;
+import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.mapper.PassageMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -20,10 +23,25 @@ public class PassageServiceImpl extends ServiceImpl<PassageMapper, Passage>
 
     @Resource
     PassageMapper passageMapper;
+    @Resource
+    PassageService passageService;
 
     @Override
     public List<Passage> getAllPassage() {
         return passageMapper.getManyPassage();
+    }
+
+    @Override
+    @Transactional
+    public Integer deletePassage(Long passageId) {
+        passageMapper.deletePassageUser(passageId);
+        return passageMapper.deleteById(passageId);
+    }
+
+    @Override
+    public boolean createPassage(Passage passage) {
+        passageService.save(passage);
+        return passageMapper.createPassageUserMap(passage.getId(),passage.getUser().getId());
     }
 }
 

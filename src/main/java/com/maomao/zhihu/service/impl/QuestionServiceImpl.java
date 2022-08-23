@@ -22,6 +22,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
 
     @Resource
     QuestionMapper questionMapper;
+    @Resource
+    QuestionService questionService;
 
     @Override
     public List<Question> getManyQuestion() {
@@ -45,6 +47,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
             }
         });
         return questionList;
+    }
+
+    @Override
+    public List<Question> getUserRaiseQuestion(Long userId) {
+        return questionMapper.getQuestionRaise(userId);
+    }
+
+    @Override
+    public boolean createQuestion(Question question, Long userId) {
+        questionService.saveOrUpdate(question);
+        return questionMapper.createUserQuestion(question.getId(),userId);
+    }
+
+    @Override
+    public boolean updateQuestion(Question question) {
+        return questionService.updateById(question);
     }
 }
 

@@ -1,9 +1,7 @@
 package com.maomao.zhihu.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -44,6 +42,7 @@ public class Answer implements Serializable {
     /**
      * 逻辑删除 1-删除
      */
+    @TableLogic
     private Boolean isDelete;
 
     @TableField(exist = false)

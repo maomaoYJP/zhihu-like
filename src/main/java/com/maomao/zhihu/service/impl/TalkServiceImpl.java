@@ -20,10 +20,24 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, Talk>
 
     @Resource
     TalkMapper talkMapper;
+    @Resource
+    TalkService talkService;
 
     @Override
     public List<Talk> getManyTalk() {
         return talkMapper.getManyTalk();
+    }
+
+    @Override
+    public boolean deleteTalk(Long talkId) {
+        talkMapper.deleteTalkUserMap(talkId);
+        return talkService.removeById(talkId);
+    }
+
+    @Override
+    public boolean createTalk(Talk talk) {
+        talkService.save(talk);
+        return talkMapper.createTalkUserMap(talk.getId(), talk.getUser().getId());
     }
 }
 

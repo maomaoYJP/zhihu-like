@@ -17,25 +17,26 @@
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <div class="m-font-gray">返回</div>
+            <a th:href="@{/creation}" class="m-font-gray m-underlineCancel">返回</a>
             <div class="flex1" style="text-align: center;margin-right: 40px">写文章</div>
         </div>
     </div>
-    <form action="" class="m-backcolor">
+    <form class="m-backcolor">
         <div class="m-mg8">
-            <label for="head"></label>
-            <input type="text" id="head" name="head" placeholder="标题" style="height: 25px;width: 70%">
+            <label for="title"></label>
+            <input type="text" id="title" name="title" placeholder="标题" style="height: 25px;width: 70%">
         </div>
         <div id="editor—wrapper">
             <div id="toolbar-container"><!-- 工具栏 --></div>
             <div id="editor-container"><!-- 编辑器 --></div>
         </div>
         <div class="m-mg8" style="text-align: right;margin-right: 8px">
-            <button>提交</button>
+            <button type="button" id="passage">提交</button>
         </div>
     </form>
 
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
 <script>
     const { createEditor, createToolbar } = window.wangEditor
@@ -63,6 +64,25 @@
         selector: '#toolbar-container',
         config: toolbarConfig,
         mode: 'simple', // or 'simple'
+    })
+
+    let passage_btn = document.getElementById("passage");
+    passage_btn.addEventListener("click",function () {
+        let passage = {"content" : editor.getHtml(), "title" : $("#title").val()};
+        $.ajax({
+            url:"http://localhost:8080/passage/add",
+            data: passage,
+            type : 'POST',
+            dataType : 'text',
+            success :function(data){
+                //发送成功返回到文章管理页面
+                if(data == "success"){
+                    document.location.href = "/passage/manage" ;
+                }
+            },
+
+        })
+
     })
 </script>
 </html>

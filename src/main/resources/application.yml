@@ -13,6 +13,12 @@ logging:
   file:
     name: log/blog.log
 
+#MyBatis-Plus相关配置
+#mybatis-plus:
+#  configuration:
+#    #配置日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 ---
 server:
   #端口号

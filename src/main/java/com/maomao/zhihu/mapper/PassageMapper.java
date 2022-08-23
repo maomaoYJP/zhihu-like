@@ -19,6 +19,12 @@ public interface PassageMapper extends BaseMapper<Passage> {
 
     //获得所有文章
     List<Passage> getManyPassage();
+
+    //根据passageId 删除文章与user对应关系
+    boolean deletePassageUser(Long passageId);
+
+    //根据passageId 和 userId 增加passage和用户的对应关系
+    boolean createPassageUserMap(Long passageId, Long userId);
 }
 
 

@@ -13,18 +13,26 @@
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
         <association property="user"
                      select="com.maomao.zhihu.mapper.UserMapper.getUserById"
-                     column="id"/>
+                     column="user_id"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,content,views,create_time,
         update_time,is_delete
     </sql>
+    <insert id="createPassageUserMap">
+        INSERT INTO passage_user (passage_id, user_id) VALUES(#{passageId}, #{userId})
+    </insert>
+
+    <delete id="deletePassageUser">
+        DELETE FROM passage_user WHERE passage_id = #{passageId}
+    </delete>
+
     <select id="getPassageById" resultMap="BaseResultMap">
         SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id
         where is_delete = 0 and b.user_id = #{id}
     </select>
     <select id="getManyPassage" resultMap="BaseResultMap">
-        select * from passage where is_delete = 0
+        SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id WHERE is_delete = 0
     </select>
 </mapper>

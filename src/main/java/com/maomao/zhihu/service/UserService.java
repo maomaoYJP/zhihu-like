@@ -1,5 +1,6 @@
 package com.maomao.zhihu.service;
 
+import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;

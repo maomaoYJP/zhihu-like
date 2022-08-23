@@ -17,6 +17,9 @@ public interface UserMapper extends BaseMapper<User> {
     //通过id查询用户
     User getUserById(@Param("user_id")Long id);
 
+    //通过id获得问题属于哪个用户
+    User getPassageUserById(@Param("question_id")Long questionId);
+
     //通过id查询用户关注
     List<User> getFollowsByUserId(@Param("id")Long id);
 
@@ -24,7 +27,7 @@ public interface UserMapper extends BaseMapper<User> {
     List<User> getBeFollowedByFollowId(Long id);
 
     //根据id获得用户详细信息
-    User getUserinfoById(Long id);
+    User getUserinfoById(@Param("id") Long id);
 
     //根据id添加粉丝
     boolean addFollowById(Long userId, Long followId);

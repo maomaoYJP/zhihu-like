@@ -31,6 +31,12 @@ public class QuestionMapperTest {
 
     @Test
     public void getManyQuestionAnswer() {
+//        User userinfo = userMapper.getUserinfoById(1L);
+//        System.out.println(userinfo.getQuestion());
+//        List<Question> manyQuestion = questionMapper.getManyQuestion();
+//        manyQuestion.forEach(System.out::println);
+        List<Question> questionRaise = questionMapper.getQuestionRaise(1L);
+        questionRaise.forEach(System.out::println);
 //        List<User> manyUser = userMapper.getManyUser(1L);
 //        manyUser.forEach(System.out::println);
 //        List<Question> questionById = questionMapper.getManyQuestion();

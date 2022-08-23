@@ -18,6 +18,14 @@
         id,content,create_time,
         is_delete
     </sql>
+    <insert id="createTalkUserMap">
+        INSERT INTO talk_user (talk_id, user_id) VALUES(#{talkId}, #{userId})
+    </insert>
+
+    <delete id="deleteTalkUserMap">
+        DELETE FROM talk_user WHERE talk_id = #{talkId}
+    </delete>
+
     <select id="getTalkById" resultMap="BaseResultMap">
         SELECT * FROM talk a LEFT JOIN talk_user b ON a.id = b.talk_id WHERE is_delete = 0 AND b.user_id = #{userId}
     </select>

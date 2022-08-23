@@ -8,7 +8,7 @@
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <div class="m-font-gray">返回</div>
+            <a th:href="@{/personal}" href="/personal" class="m-font-gray m-underlineCancel">返回</a>
             <div class="flex1" style="text-align: center;margin-left: -30px">内容管理</div>
         </div>
     </div>
@@ -17,7 +17,7 @@
         <div class="m-mg8">创作数据</div>
         <div class="flex flex1" style="justify-content: space-around">
             <div class="flex column m-mg8" style="text-align: center ;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div>10</div>
+                <div th:text="${views}" >10</div>
                 <div>浏览量</div>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
@@ -33,21 +33,17 @@
     <div class="flex flex1 column m-backcolor" style="margin-top: 6px">
         <div class="m-mg8">内容管理</div>
         <div class="flex flex1" style="justify-content: space-around">
-            <div class="flex column m-mg8" style="text-align: center ;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div>10</div>
-                <div>全部</div>
+            <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
+                <div th:text="${answerNum}" >10</div>
+                <a th:href="@{/answer/manage}" class="m-underlineCancel m-black">回答</a>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div>10</div>
-                <div>回答</div>
-            </div>
-            <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div>10</div>
-                <div>文章</div>
+                <div th:text="${passageNum}" >10</div>
+                <a th:href="@{/passage/manage}" class="m-underlineCancel m-black" >文章</a>
             </div>
             <div class="flex column m-mg8" style="text-align: center">
-                <div>10</div>
-                <div>说说</div>
+                <div th:text="${talkNum}" >10</div>
+                <a th:href="@{/talk/manage}" class="m-underlineCancel m-black">说说</a>
             </div>
         </div>
     </div>
@@ -55,20 +51,20 @@
         <div class="m-mg8">内容创作</div>
         <div class="flex flex1" style="justify-content: space-around">
             <div class="flex column m-mg8" style="text-align: center ;border-right: 1px solid #EBEBEB;padding-right: 30px">
-                <div>10</div>
-                <div>去提问</div>
+                <div th:text="${raiseNum}" >10</div>
+                <a th:href="@{/question/manage}" class="m-underlineCancel m-black">去提问</a>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 30px">
-                <div>10</div>
-                <div>去回答</div>
+                <div th:text="${answerNum}" >10</div>
+                <a th:href="@{/question/all}" class="m-underlineCancel m-black">去回答</a>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 30px">
-                <div>10</div>
-                <div>写文章</div>
+                <div th:text="${passageNum}" >10</div>
+                <a th:href="@{/passage/write}" class="m-underlineCancel m-black">写文章</a>
             </div>
             <div class="flex column m-mg8" style="text-align: center">
-                <div>10</div>
-                <div>写说说</div>
+                <div th:text="${talkNum}" >10</div>
+                <a th:href="@{talk/write}" class="m-underlineCancel m-black">写说说</a>
             </div>
         </div>
     </div>

@@ -9,6 +9,7 @@ import com.maomao.zhihu.service.AnswerService;
 import com.maomao.zhihu.mapper.AnswerMapper;
 import com.maomao.zhihu.service.QuestionService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Comparator;
@@ -22,6 +23,18 @@ import java.util.List;
 @Service
 public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
     implements AnswerService{
+
+    @Resource
+    AnswerMapper answerMapper;
+    @Resource
+    AnswerService answerService;
+
+    @Override
+    @Transactional
+    public boolean deleteAnswer(Long answerId) {
+        answerMapper.deleteAnswer(answerId);
+        return answerService.removeById(answerId);
+    }
 }
 
 

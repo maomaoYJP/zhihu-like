@@ -18,7 +18,46 @@
         create_time,update_time,is_delete
     </sql>
 
+    <insert id="createUserQuestion">
+        INSERT INTO question_user (question_id, user_id) VALUES(#{questionId}, #{userId})
+    </insert>
     <resultMap id="QuestionAnswerResultMap" type="com.maomao.zhihu.entity.Question">
+        <id property="id" column="question_id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <association property="user"
+                     select="com.maomao.zhihu.mapper.UserMapper.getPassageUserById"
+                     column="question_id"/>
+        <collection property="answers" ofType="com.maomao.zhihu.entity.Answer">
+            <id property="id" column="answer_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="views" column="views" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+            <association property="user"
+                         select="com.maomao.zhihu.mapper.UserMapper.getUserById"
+                         column="user_id"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="QuestionRaiseResultMap" type="com.maomao.zhihu.entity.Question">
+        <id property="id" column="question_id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <association property="user"
+                     select="com.maomao.zhihu.mapper.UserMapper.getPassageUserById"
+                     column="question_id"/>
+        <collection property="answers" select="com.maomao.zhihu.mapper.AnswerMapper.getAnswerById" column="id">
+        </collection>
+    </resultMap>
+    <resultMap id="ManyQuestionResultMap" type="com.maomao.zhihu.entity.Question">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
@@ -26,17 +65,27 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
         <association property="user"
-                     select="com.maomao.zhihu.mapper.UserMapper.getUserById"
-                     column="user_id">
-        </association>
+                     select="com.maomao.zhihu.mapper.UserMapper.getPassageUserById"
+                     column="question_id"/>
         <collection property="answers" select="com.maomao.zhihu.mapper.AnswerMapper.getAnswerById" column="id"/>
     </resultMap>
     <select id="getQuestionById" resultMap="QuestionAnswerResultMap">
-        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.user_id
-        where is_delete = 0 and b.user_id = #{id}
+        SELECT a.user_id,a.question_id,answer_id,title,introduce,a.create_time,a.update_time,a.is_delete,b.content,b.views,b.create_time,b.update_time,b.is_delete
+ FROM(SELECT * FROM
+(SELECT question_id,a.user_id FROM answer_user a LEFT JOIN question_answer b ON a.answer_id = b.answer_id
+WHERE a.user_id = #{id}) a LEFT JOIN question b ON a.question_id = b.id) a
+LEFT JOIN
+(SELECT question_id,user_id,answer_id,content,views,create_time,update_time,is_delete
+FROM (SELECT question_id, user_id,a.answer_id FROM question_answer a LEFT JOIN answer_user b
+ON a.answer_id = b.answer_id WHERE user_id = #{id}) a
+LEFT JOIN answer b ON a.answer_id = b.id) b
+ON a.question_id = b.question_id
     </select>
-    <select id="getManyQuestion" resultMap="QuestionAnswerResultMap">
-        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.user_id
+    <select id="getManyQuestion" resultMap="ManyQuestionResultMap">
+        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
         where is_delete = 0
+    </select>
+    <select id="getQuestionRaise" resultMap="QuestionRaiseResultMap">
+        SELECT * FROM (SELECT * FROM question_user WHERE user_id = #{id}) a LEFT JOIN question b ON a.question_id = b.id
     </select>
 </mapper>

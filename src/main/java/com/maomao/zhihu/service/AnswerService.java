@@ -14,4 +14,5 @@ import java.util.List;
 */
 public interface AnswerService extends IService<Answer> {
 
+    boolean deleteAnswer(Long answerId);
 }

@@ -14,4 +14,10 @@ public interface PassageService extends IService<Passage> {
 
     //获得所有文章
     List<Passage> getAllPassage();
+
+    //根据passageId 删除文章
+    Integer deletePassage(Long passageId);
+
+    //创建文章
+    boolean createPassage(Passage passage);
 }

@@ -42,8 +42,8 @@ public class IndexController {
     //回答页
     @RequestMapping("/")
     public String index(Model model){
-        List<Question> questionAnswer = questionService.getManyQuestion();
-        model.addAttribute("questionAnswer", questionAnswer);
+        List<Question> questions = questionService.getManyQuestion();
+        model.addAttribute("questions", questions);
         return "index";
     }
 
@@ -111,8 +111,31 @@ public class IndexController {
 
     //首页 我的页
     @RequestMapping("/personal")
-    public String personalPage(HttpSession session){
+    public String personalPage(HttpSession session, Model model){
+        //用户未登录
+        if(session.getAttribute("user") == null){
+            return "personal";
+        }
+        User user = (User)session.getAttribute("user");
+        Long id = user.getId();
+        //得到用户详细信息
+        User userinfo = userService.getUserinfoById(id);
+        //创作数
+        int createNum = userinfo.getQuestion().size() + userinfo.getPassage().size();
+        //关注数
+        int followNum = userService.getFollowsById(id).size();
+        //浏览数
+        int views = 0;
+        for (Question question : userinfo.getQuestion()) {
+            views += question.getAnswers().get(0).getViews();
+        }
+        for (Passage passage : userinfo.getPassage()) {
+            views += passage.getViews();
+        }
 
+        model.addAttribute("createNum", createNum);
+        model.addAttribute("followNum", followNum);
+        model.addAttribute("views", views);
         return "personal";
     }
 

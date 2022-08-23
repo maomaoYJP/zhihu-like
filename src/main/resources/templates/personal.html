@@ -26,12 +26,12 @@
 
     <div class="flex flex1 m-backcolor" style="justify-content: space-around">
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-            <div>10</div>
-            <div>创作</div>
+            <div th:text="${createNum}" >10</div>
+            <a th:href="@{/creation}" class="m-underlineCancel m-black">创作</a>
         </div>
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-            <div>10</div>
-            <a th:href="@{followList}" class="m-underlineCancel m-black">关注</a>
+            <div th:text="${followNum}" >10</div>
+            <a th:href="@{/followList}" class="m-underlineCancel m-black">关注</a>
         </div>
         <div class="flex column m-mg8" style="text-align: center">
             <div>10</div>
@@ -42,7 +42,7 @@
         <div class="m-mg8">创作数据</div>
         <div class="flex flex1" style="justify-content: space-around">
             <div class="flex column m-mg8" style="text-align: center ;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div>10</div>
+                <div th:text="${views}" >10</div>
                 <div>浏览量</div>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">

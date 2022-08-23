@@ -19,6 +19,12 @@ public interface TalkMapper extends BaseMapper<Talk> {
 
     //获得所有说说
     List<Talk> getManyTalk();
+
+    //根据talkId 删除说说与user对应关系
+    boolean deleteTalkUserMap(Long talkId);
+
+    //创建说说与user对应关系
+    boolean createTalkUserMap(Long talkId, Long userId);
 }
 
 

@@ -17,4 +17,13 @@ public interface QuestionService extends IService<Question> {
 
     //查询问题排行
     List<Question> getQuestionRank();
+
+    //查询用户提出的问题
+    List<Question> getUserRaiseQuestion(Long userId);
+
+    //创建新问题
+    boolean createQuestion(Question question, Long userId);
+
+    //修改问题
+    boolean updateQuestion(Question question);
 }

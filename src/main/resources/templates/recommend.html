@@ -11,13 +11,13 @@
         <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel">推荐</a>
         <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">热榜</a>
     </div>
-    <div class="flex flex1" style="margin-top: 10px;border-bottom: 1px solid #EBEBEB" th:each="question : ${questionRank}">
-        <div style="margin-right: 8px">1</div>
+    <div class="flex flex1" style="margin-top: 10px;border-bottom: 1px solid #EBEBEB;min-height: 80px" th:each="question : ${questionRank}">
+        <div th:text="${questionStat.count}" style="margin-right: 8px">1</div>
         <div class="flex flex1 column">
             <div class="flex flex1">
                 <div th:text="${question.getTitle()}" style="flex: 4">我是标题我是标题我是标题我是标题我就是标题</div>
                 <div style="flex: 1">
-                    <img th:src="${question.getAnswers().get(0).getUser().getPortrait()}" class="m-cardPicture" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
+                    <img th:if="${question.getAnswers().size() > 0}" th:src="${question.getAnswers().get(0).getUser().getPortrait()}" class="m-cardPicture" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
                 </div>
             </div>
             <div class="flex" style="justify-content: space-between">
