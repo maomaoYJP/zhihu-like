@@ -15,6 +15,9 @@ public interface PassageService extends IService<Passage> {
     //获得所有文章
     List<Passage> getAllPassage();
 
+    //根据文章Id 获得文章和属于的用户
+    Passage getPassageAndUserByPassageId(Long passageId);
+
     //根据passageId 删除文章
     Integer deletePassage(Long passageId);
 

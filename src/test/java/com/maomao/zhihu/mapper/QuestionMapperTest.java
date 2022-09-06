@@ -1,10 +1,13 @@
 package com.maomao.zhihu.mapper;
 
+import com.maomao.zhihu.entity.Answer;
 import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.queryvo.QuestionAnswer;
+import com.maomao.zhihu.service.AnswerService;
 import com.maomao.zhihu.service.QuestionService;
+import com.maomao.zhihu.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,6 +31,12 @@ public class QuestionMapperTest {
     PassageMapper passageMapper;
     @Resource
     QuestionMapper questionMapper;
+    @Resource
+    QuestionService questionService;
+    @Resource
+    AnswerService answerService;
+    @Resource
+    UserService userService;
 
     @Test
     public void getManyQuestionAnswer() {
@@ -43,5 +52,18 @@ public class QuestionMapperTest {
 //        questionById.forEach(System.out::println);
 //        List<User> beFollowedByFollowId = userMapper.getBeFollowedByFollowId(2L);
 //        beFollowedByFollowId.forEach(System.out::println);
+    }
+
+    @Test
+    public void getQuestionByAnswerId() {
+        //Question questionByAnswerId = questionMapper.getQuestionByQuestionId(1L);
+        //Question question = questionService.getQuestionByQuestionId(1L);
+        //System.out.println(question);
+//        Answer answer = new Answer();
+//        answer.setContent("写回答测试");
+//        boolean save = answerService.createAnswer("写回答测试", 4L, 2L);
+        List<User> beFollowedById = userService.getBeFollowedById(1L);
+        beFollowedById.forEach(System.out::println);
+
     }
 }

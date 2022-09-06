@@ -33,4 +33,15 @@
          WHERE user_id = ( SELECT user_id FROM question_user a WHERE a.question_id = #{id})
     </select>
 
+    <select id="getAnswerByAnswerId" resultMap="BaseResultMap">
+         SELECT * FROM answer a LEFT JOIN answer_user b ON a.id = b.answer_id
+        WHERE a.id = #{answerId}
+    </select>
+
+    <select id="getAnswerByQuestionId" resultMap="BaseResultMap">
+        SELECT * FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id
+        LEFT JOIN answer_user c ON c.answer_id = b.answer_id
+        WHERE b.question_id = #{id}
+    </select>
+
 </mapper>

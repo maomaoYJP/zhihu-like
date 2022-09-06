@@ -34,6 +34,9 @@ public interface UserMapper extends BaseMapper<User> {
 
     //根据id删除粉丝
     boolean removeFollowById(Long userId, Long followId);
+
+    //根据 answerId 和 userId 创建对应关系
+    boolean createUserAnswerMap(Long answerId, Long userId);
 }
 
 

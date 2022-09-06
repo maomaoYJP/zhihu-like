@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>个人主页</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
 </head>
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="m-backcolor">
@@ -22,18 +27,19 @@
                     </div>
                     <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
                         <div th:text="${beFollowedSize}" >10</div>
-                        <a th:href="@{/beFollowedList}" class="m-underlineCancel m-black">粉丝</a>
+                        <a th:href="@{'/beFollowedList/' + ${user.getId()}}"  class="m-underlineCancel m-black">粉丝</a>
                     </div>
                     <div class="flex column m-mg8" style="text-align: center">
                         <div th:text="${followSize}" >10</div>
-                        <a th:href="@{followList}" class="m-underlineCancel m-black">关注</a>
+                        <a th:href="@{'/followList/' + ${user.getId()}}" class="m-underlineCancel m-black">关注</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="flex m-backcolor" style="justify-content: space-between">
-            <div style="margin-left: 8px">毛毛</div>
-            <a th:href="@{editData}" class="m-underlineCancel m-black" style="margin-right: 8px;margin-bottom: 8px">编辑资料</a>
+            <div th:text="${user.getNickname()}" style="margin-left: 8px">毛毛</div>
+            <a th:if="${myHome == true}" th:href="@{/editData}" class="m-underlineCancel m-black" style="margin-right: 8px;margin-bottom: 8px">编辑资料</a>
+            <a th:if="${myHome == false}" th:href="@{/lookUserInfo}" class="m-underlineCancel m-black" style="margin-right: 8px;margin-bottom: 8px">查看资料</a>
         </div>
 
         <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 8px;height: 30px">
@@ -44,13 +50,15 @@
             <!--回答、文章、说说-->
             <div class="flex flex1 column">
             <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 1px;height: 25px">
-                <a th:href="@{/home}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">回答</a>
-                <a th:href="@{/home/passage}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">文章</a>
-                <a th:href="@{/home/talk}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">说说</a>
+                <a class="m-font-gray m-underlineCancel" id="answer" style="font-size: 10px;margin-top: 4px">回答</a>
+                <a class="m-font-gray m-underlineCancel" id="passage" style="font-size: 10px;margin-top: 4px">文章</a>
+                <a class="m-font-gray m-underlineCancel" id="talk" style="font-size: 10px;margin-top: 4px">说说</a>
             </div>
-            <!--回答-->
-            <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/home'}">
-                    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px" th:each="question : ${questions}">
+
+            <div id="creation">
+                <!--回答-->
+                <div th:fragment="answerCart" id="answerCart">
+                    <div class="flex flex1 column m-backcolor" th:if="${!#strings.isEmpty(questions)}" style="margin-bottom: 10px" th:each="question : ${questions}">
                         <div class="m-mg8 flex flex1">
                             <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
                             <div th:text="${question.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
@@ -62,7 +70,7 @@
                                 <div th:text="${question.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:text="${question.getAnswers().get(0).getContent().length() > 30 ? question.getAnswers().get(0).getContent().substring(0,30) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:utext="${question.getAnswers().get(0).getContent().length() > 30 ? question.getAnswers().get(0).getContent().substring(0,30) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
                                     <div style="flex: 1">
                                         <img alt="" class="m-cardPicture" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
@@ -74,8 +82,8 @@
                         </div>
                     </div>
                 </div>
-            <!--文章-->
-            <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/home/passage'}">
+                <!--文章-->
+                <div th:fragment="passageCart" id="passageCart">
                     <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px" th:each="passage : ${passages}">
                         <div class="m-mg8 flex flex1">
                             <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
@@ -88,7 +96,7 @@
                                 <div th:text="${passage.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:text="${passage.getContent().length() > 30 ? passage.getContent().substring(0,30) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:utext="${passage.getContent().length() > 30 ? passage.getContent().substring(0,30) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
                                     <div style="flex: 1">
                                         <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
@@ -100,8 +108,8 @@
                         </div>
                     </div>
                 </div>
-            <!--说说-->
-            <div th:if="${!#strings.isEmpty(session.get('user')) && #request.getRequestURL()=='http://localhost:8080/home/talk'}" style="margin-left: 10px">
+                <!--说说-->
+                <div th:fragment="talkCart" id="talkCart" style="margin-left: 4px">
                     <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
                         <div>
                             <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
@@ -113,6 +121,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
         </div>
 
         <!--赞同-->
@@ -139,4 +149,26 @@
 <!--        </div>-->
     </div>
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script>
+    const userId = [[${user.getId()}]]
+    $(function () {
+        $("#answer").click(function () {
+            $("#creation").load("/home/" + userId + "/answer",function (responseTxt, statusTxt, xhr) {
+                console.log($("#answerCart").html(responseTxt))
+            });
+        })
+        $("#passage").click(function () {
+            $("#creation").load("/home/" + userId + "/passage",function (responseTxt, statusTxt, xhr) {
+                console.log($("#passageCart").html(responseTxt))
+            });
+        })
+        $("#talk").click(function () {
+            $("#creation").load("/home/" + userId + "/talk",function (responseTxt, statusTxt, xhr) {
+                console.log($("#talkCart").html(responseTxt))
+            });
+        })
+    })
+
+</script>
 </html>

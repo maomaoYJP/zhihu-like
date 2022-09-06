@@ -15,7 +15,7 @@ import java.util.List;
 */
 public interface QuestionMapper extends BaseMapper<Question> {
 
-    //根据id 获得问题
+    //根据用户id 获得问题
     List<Question> getQuestionById(@Param("id")Long id);
 
     //查询用户提出的问题
@@ -26,6 +26,15 @@ public interface QuestionMapper extends BaseMapper<Question> {
 
     //创建新问题和用户对应关系
     boolean createUserQuestion(Long questionId,Long userId);
+
+    //根据answerId 获得问题极其回答
+    Question getQuestionByAnswerId(Long answerId);
+
+    //根据questionId 获得问题和回答
+    Question getQuestionByQuestionId(Long questionId);
+
+    //根据questionId 和 answerId 建立对应关系
+    boolean createQuestionAnswerMap(Long questionId, Long answerId);
 
 }
 

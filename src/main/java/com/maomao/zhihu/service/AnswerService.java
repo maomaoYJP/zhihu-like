@@ -14,5 +14,9 @@ import java.util.List;
 */
 public interface AnswerService extends IService<Answer> {
 
+    //根据answerId 删除回答
     boolean deleteAnswer(Long answerId);
+
+    //创建回答
+    boolean createAnswer(String content,Long questionId, Long UserId);
 }

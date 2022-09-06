@@ -25,6 +25,10 @@ public interface PassageMapper extends BaseMapper<Passage> {
 
     //根据passageId 和 userId 增加passage和用户的对应关系
     boolean createPassageUserMap(Long passageId, Long userId);
+
+    //根据passageId 获得文章和用户
+    Passage getPassageAndUserByPassageId(Long passageId);
+
 }
 
 

@@ -8,7 +8,7 @@
 <body class="flex flex1 column" style="margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <a th:href="@{/home}" class="m-font-gray m-underlineCancel">返回</a>
+            <a class="m-font-gray m-underlineCancel">返回</a>
         </div>
     </div>
     <div class="m-mg8">
@@ -20,32 +20,60 @@
             </form>
         </div>
         <div>基本资料</div>
-        <form th:action="@{/editData/save}" method="post">
-            <input type="text" hidden="true" th:value="${userInfo.getId()}" name="id">
-            <div class="flex flex1" style="margin-top: 8px">
-                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="nickname">昵称</label>
-                <input th:value="${userInfo.getNickname()}" type="text" name="nickname" id="nickname" placeholder="昵称">
-            </div>
-            <div class="flex flex1" style="margin-top: 8px">
-                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="introduce">介绍</label>
-                <input th:value="${userInfo.getIntroduce()}" type="text" name="introduce" id="introduce" placeholder="介绍">
-            </div>
-            <div class="flex flex1" style="margin-top: 8px">
-                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="sex">性别</label>
-                <input th:value="${userInfo.getSex()}" type="text" name="sex" id="sex" placeholder="性别">
-            </div>
-            <div class="flex flex1" style="margin-top: 8px">
-                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="birthday">生日</label>
-                <input th:value="${#dates.format(userInfo.getBirthday(), 'yyyy-MM-dd')}" type="text" name="birthdayString" id="birthday" placeholder="生日">
-            </div>
-            <div class="flex flex1" style="margin-top: 8px">
-                <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="occupation">职业</label>
-                <input th:value="${userInfo.getOccupation()}" type="text" name="occupation" id="occupation" placeholder="职业">
-            </div>
-            <div class="flex flex1" style="justify-content: flex-end;margin-right: 8px">
-                <button type="submit">保存</button>
-            </div>
-        </form>
+        <div th:if="${my == true}">
+            <form th:action="@{/editData/save}" method="post">
+                <input type="text" hidden="true" th:value="${userInfo.getId()}" name="id">
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="nickname">昵称</label>
+                    <input th:value="${userInfo.getNickname()}" type="text" name="nickname" id="nickname" placeholder="昵称">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="introduce">介绍</label>
+                    <input th:value="${userInfo.getIntroduce()}" type="text" name="introduce" id="introduce" placeholder="介绍">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="sex">性别</label>
+                    <input th:value="${userInfo.getSex()}" type="text" name="sex" id="sex" placeholder="性别">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="birthday">生日</label>
+                    <input th:value="${#dates.format(userInfo.getBirthday(), 'yyyy-MM-dd')}" type="text" name="birthdayString" id="birthday" placeholder="生日">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="occupation">职业</label>
+                    <input th:value="${userInfo.getOccupation()}" type="text" name="occupation" id="occupation" placeholder="职业">
+                </div>
+                <div class="flex flex1" style="justify-content: flex-end;margin-right: 8px">
+                    <button type="submit">保存</button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${my == false}">
+            <form th:action="@{/editData/save}" method="post">
+                <input type="text" hidden="true" th:value="${userInfo.getId()}" name="id">
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="nickname">昵称</label>
+                    <input th:value="${userInfo.getNickname()}" type="text" name="nickname" id="nickname" placeholder="昵称" disabled="disabled">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="introduce">介绍</label>
+                    <input th:value="${userInfo.getIntroduce()}" type="text" name="introduce" id="introduce" placeholder="介绍" disabled="disabled">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="sex">性别</label>
+                    <input th:value="${userInfo.getSex()}" type="text" name="sex" id="sex" placeholder="性别" disabled="disabled">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="birthday">生日</label>
+                    <input th:value="${#dates.format(userInfo.getBirthday(), 'yyyy-MM-dd')}" type="text" name="birthdayString" id="birthday" placeholder="生日" disabled="disabled">
+                </div>
+                <div class="flex flex1" style="margin-top: 8px">
+                    <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="occupation">职业</label>
+                    <input th:value="${userInfo.getOccupation()}" type="text" name="occupation" id="occupation" placeholder="职业" disabled="disabled">
+                </div>
+            </form>
+        </div>
+
     </div>
 </body>
 

@@ -4,74 +4,62 @@
     <meta charset="UTF-8">
     <title>回答列表</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
 </head>
 <body class="flex flex1 column">
     <div style="margin: -8px">
         <div class="flex m-mg8">
             <div class="m-font-gray">返回</div>
-            <div class="flex1" style="text-align: right;margin-right: 8px">写回答</div>
+            <div class="flex1" style="text-align: right;margin-right: 8px" id="createAnswer">写回答</div>
         </div>
     </div>
     <div class="flex column" style="border-bottom: 1px solid #eeeeee;padding-bottom: 10px">
-        <h4>学习真的没有尽头吗?</h4>
-        <div class="m-font-gray" style="font-size: 10px;margin-top: -15px"> 回答简介</div>
+        <h4 th:text="${question.getTitle()}" >学习真的没有尽头吗?</h4>
+        <div th:text="${question.getIntroduce()}" class="m-font-gray" style="font-size: 10px;margin-top: -15px"> 回答简介</div>
         <div class="flex">
             <button class="m-pill" style="margin-top: 8px;font-size: 10px;margin-right: 6px">哈哈</button>
             <button class="m-pill" style="margin-top: 8px;font-size: 10px;margin-right: 6px">哈哈</button>
             <button class="m-pill" style="margin-top: 8px;font-size: 10px;margin-right: 6px">哈哈</button>
         </div>
     </div>
-    <div class="flex flex1 column" style="margin-top: 8px">
-        <div class="flex flex1 column" style="border-bottom: 6px solid #f6f6f6">
+    <div class="flex flex1 column" style="margin-top: 8px" th:each="answer : ${question.getAnswers()}">
+        <div class="flex flex1 column" style="border-bottom: 4px solid #f6f6f6">
             <div class="flex flex1 column" >
                 <div class="flex">
                     <img alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    <span class="m-font-gray" style="font-size: 10px;margin-top: 3px;margin-left: 2px">毛毛</span>
+                    <span th:text="${answer.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-top: 3px;margin-left: 2px">毛毛</span>
                 </div>
-                <div class="flex" style="margin-top: 8px">
-                    <div style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                    <img alt="" style="border-radius: 5px; width: 100px;height: 50px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                <input hidden="true" th:value="${answer.getId()}">
+                <div class="flex flex1 m-answerInfo" style="margin-top: 8px">
+                    <div th:utext="${answer.getContent()}" style="font-size: 10px;flex: 3">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                    <div>
+                        <img alt="" class="m-cardPicture" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                    </div>
                 </div>
             </div>
-            <div class="flex" style="justify-content: space-between">
+            <div class="flex" style="justify-content: space-between;margin-bottom: -8px">
                 <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">100 赞同 100收藏</div>
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">2022-08-10</div>
+                <div th:text="${#dates.format(answer.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;">2022-08-10</div>
             </div>
-
-        </div>
-        <div class="flex flex1 column" style="border-bottom: 6px solid #f6f6f6">
-            <div class="flex flex1 column" >
-                <div class="flex">
-                    <img alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    <span class="m-font-gray" style="font-size: 10px;margin-top: 3px;margin-left: 2px">毛毛</span>
-                </div>
-                <div class="flex" style="margin-top: 8px">
-                    <div style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容,内容我就是内容，我就是内容，内容就容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                </div>
-            </div>
-            <div class="flex" style="justify-content: space-between">
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">100 赞同 100收藏</div>
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">2022-08-10</div>
-            </div>
-
-        </div>
-        <div class="flex flex1 column" style="border-bottom: 6px solid #f6f6f6">
-            <div class="flex flex1 column" >
-                <div class="flex">
-                    <img alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                    <span class="m-font-gray" style="font-size: 10px;margin-top: 3px;margin-left: 2px">毛毛</span>
-                </div>
-                <div class="flex" style="margin-top: 8px">
-                    <div style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
-                    <img alt="" style="border-radius: 5px; width: 100px;height: 50px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                </div>
-            </div>
-            <div class="flex" style="justify-content: space-between">
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">100 赞同 100收藏</div>
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">2022-08-10</div>
-            </div>
-
         </div>
     </div>
 </body>
+<script>
+    let answer_btn = document.querySelectorAll(".m-answerInfo");
+    for(let i = 0; i < answer_btn.length ; i++ ){
+        answer_btn[i].addEventListener("click",function () {
+            let answerId = answer_btn[i].previousElementSibling.value;
+            document.location.href = "/answer/info/" + answerId;
+        })
+    }
+
+    let createAnswer = document.getElementById("createAnswer");
+    createAnswer.addEventListener("click", function () {
+        document.location.href = "/answer/edit/" + [[${question.getId()}]]
+    })
+</script>
 </html>

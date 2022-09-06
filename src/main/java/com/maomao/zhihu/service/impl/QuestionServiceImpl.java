@@ -64,6 +64,17 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     public boolean updateQuestion(Question question) {
         return questionService.updateById(question);
     }
+
+    @Override
+    public Question getQuestionByAnswerId(Long answerId) {
+        return questionMapper.getQuestionByAnswerId(answerId);
+    }
+
+    @Override
+    public Question getQuestionByQuestionId(Long questionId) {
+        return questionMapper.getQuestionByQuestionId(questionId);
+    }
+
 }
 
 

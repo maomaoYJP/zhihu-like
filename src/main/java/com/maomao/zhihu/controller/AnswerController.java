@@ -3,12 +3,14 @@ package com.maomao.zhihu.controller;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.AnswerService;
+import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -28,6 +30,9 @@ public class AnswerController {
     @Resource
     AnswerService answerService;
 
+    @Resource
+    QuestionService questionService;
+
     @GetMapping("/answer/manage")
     public String answerManager(HttpSession session, Model model){
         //用户未登录
@@ -42,9 +47,51 @@ public class AnswerController {
         return "answer_manage";
     }
 
+    //删除回答
     @GetMapping("/answer/delete/{answerId}")
     public String deleteAnswer(@PathVariable("answerId")Long answerId){
         answerService.deleteAnswer(answerId);
         return "redirect:/answer/manage";
+    }
+
+    //回答详情
+    @GetMapping("/answer/info/{answerId}")
+    public String answerInfo(@PathVariable("answerId") Long answerId, Model model, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "login";
+        }
+        Question question = questionService.getQuestionByAnswerId(answerId);
+        User user = (User)session.getAttribute("user");
+        Long id = user.getId();
+        List<User> follows = userService.getFollowsById(id);
+        boolean isFollow = follows.contains(question.getAnswers().get(0).getUser());
+
+        model.addAttribute("question", question);
+        model.addAttribute("isFollow", isFollow);
+        return "answer_info";
+    }
+
+    //跳转编写回答界面
+    @GetMapping("/answer/edit/{questionId}")
+    public String answerEdit(@PathVariable("questionId") Long questionId,Model model){
+        Question question = questionService.getQuestionByQuestionId(questionId);
+        model.addAttribute("question", question);
+        return "edit_answer";
+    }
+
+    //创建回答
+    @PostMapping("/answer/add")
+    @ResponseBody
+    public String answerAdd(String content,Long questionId, HttpSession session){
+        //用户未登录
+        if(session.getAttribute("user") == null){
+            return "redirect:/login";
+        }
+        User user = (User)session.getAttribute("user");
+        Long id = user.getId();
+
+        //保存回答，及建立表对应关系
+        boolean answer = answerService.createAnswer(content, questionId, id);
+        return String.valueOf(questionId);
     }
 }

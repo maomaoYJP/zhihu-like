@@ -4,6 +4,7 @@ import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,86 +27,192 @@ public class PersonalController {
     @Resource
     UserService userService;
 
-    @GetMapping("/home/**")
-    public String home(HttpSession session, Model model){
-        User user = (User)session.getAttribute("user");
-        Long id = user.getId();
-        List<User> followsById = userService.getFollowsById(id);
-        List<User> beFollowedById = userService.getBeFollowedById(id);
+    @GetMapping("/home/{userId}")
+    public String home(@PathVariable("userId")Long userId, Model model, HttpSession session){
+        User loginUser = (User)session.getAttribute("user");
+        Long id = loginUser.getId();
+        if(userId.equals(id)){
+            model.addAttribute("myHome", true);
+        }else{
+            model.addAttribute("myHome", false);
+        }
+
+        User user = userService.getById(userId);
+        List<User> followsById = userService.getFollowsById(userId);
+        List<User> beFollowedById = userService.getBeFollowedById(userId);
         //获得粉丝数和关注数
         int followSize = followsById.size();
         int beFollowedSize = beFollowedById.size();
 
         //获取用户回答、文章、说说
         //通过用户的id获得用户信息
-        User userinfo = userService.getUserinfoById(id);
+        User userinfo = userService.getUserinfoById(userId);
         //按时间先后排序
         sortList.sortQuestion(userinfo.getQuestion());
-        sortList.sortPassage(userinfo.getPassage());
-        sortList.sortTalk(userinfo.getTalk());
+        //sortList.sortPassage(userinfo.getPassage());
+        //sortList.sortTalk(userinfo.getTalk());
 
         model.addAttribute("questions",userinfo.getQuestion());
-        model.addAttribute("passages",userinfo.getPassage());
-        model.addAttribute("talks",userinfo.getTalk());
-
+        //model.addAttribute("passages",userinfo.getPassage());
+        //model.addAttribute("talks",userinfo.getTalk());
+        model.addAttribute("user", user);
         model.addAttribute("followSize", followSize);
         model.addAttribute("beFollowedSize", beFollowedSize);
         return "homepage";
     }
 
-    @RequestMapping("/followList")
-    public String followList(HttpSession session, Model model){
+    @GetMapping("/home/{userId}/answer")
+    public String homeAnswer(@PathVariable("userId")Long userId, Model model){
+        User userinfo = userService.getUserinfoById(userId);
+        sortList.sortQuestion(userinfo.getQuestion());
+        model.addAttribute("questions", userinfo.getQuestion());
+        return "homepage :: answerCart";
+    }
+
+    @GetMapping("/home/{userId}/passage")
+    public String homePassage(@PathVariable("userId")Long userId, Model model){
+        User userinfo = userService.getUserinfoById(userId);
+        sortList.sortPassage(userinfo.getPassage());
+        model.addAttribute("passages", userinfo.getPassage());
+        return "homepage :: passageCart";
+    }
+
+    @GetMapping("/home/{userId}/talk")
+    public String homeTalk(@PathVariable("userId")Long userId, Model model){
+        User userinfo = userService.getUserinfoById(userId);
+        sortList.sortTalk(userinfo.getTalk());
+        model.addAttribute("talks", userinfo.getTalk());
+        return "homepage :: talkCart";
+    }
+
+    @RequestMapping("/followList/{userId}")
+    public String followList(@PathVariable("userId")Long userId, HttpSession session, Model model){
         User user = (User)session.getAttribute("user");
-        Long id = user.getId();
-        List<User> follows = userService.getFollowsById(id);
-        model.addAttribute("follows",follows);
+        Long loginId = user.getId();
+        List<User> follows;
+        if(userId.equals(loginId)){
+            follows = new ArrayList<>(userService.getFollowsById(loginId));
+            model.addAttribute("follows", follows);
+            model.addAttribute("userId", userId);
+        }else{
+            List<User> oldFollows = new ArrayList<>(userService.getFollowsById(loginId));
+            List<User> myFollows = new ArrayList<>();
+            follows = new ArrayList<>(userService.getFollowsById(userId));
+            //别人的主页
+            //判断每个关注者，自己是否有关注
+            for (User follow : follows) {
+                for (User oldFollow : oldFollows) {
+                    if(follow.getId().equals(oldFollow.getId())){
+                        myFollows.add(follow);
+                        oldFollows.remove(oldFollow);
+                        break;
+                    }
+                }
+            }
+            follows.removeAll(myFollows);
+            model.addAttribute("myFollows", myFollows);
+            model.addAttribute("follows", follows);
+            model.addAttribute("userId", userId);
+        }
+
+
         return "follow_list";
     }
 
-    @RequestMapping("/beFollowedList")
-    public String beFollowedList(HttpSession session, Model model){
+    @RequestMapping("/beFollowedList/{userId}")
+    public String beFollowedList(@PathVariable("userId")Long userId, HttpSession session, Model model){
         User user = (User)session.getAttribute("user");
-        Long id = user.getId();
-        //粉丝
-        List<User> beFollowed = userService.getBeFollowedById(id);
-        //关注的
-        List<User> follows = userService.getFollowsById(id);
+        Long loginId = user.getId();
 
-        //粉丝又关注排在前面不是关注排在后面
-        List<User> followEach = new ArrayList<>();
-        for (User user1 : beFollowed) {
-            boolean contains = follows.contains(user1);
-            if(contains){
-                followEach.add(user1);
+        List<User> beFollowed;
+        List<User> follows;
+        if(userId.equals(loginId)){
+            //粉丝
+            beFollowed = new ArrayList<>(userService.getBeFollowedById(loginId));
+            //关注的
+            follows = new ArrayList<>(userService.getFollowsById(loginId));
+            //粉丝又关注排在前面不是关注排在后面
+            List<User> followEach = new ArrayList<>();
+            for (User user1 : beFollowed) {
+                boolean contains = follows.contains(user1);
+                if(contains){
+                    followEach.add(user1);
+                }
             }
-        }
-        for (User each : followEach) {
-            boolean contains = beFollowed.contains(each);
-            if(contains){
-                beFollowed.remove(each);
+            for (User each : followEach) {
+                boolean contains = beFollowed.contains(each);
+                if(contains){
+                    beFollowed.remove(each);
+                }
             }
+            int size = followEach.size();
+            followEach.addAll(beFollowed);
+            model.addAttribute("follows",followEach);
+            model.addAttribute("followSize",size);
+        }else{
+            //粉丝
+            beFollowed = new ArrayList<>(userService.getBeFollowedById(userId));
+            //我关注的
+            follows = new ArrayList<>(userService.getFollowsById(loginId));
+            //粉丝又关注排在前面不是关注排在后面
+            List<User> followEach = new ArrayList<>();
+            for (User user1 : beFollowed) {
+                boolean contains = follows.contains(user1);
+                if(contains){
+                    followEach.add(user1);
+                }
+            }
+            for (User each : followEach) {
+                boolean contains = beFollowed.contains(each);
+                if(contains){
+                    beFollowed.remove(each);
+                }
+            }
+            int size = followEach.size();
+            followEach.addAll(beFollowed);
+            model.addAttribute("follows",followEach);
+            model.addAttribute("followSize",size);
         }
-        int size = followEach.size();
-        followEach.addAll(beFollowed);
-        model.addAttribute("follows",followEach);
-        model.addAttribute("followSize",size);
-        return "follow_list";
+
+        return "beFollowed_list";
     }
 
     @GetMapping("/addFollow/{followId}")
+    @ResponseBody
     public String addFollow(HttpSession session,@PathVariable("followId") Long followId){
         User user = (User)session.getAttribute("user");
         Long userId = user.getId();
         userService.addFollowById(userId,followId);
-        return "redirect:/followList";
+        return "addFollowSuccess";
     }
 
     @GetMapping("/removeFollow/{followId}")
+    @ResponseBody
     public String removeFollow(HttpSession session,@PathVariable("followId") Long followId){
         User user = (User)session.getAttribute("user");
         Long userId = user.getId();
         userService.removeFollowById(userId,followId);
-        return "redirect:/followList";
+        return "removeFollowSuccess";
+    }
+
+    //回答详情界面关注
+    @PostMapping("/addFollow")
+    public String addFollowPage(Long followId, HttpSession session, Model model){
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
+        userService.addFollowById(userId,followId);
+        model.addAttribute("isFollow", true);
+        return "answer_info :: followBtn";
+    }
+
+    //回答详情界面取消关注
+    @PostMapping("/cancelFollow")
+    public String cancelFollowPage(Long followId, HttpSession session, Model model){
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
+        userService.removeFollowById(userId,followId);
+        model.addAttribute("isFollow", false);
+        return "answer_info :: followBtn";
     }
 
     @GetMapping("/editData")
@@ -114,6 +221,17 @@ public class PersonalController {
         Long id = user.getId();
         User userInfo = userService.getUserinfoById(id);
         model.addAttribute("userInfo",userInfo);
+        model.addAttribute("my", true);
+        return "user_info";
+    }
+
+    @GetMapping("/lookUserInfo")
+    public String lookUserInfo(HttpSession session, Model model){
+        User user = (User)session.getAttribute("user");
+        Long id = user.getId();
+        User userInfo = userService.getUserinfoById(id);
+        model.addAttribute("userInfo",userInfo);
+        model.addAttribute("my", false);
         return "user_info";
     }
 

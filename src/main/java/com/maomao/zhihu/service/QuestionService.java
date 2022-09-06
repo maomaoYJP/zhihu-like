@@ -26,4 +26,11 @@ public interface QuestionService extends IService<Question> {
 
     //修改问题
     boolean updateQuestion(Question question);
+
+    //根据回答Id，查询问题(附带回答)
+    Question getQuestionByAnswerId(Long answerId);
+
+    //根据问题Id，查询问题及回答
+    Question getQuestionByQuestionId(Long questionId);
+
 }

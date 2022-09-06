@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>文章</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
 </head>
 <body class="flex flex1 column">
     <div style="margin: -8px">
@@ -12,23 +17,28 @@
         </div>
     </div>
     <div>
-        <h4>学习，永无止尽</h4>
+        <h4 th:text="${passage.getTitle()}">学习，永无止尽</h4>
     </div>
     <div class="flex flex1" style="margin-top: 16px">
         <div>
             <img class="m-headPicture-circle" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
         </div>
         <div class="flex1" style="margin-left: 8px">
-            <div style="font-size: 12px">毛毛</div>
-            <div class="m-font-gray" style="font-size: 10px">你要去兜风吗</div>
+            <div th:text="${passage.getUser().getNickname()}" style="font-size: 12px">毛毛</div>
+            <div th:text="${passage.getUser().getIntroduce()}" class="m-font-gray" style="font-size: 10px">你要去兜风吗</div>
         </div>
-        <div>
-            <button>关注</button>
+        <div th:fragment="followBtn" id="followBtn">
+            <button type="button" th:hidden="${isFollow}" value="0" class="m-edit" id="follow">关注</button>
+            <button type="button" th:hidden="${!isFollow}" value="1" class="m-cancelFollow m-edit" id="cancelFollow" >取关</button>
         </div>
     </div>
     <!--内容-->
-    <div style="font-size: 15px;margin-top: 10px">我是内容我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br></div>
-    <div class="m-font-gray" style="font-size: 10px">编辑于 2022-08-09 · 著作权归作者所有</div>
+    <div th:utext="${passage.getContent()}" style="font-size: 15px;margin-top: 10px">我是内容我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br></div>
+    <div class="flex flex1">
+        <div class="m-font-gray" style="font-size: 10px">编辑于&nbsp</div>
+        <div th:text="${#dates.format(passage.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px"> 2022-08-09</div>
+        <div class="m-font-gray" style="font-size: 10px">&nbsp · &nbsp著作权归作者所有</div>
+    </div>
     <!--评论-->
     <div id="comment-form" class="flex flex1">
         <div class="flex flex1 column" style="margin-bottom: 50px">
@@ -105,6 +115,34 @@
         <button>收藏 100</button>
         <button>评论 100</button>
     </div>
-
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 </body>
+<script>
+    if([[${isFollow}]]){
+        $("#followBtn").on("click", ".m-edit" ,function (e) {
+            this.value === "0" ? addFollow(e) : removeFollow(e);
+        })
+    }else{
+        $("#followBtn").on("click", ".m-edit" ,function (e) {
+            this.value === "0" ? addFollow(e) : removeFollow(e);
+        })
+    }
+
+
+    addFollow = function(e) {
+        $("#follow").load("/addFollow",{
+            "followId" : [[${passage.getUser().getId()}]]
+        },function (responseTxt, statusTxt, xhr) {
+            console.log($("#followBtn").html(responseTxt))
+        });
+    }
+
+    removeFollow = function (e) {
+        $("#cancelFollow").load("/cancelFollow",{
+            "followId" : [[${passage.getUser().getId()}]]
+        },function (responseTxt, statusTxt, xhr) {
+            console.log($("#followBtn").html(responseTxt))
+        });
+    }
+</script>
 </html>

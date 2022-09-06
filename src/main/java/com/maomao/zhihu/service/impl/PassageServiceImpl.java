@@ -32,6 +32,11 @@ public class PassageServiceImpl extends ServiceImpl<PassageMapper, Passage>
     }
 
     @Override
+    public Passage getPassageAndUserByPassageId(Long passageId) {
+        return passageMapper.getPassageAndUserByPassageId(passageId);
+    }
+
+    @Override
     @Transactional
     public Integer deletePassage(Long passageId) {
         passageMapper.deletePassageUser(passageId);

@@ -35,4 +35,9 @@
     <select id="getManyPassage" resultMap="BaseResultMap">
         SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id WHERE is_delete = 0
     </select>
+
+    <select id="getPassageAndUserByPassageId" resultMap="BaseResultMap">
+        SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id
+        WHERE a.id = #{passageId}
+    </select>
 </mapper>

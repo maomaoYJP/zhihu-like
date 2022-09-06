@@ -61,4 +61,23 @@ public class PassageController {
         passageService.createPassage(passage);
         return "success";
     }
+    
+    //文章详情
+    @GetMapping("/passage/info/{passageId}")
+    public String passageInfo(@PathVariable("passageId")Long passageId, Model model, HttpSession session){
+        if(session.getAttribute("user") == null){
+            return "login";
+        }
+        User user = (User)session.getAttribute("user");
+        Long loginId = user.getId();
+        //得到登录者的关注
+        List<User> follows = userService.getFollowsById(loginId);
+        Passage passage = passageService.getPassageAndUserByPassageId(passageId);
+
+        //判断登录者是否关注了文章作者
+        boolean isFollow = follows.contains(passage.getUser());
+        model.addAttribute("passage", passage);
+        model.addAttribute("isFollow", isFollow);
+        return "passage_info";
+    }
 }
