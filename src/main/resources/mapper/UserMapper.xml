@@ -55,6 +55,9 @@
     <insert id="createUserAnswerMap">
         insert into answer_user (answer_id, user_id) values (#{answerId}, #{userId})
     </insert>
+    <insert id="createUserCommentMap">
+        insert into user_comment(user_id,comment_id) values (#{userId}, #{commentId})
+    </insert>
     <delete id="removeFollowById">
         DELETE FROM user_follow WHERE user_id = #{userId} AND follow_id = #{followId}
     </delete>

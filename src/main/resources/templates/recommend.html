@@ -13,7 +13,8 @@
     </div>
     <div class="flex flex1" style="margin-top: 10px;border-bottom: 1px solid #EBEBEB;min-height: 80px" th:each="question : ${questionRank}">
         <div th:text="${questionStat.count}" style="margin-right: 8px">1</div>
-        <div class="flex flex1 column">
+        <input type="text" hidden="hidden" th:value="${question.getId()}">
+        <div class="flex flex1 column" name="questionCart">
             <div class="flex flex1">
                 <div th:text="${question.getTitle()}" style="flex: 4">我是标题我是标题我是标题我是标题我就是标题</div>
                 <div style="flex: 1">
@@ -38,4 +39,10 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script>
+    $("[name='questionCart']").click(function (){
+        document.location.href = "/question/questionAnswer/" + this.previousElementSibling.value
+    })
+</script>
 </html>

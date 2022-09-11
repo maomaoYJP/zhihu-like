@@ -58,8 +58,8 @@ public class IndexController {
     //说说页
     @RequestMapping("/talk")
     public String allTalk(Model model){
-        List<Talk> talkList = talkService.getManyTalk();
-        model.addAttribute("talkList", talkList);
+        List<Talk> talks = talkService.getManyTalk();
+        model.addAttribute("talks", talks);
         return "talk";
     }
 
@@ -71,7 +71,7 @@ public class IndexController {
         return "recommend";
     }
 
-    //首页关注页 回答
+    //首页关注页
     @RequestMapping("/follow/**")
     public String followPage(HttpSession session, Model model, HttpServletRequest request){
         //用户未登录
@@ -86,13 +86,12 @@ public class IndexController {
         List<Question> question = new ArrayList<>();
         List<Passage> passage = new ArrayList<>();
         List<Talk> talk = new ArrayList<>();
+
         //遍历关注列表，获得问题，文章，说说
         for (User follow : follows) {
-            Long id1 = follow.getId();
-            if(id1.equals(id)){
-                continue;
-            }
-            User detailUser = userService.getUserinfoById(id);
+            Long followId = follow.getId();
+
+            User detailUser = userService.getUserinfoById(followId);
             question.addAll(detailUser.getQuestion());
             passage.addAll(detailUser.getPassage());
             talk.addAll(detailUser.getTalk());
@@ -101,10 +100,20 @@ public class IndexController {
         sortList.sortQuestion(question);
         sortList.sortPassage(passage);
         sortList.sortTalk(talk);
-        model.addAttribute("questions",question);
-        model.addAttribute("passages",passage);
-        model.addAttribute("talks",talk);
 
+        String[] split = request.getRequestURL().toString().split("/");
+        String requestURL = split[split.length - 1];
+        if(requestURL.equals("answer")){
+            model.addAttribute("questions",question);
+            return "follow :: answerCart";
+        }else if(requestURL.equals("passage")){
+            model.addAttribute("passages",passage);
+            return "follow :: passageCart";
+        }else if(requestURL.equals("talk")){
+            model.addAttribute("talks",talk);
+            return "follow :: talkCart";
+        }
+        model.addAttribute("questions",question);
         return "follow";
     }
 

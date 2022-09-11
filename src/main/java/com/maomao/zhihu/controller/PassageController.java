@@ -1,5 +1,6 @@
 package com.maomao.zhihu.controller;
 
+import com.maomao.zhihu.entity.Comment;
 import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
@@ -79,5 +80,20 @@ public class PassageController {
         model.addAttribute("passage", passage);
         model.addAttribute("isFollow", isFollow);
         return "passage_info";
+    }
+
+    //文章评论
+    @PostMapping("/passage/{passageId}/comment")
+    public String passageComment(@PathVariable("passageId")Long passageId, Comment comment,HttpSession session, Model model){
+        //获取用户id
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
+        //创建保存评论
+        passageService.createPassageComment(userId, passageId, comment);
+
+        //查询文章
+        Passage passage = passageService.getPassageAndUserByPassageId(passageId);
+        model.addAttribute("passage", passage);
+        return "passage_info :: comment-container";
     }
 }

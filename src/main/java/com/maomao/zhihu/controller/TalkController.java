@@ -1,7 +1,10 @@
 package com.maomao.zhihu.controller;
 
+import com.maomao.zhihu.entity.Comment;
+import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.service.CommentService;
 import com.maomao.zhihu.service.TalkService;
 import com.maomao.zhihu.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -27,6 +30,9 @@ public class TalkController {
     @Resource
     TalkService talkService;
 
+    @Resource
+    CommentService commentService;
+
     //获取用户的所有说说
     @GetMapping("/talk/manage")
     public String answerManager(HttpSession session, Model model){
@@ -40,6 +46,23 @@ public class TalkController {
         List<Talk> talks = userinfo.getTalk();
         model.addAttribute("talks",talks);
         return "talk_manage";
+    }
+
+    //创建说说评论
+    //文章评论
+    @PostMapping("/talk/{talkId}/comment")
+    public String passageComment(@PathVariable("talkId")Long talkId, Comment comment, HttpSession session, Model model){
+        //获取用户id
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
+        //创建保存评论
+        talkService.createTalkComment(userId, talkId, comment);
+
+        //查询说说
+        Talk talk = talkService.getTalkByTalkId(talkId);
+        talk.setComments(commentService.getCommentByTalkId(talkId));
+        model.addAttribute("talk", talk);
+        return "talk :: comment-container";
     }
 
     //删除说说

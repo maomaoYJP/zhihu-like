@@ -23,7 +23,8 @@
             <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
             <span th:text="${question.getUser().getNickname()}" class="m-font-gray" style="position: absolute;margin-top: 14px;margin-left: 3px;font-size: 10px">毛毛</span>
         </div>
-        <div th:text="${question.getTitle()}" style="margin-left: 8px;">
+        <input type="text" hidden="hidden" th:value="${question.getId()}">
+        <div th:text="${question.getTitle()}" style="margin-left: 8px;" name="eachQuestion">
             JavaScript怎么学?
         </div>
         <input type="text" hidden="true" th:value="${question.getTitle()}" th:id="question_title + ${question.getId()}">
@@ -90,7 +91,12 @@
     </div>
 
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script>
+    $("[name='eachQuestion']").click(function () {
+        document.location.href = "/question/questionAnswer/" + this.previousElementSibling.value
+    })
+
     let delete_open = document.querySelectorAll(".m-more");
     let raise = document.getElementById("raise");
     let raise_question = document.getElementById("raise_question");

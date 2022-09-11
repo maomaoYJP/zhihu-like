@@ -2,16 +2,11 @@ package com.maomao.zhihu.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maomao.zhihu.entity.Answer;
+import com.maomao.zhihu.entity.Comment;
 import com.maomao.zhihu.entity.Question;
-import com.maomao.zhihu.mapper.PassageMapper;
-import com.maomao.zhihu.mapper.QuestionMapper;
-import com.maomao.zhihu.mapper.UserMapper;
+import com.maomao.zhihu.mapper.*;
 import com.maomao.zhihu.queryvo.QuestionAnswer;
-import com.maomao.zhihu.service.AnswerService;
-import com.maomao.zhihu.mapper.AnswerMapper;
-import com.maomao.zhihu.service.PassageService;
-import com.maomao.zhihu.service.QuestionService;
-import com.maomao.zhihu.service.UserService;
+import com.maomao.zhihu.service.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +31,10 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
     QuestionMapper questionMapper;
     @Resource
     UserMapper userMapper;
+    @Resource
+    CommentMapper commentMapper;
+    @Resource
+    CommentService commentService;
 
     @Override
     @Transactional
@@ -60,6 +59,28 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
         boolean userAnswerMap = userMapper.createUserAnswerMap(answer.getId(), userId);
 
         return userAnswerMap;
+    }
+
+    @Override
+    @Transactional
+    public boolean createAnswerComment(Long userId, Long answerId, Comment comment) {
+        //判断评论是单独评论还是回复
+        if(comment.getParentCommentId() == -1){
+            comment.setParentCommentId(null);
+            //保存评论
+            commentService.save(comment);
+            //创建评论对应文章关系
+            commentMapper.createAnswerCommentMap(answerId, comment.getId());
+            //创建评论user对应关系
+            return userMapper.createUserCommentMap(userId, comment.getId());
+        }else{
+            //保存评论
+            commentService.save(comment);
+            //创建评论对应文章关系
+            commentMapper.createAnswerCommentMap(answerId, comment.getId());
+            //创建评论user对应关系
+            return userMapper.createUserCommentMap(userId, comment.getId());
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.maomao.zhihu.service;
 
+import com.maomao.zhihu.entity.Comment;
 import com.maomao.zhihu.entity.Passage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -23,4 +24,10 @@ public interface PassageService extends IService<Passage> {
 
     //创建文章
     boolean createPassage(Passage passage);
+
+    //根据passageId 获得评论
+    List<Comment> getCommentByPassageId(Long passageId);
+
+    //创建文章评论，包含评论的对应关系
+    Boolean createPassageComment(Long userId, Long passageId,Comment comment);
 }

@@ -17,6 +17,9 @@ public interface TalkMapper extends BaseMapper<Talk> {
     //根据用户Id获得说说
     List<Talk> getTalkById(@Param("id")Long userId);
 
+    //根据talkId获得说说
+    Talk getTalkByTalkId(Long talkId);
+
     //获得所有说说
     List<Talk> getManyTalk();
 

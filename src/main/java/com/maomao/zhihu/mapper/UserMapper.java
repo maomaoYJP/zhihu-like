@@ -37,6 +37,10 @@ public interface UserMapper extends BaseMapper<User> {
 
     //根据 answerId 和 userId 创建对应关系
     boolean createUserAnswerMap(Long answerId, Long userId);
+
+    //创建 comment 和 user 对应关系
+    boolean createUserCommentMap(Long userId, Long commentId);
+
 }
 
 

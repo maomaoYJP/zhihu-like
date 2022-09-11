@@ -24,7 +24,8 @@
             <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
             <span th:text="${question.user.getNickname()}" class="m-font-gray" style="position: absolute;margin-top: 12px;margin-left: 3px;font-size: 10px">毛毛</span>
         </div>
-        <div th:text="${question.getTitle()}" style="margin-left: 8px;">
+        <input type="text" th:value="${question.getId()}" hidden="hidden">
+        <div th:text="${question.getTitle()}" name="question" style="margin-left: 8px;">
             JavaScript怎么学?
         </div>
         <div class="m-mg8">
@@ -32,6 +33,7 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script type="text/javascript">
     let search_btn = document.getElementById("search_btn");
     let search_area = document.getElementById("search_area");
@@ -39,6 +41,10 @@
     //点击搜索显示或关闭搜索框
     search_btn.addEventListener("click", function () {
         search_area.hidden = search_area.hidden ? false : true;
+    })
+
+    $("[name='question']").click(function (e) {
+        document.location.href = "/question/questionAnswer/" + e.target.previousElementSibling.value
     })
 </script>
 </html>

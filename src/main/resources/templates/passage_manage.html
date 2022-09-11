@@ -29,7 +29,8 @@
                 <div class="m-passage" style="margin-right: 4px">文章</div>
                 <div th:text="${passage.getTitle()}">标题：毛毛为何这么厉害</div>
             </div>
-            <div class="flex flex1" style="margin-left: 8px">
+            <input type="text" hidden="hidden" th:value="${passage.getId()}">
+            <div class="flex flex1" style="margin-left: 8px" name="eachPassage">
                 <div class="flex column" style="flex: 3">
                     <div th:utext="${passage.getContent().length() > 30 ? passage.getContent().substring(0,30) : passage.getContent()}" class="m-font-gray" style="font-size: 10px"><p>内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</p></div>
                     <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 6px">2022-08-09</div>
@@ -57,13 +58,17 @@
             </div>
         </div>
     </div>
-
-
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script type="text/javascript">
     let search_btn = document.getElementById("search_btn");
     let search_area = document.getElementById("search_area");
     let delete_open = document.querySelectorAll(".m-more");
+
+    //点击跳转到文章详情
+    $("[name='eachPassage']").click(function () {
+        document.location.href = "/passage/info/" + this.previousElementSibling.value
+    })
 
     //点击搜索显示或关闭搜索框
     search_btn.addEventListener("click", function () {

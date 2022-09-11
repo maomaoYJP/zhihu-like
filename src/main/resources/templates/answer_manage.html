@@ -24,7 +24,8 @@
                 <div class="m-answer" style="margin-right: 4px">回答</div>
                 <div th:text="${question.getTitle()}">标题：毛毛为何这么厉害</div>
             </div>
-            <div class="flex flex1" style="margin-left: 8px">
+            <input type="text" hidden="hidden" th:value="${question.getAnswers().get(0).getId()}">
+            <div class="flex flex1" style="margin-left: 8px" name="eachAnswer">
                 <div class="flex column" style="flex: 3">
                     <div th:text="${question.getAnswers().get(0).getContent().length() > 30 ? question.getAnswers().get(0).getContent().substring(0,30) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 6px">2022-08-09</div>
@@ -59,6 +60,11 @@
     let search_btn = document.getElementById("search_btn");
     let search_area = document.getElementById("search_area");
     let delete_open = document.querySelectorAll(".m-more");
+
+    //点击卡片中间区域跳转到详细内容
+    $("[name='eachAnswer']").click(function () {
+        document.location.href = "/answer/info/" + this.previousElementSibling.value
+    })
 
     //点击搜索显示或关闭搜索框
     search_btn.addEventListener("click", function () {

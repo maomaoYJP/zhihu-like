@@ -32,4 +32,9 @@
     <select id="getManyTalk" resultMap="BaseResultMap">
         SELECT * FROM talk a LEFT JOIN talk_user b ON a.id = b.talk_id WHERE is_delete = 0
     </select>
+
+    <select id="getTalkByTalkId" resultMap="BaseResultMap">
+        SELECT * FROM talk a LEFT JOIN talk_user b ON a.id = b.talk_id
+        WHERE a.id = #{talkId} and a.is_delete = 0
+    </select>
 </mapper>

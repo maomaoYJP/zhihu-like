@@ -3,6 +3,7 @@ package com.maomao.zhihu.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maomao.zhihu.entity.Answer;
 import com.maomao.zhihu.entity.Question;
+import com.maomao.zhihu.service.CommentService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.mapper.QuestionMapper;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     QuestionMapper questionMapper;
     @Resource
     QuestionService questionService;
+    @Resource
+    CommentService commentService;
 
     @Override
     public List<Question> getManyQuestion() {
@@ -67,7 +70,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
 
     @Override
     public Question getQuestionByAnswerId(Long answerId) {
-        return questionMapper.getQuestionByAnswerId(answerId);
+        Question question = questionMapper.getQuestionByAnswerId(answerId);
+        question.getAnswers().get(0).setComments(commentService.getCommentByAnswerId(answerId));
+        return question;
     }
 
     @Override

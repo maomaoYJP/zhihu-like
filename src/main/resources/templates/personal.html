@@ -31,7 +31,7 @@
         </div>
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
             <div th:text="${followNum}" >10</div>
-            <a th:href="@{/followList}" class="m-underlineCancel m-black">关注</a>
+            <a th:href="@{'/followList/' + ${session.get('user').getId()}}" class="m-underlineCancel m-black">关注</a>
         </div>
         <div class="flex column m-mg8" style="text-align: center">
             <div>10</div>

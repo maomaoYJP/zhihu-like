@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -37,6 +39,9 @@ public class Talk implements Serializable {
 
     @TableField(exist = false)
     private User user;
+
+    @TableField(exist = false)
+    private List<Comment> comments;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

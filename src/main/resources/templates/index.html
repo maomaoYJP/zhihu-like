@@ -56,7 +56,8 @@
                         </div>
                     </div>
                     <div th:if="${question.getAnswers().size() == 0}" class="flex flex1" style="margin-left: 8px">
-                        <div class="flex column" style="flex: 3">
+                        <input type="text" hidden="true" th:value="${question.getId()}">
+                        <div class="flex column" style="flex: 3" name="noAnswerQuestion">
                             <div>
                                 <img th:src="${question.getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                                 <span th:text="${question.getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
@@ -79,6 +80,7 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script>
     let answer_btn = document.querySelectorAll(".m-answerInfo");
     for(let i = 0; i < answer_btn.length ; i++ ){
@@ -87,6 +89,10 @@
             document.location.href = "/answer/info/" + answerId;
         })
     }
+
+    $("[name='noAnswerQuestion']").click(function () {
+        document.location.href = "/question/questionAnswer/" + this.previousElementSibling.value
+    })
 
 </script>
 </html>

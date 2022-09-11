@@ -61,11 +61,12 @@
                     <div class="flex flex1 column m-backcolor" th:if="${!#strings.isEmpty(questions)}" style="margin-bottom: 10px" th:each="question : ${questions}">
                         <div class="m-mg8 flex flex1">
                             <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-                            <div th:text="${question.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
-                            <div th:text="${#dates.format(question.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
+                            <div th:text="${question.getAnswers().get(0).getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
+                            <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
                             <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了回答</div>
                         </div>
-                        <div class="flex1">
+                        <input type="text" hidden="hidden" th:value="${question.getAnswers().get(0).getId()}">
+                        <div class="flex1" name="eachAnswer">
                             <div style="margin-left: 25px">
                                 <div th:text="${question.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
@@ -91,7 +92,8 @@
                             <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
                             <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了文章</div>
                         </div>
-                        <div class="flex1">
+                        <input type="text" hidden="hidden" th:value="${passage.getId()}">
+                        <div class="flex1" name="eachPassage">
                             <div style="margin-left: 25px">
                                 <div th:text="${passage.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
@@ -152,15 +154,29 @@
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script>
     const userId = [[${user.getId()}]]
+
+    //点击卡片中间区域跳转到详细内容
+    $("[name='eachAnswer']").click(function () {
+        document.location.href = "/answer/info/" + this.previousElementSibling.value
+    })
+
     $(function () {
         $("#answer").click(function () {
             $("#creation").load("/home/" + userId + "/answer",function (responseTxt, statusTxt, xhr) {
                 console.log($("#answerCart").html(responseTxt))
+                //点击卡片中间区域跳转到详细内容
+                $("[name='eachAnswer']").click(function () {
+                    document.location.href = "/answer/info/" + this.previousElementSibling.value
+                })
             });
         })
         $("#passage").click(function () {
             $("#creation").load("/home/" + userId + "/passage",function (responseTxt, statusTxt, xhr) {
                 console.log($("#passageCart").html(responseTxt))
+                //点击跳转到文章详情
+                $("[name='eachPassage']").click(function () {
+                    document.location.href = "/passage/info/" + this.previousElementSibling.value
+                })
             });
         })
         $("#talk").click(function () {
