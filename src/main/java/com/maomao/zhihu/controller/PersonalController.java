@@ -4,6 +4,7 @@ import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.service.CommentService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,8 @@ public class PersonalController {
 
     @Resource
     UserService userService;
+    @Resource
+    CommentService commentService;
 
     @GetMapping("/home/{userId}")
     public String home(@PathVariable("userId")Long userId, Model model, HttpSession session){
@@ -81,6 +84,9 @@ public class PersonalController {
     public String homeTalk(@PathVariable("userId")Long userId, Model model){
         User userinfo = userService.getUserinfoById(userId);
         sortList.sortTalk(userinfo.getTalk());
+        for (Talk talk : userinfo.getTalk()) {
+            talk.setComments(commentService.getCommentByTalkId(talk.getId()));
+        }
         model.addAttribute("talks", userinfo.getTalk());
         return "homepage :: talkCart";
     }

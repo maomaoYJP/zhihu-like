@@ -21,7 +21,7 @@
     </div>
     <div class="flex flex1" style="margin-top: 16px">
         <div>
-            <img class="m-headPicture-circle" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
+            <img class="m-headPicture-circle" th:src="${passage.getUser().getPortrait()}" alt="">
         </div>
         <div class="flex1" style="margin-left: 8px">
             <div th:text="${passage.getUser().getNickname()}" style="font-size: 12px">毛毛</div>

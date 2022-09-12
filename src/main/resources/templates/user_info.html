@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>用户信息</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
 </head>
 <body class="flex flex1 column" style="margin: 0">
     <div class="m-backcolor">
@@ -13,15 +15,12 @@
     </div>
     <div class="m-mg8">
         <div>
-            <form method="post" enctype="multipart/form-data" id="file_upload">
-                <img id="image-preview" style="border-radius: 50%;width: 50px;height: 50px">
-                <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
-                <p id="info"></p>
-            </form>
+            <img id="image-preview" style="border-radius: 50%;width: 50px;height: 50px" th:src="${userInfo.getPortrait()}">
         </div>
         <div>基本资料</div>
         <div th:if="${my == true}">
             <form th:action="@{/editData/save}" method="post">
+                <input type="text" hidden="true" name="portrait" id="portrait">
                 <input type="text" hidden="true" th:value="${userInfo.getId()}" name="id">
                 <div class="flex flex1" style="margin-top: 8px">
                     <label class="m-font-gray" style="font-size: 13px;margin-right: 8px" for="nickname">昵称</label>
@@ -44,7 +43,7 @@
                     <input th:value="${userInfo.getOccupation()}" type="text" name="occupation" id="occupation" placeholder="职业">
                 </div>
                 <div class="flex flex1" style="justify-content: flex-end;margin-right: 8px">
-                    <button type="submit">保存</button>
+                    <button id="save" type="submit">保存</button>
                 </div>
             </form>
         </div>
@@ -76,34 +75,42 @@
 
     </div>
 </body>
-
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<!-- 引入 layui.js -->
+<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
 <script type="text/javascript">
-    let fileInput = document.getElementById('file');
-    let info = document.getElementById('info');
-    let preview = document.getElementById('image-preview');
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#image-preview' //绑定元素
+            ,url: '/upload' //上传接口
+            ,auto: true //选择文件后自动上传
+            ,bindAction: '#save' //指向一个按钮触发上传
+            ,choose: function(obj){
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
 
-    fileInput.addEventListener("change",function () {
-        preview.style.backgroundImage = "";
-        info.innerHTML = "";
-        if(!fileInput.value){
-            info.innerHTML = "没有选择文件";
-            return ;
-        }
-        let file = fileInput.files[0];
-        let size = file.size;
-        if(size > 1024 * 1024){
-            alert("文件大小超出限制");
-            info.innerHTML = "文件大小超出限制";
-            return false;
-        }
-        // 读取文件
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        //读取完成之后，得到结果，传给preview
-        reader.onload = function (e) {
-            let result = e.target.result;
-            preview.src = result;
-        }
-    })
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                obj.preview(function(index, file, result) {
+                    console.log(index); //得到文件索引
+                    console.log(file); //得到文件对象
+                    console.log(result)
+                    //上传图片预览
+                    $("#image-preview")[0].src = result;
+                })
+            }
+            ,done: function(res){
+                //文件url
+                console.log(res.data)
+                $("#portrait").val(res.data)
+                //上传完毕回调
+            }
+            ,error: function(){
+                $("#portrait").val('[[${userInfo.getPortrait()}]]')
+                //请求异常回调
+            }
+        });
+    });
 </script>
 </html>

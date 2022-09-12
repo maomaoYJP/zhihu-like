@@ -11,6 +11,19 @@
         <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel">推荐</a>
         <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel">热榜</a>
     </div>
+    <!--点击用户自己头像选择框-->
+    <div id="userChoose" hidden="hidden" style="width: 100%; position: fixed; bottom: 0;z-index: 100">
+        <div class="flex flex1 column" style="background-color: white;border-radius: 10px;text-align: center">
+            <div id="write" style="padding-top: 15px;padding-bottom: 15px;border-bottom: 1px solid #EBEBEB">写说说</div>
+            <div id="myPage" style="padding-top: 15px;padding-bottom: 15px;border-bottom: 6px solid #EBEBEB">主页</div>
+            <div id="cancel" style="margin-top: 15px;margin-bottom: 15px">取消</div>
+        </div>
+    </div>
+    <input type="text" hidden="hidden" id="userId" th:value="${user.getId()}">
+    <div class="flex" style="justify-content: flex-end">
+        <div th:text="${user.getNickname()}" style="margin-right: 6px;margin-top: 6px"></div>
+        <img id="user" th:src="${user.getPortrait()}" alt="" style="border-radius: 3px;width: 40px;height: 40px">
+    </div>
     <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
         <input type="text" hidden="hidden" th:value="${talk.getUser().getId()}">
         <div name="user">
@@ -23,7 +36,7 @@
             <input type="text" hidden="hidden" th:value="${talk.getUser().getNickname()}">
             <div name="talk" th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
             <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-            <div style="background-color: #eeeeee;border-radius: 3px;margin-top: 6px">
+            <div th:if="${talk.getComments().size() > 0}" style="background-color: #eeeeee;border-radius: 3px;margin-top: 6px">
                 <div style="margin-bottom: 6px">
                     <div th:fragment="comment-container" id="comment-container">
                         <div th:fragment="commentList">
@@ -118,6 +131,9 @@
 
 
     $("body").click(function (e) {
+        if ($(e.target).closest("#userChoose").length === 0) {
+            $("#userChoose").slideUp()
+        }
         if ($(e.target).closest("#replyBox").length === 0) {
             $("#reply").hide();
             $("#replySend").hide()
@@ -142,6 +158,26 @@
         $("#content").val('')
         $("#reply").val('')
     }
+
+    $("#user").click(function (e) {
+        e.stopPropagation()
+        $("#userChoose").slideToggle()
+    })
+
+    $("#cancel").click(function (e){
+        e.stopPropagation()
+        $("#userChoose").slideUp()
+    })
+
+    $("#myPage").click(function (e) {
+        e.stopPropagation()
+        document.location.href = "/home/" + $("#userId").val()
+    })
+
+    $("#write").click(function (e) {
+        e.stopPropagation()
+        document.location.href = "/talk/write"
+    })
 
 </script>
 </html>

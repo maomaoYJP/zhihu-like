@@ -1,10 +1,7 @@
 package com.maomao.zhihu.controller;
 
 import com.maomao.zhihu.entity.*;
-import com.maomao.zhihu.service.PassageService;
-import com.maomao.zhihu.service.QuestionService;
-import com.maomao.zhihu.service.TalkService;
-import com.maomao.zhihu.service.UserService;
+import com.maomao.zhihu.service.*;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +34,8 @@ public class IndexController {
     PassageService passageService;
     @Resource
     UserService userService;
+    @Resource
+    CommentService commentService;
 
     //首页
     //回答页
@@ -57,9 +56,18 @@ public class IndexController {
 
     //说说页
     @RequestMapping("/talk")
-    public String allTalk(Model model){
+    public String allTalk(Model model,HttpSession session){
+        //用户未登录
+        if(session.getAttribute("user") == null){
+            return "login";
+        }
+        User user1 = (User)session.getAttribute("user");
+        Long id = user1.getId();
+        User user = userService.getById(id);
         List<Talk> talks = talkService.getManyTalk();
+        sortList.sortTalk(talks);
         model.addAttribute("talks", talks);
+        model.addAttribute("user", user);
         return "talk";
     }
 
@@ -110,6 +118,9 @@ public class IndexController {
             model.addAttribute("passages",passage);
             return "follow :: passageCart";
         }else if(requestURL.equals("talk")){
+            for (Talk talk1 : talk) {
+                talk1.setComments(commentService.getCommentByTalkId(talk1.getId()));
+            }
             model.addAttribute("talks",talk);
             return "follow :: talkCart";
         }

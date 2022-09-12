@@ -41,12 +41,34 @@
 <script>
     const { createEditor, createToolbar } = window.wangEditor
 
-    const editorConfig = {
+    const editorConfig = { MENU_CONF: {} ,
         placeholder: 'Type here...',
         onChange(editor) {
             const html = editor.getHtml()
             console.log('editor content', html)
             // 也可以同步到 <textarea>
+        }}
+    editorConfig.MENU_CONF['uploadImage'] = {
+        async customUpload(file, insertFn) {
+            let formData = new FormData();
+            console.log(file)
+            formData.append("file",file)
+            console.log(formData.get("file"))
+            $.ajax({
+                url:"/upload",
+                data: formData,
+                type : 'POST',
+                processData: false,
+                contentType: false,
+                dataType : 'json',
+                success :function(res){
+                    console.log(res)
+                    insertFn(res.data)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
         }
     }
 

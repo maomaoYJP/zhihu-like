@@ -21,7 +21,7 @@
     </div>
     <div class="flex flex1 column m-backcolor" style="margin-bottom: 5px" th:each="question : ${questions}">
         <div>
-            <img alt="" class="m-headPicture-circle m-mg8" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+            <img alt="" class="m-headPicture-circle m-mg8" th:src="${question.getUser().getPortrait()}">
             <span th:text="${question.user.getNickname()}" class="m-font-gray" style="position: absolute;margin-top: 12px;margin-left: 3px;font-size: 10px">毛毛</span>
         </div>
         <input type="text" th:value="${question.getId()}" hidden="hidden">
