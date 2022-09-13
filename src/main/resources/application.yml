@@ -13,11 +13,3 @@ logging:
 #  configuration:
 #    #配置日志
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
----
-server:
-  #端口号
-  port: 8080
-spring:
-  profiles: pro
----
