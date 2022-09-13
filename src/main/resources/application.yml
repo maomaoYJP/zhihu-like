@@ -1,11 +1,6 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zhihu?serverTimezone=GMT%2B8&characterEncoding=utf8&useSSL=true
-    username: root
-    password: maomao
   profiles:
-    active: pro
+    active: dev
 
 logging:
   level:
