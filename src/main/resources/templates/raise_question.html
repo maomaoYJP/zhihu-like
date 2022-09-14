@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>提问题</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
 </head>
 <body class="flex column" style="background-color: #e8e8e8;margin: 0">
 
@@ -29,6 +31,7 @@
         </div>
         <input type="text" hidden="true" th:value="${question.getTitle()}" th:id="question_title + ${question.getId()}">
         <input type="text" hidden="true" th:value="${question.getIntroduce()}" th:id="question_introduce + ${question.getId()}">
+        <input type="text" hidden="true" th:value="${question.getPicture()}" th:id="question_picture + ${question.getId()}">
         <div class="m-mg8">
             <div class="flex" style="justify-content: space-between">
                 <div th:text="${question.getAnswers().size()} + 回答" class="m-font-gray" style="font-size: 10px;margin-top: 8px">10 回答</div>
@@ -60,7 +63,14 @@
                         <label for="title"></label>
                         <input type="text" name="title" id="title" required maxlength="40" minlength="1" placeholder="输入提问的内容" style="width: 90%">
                         <label for="introduce"></label>
-                        <textarea id="introduce" name="introduce" placeholder="对提问内容的补充" style="width: 90%;margin-top: 8px"></textarea>
+                        <textarea id="introduce" name="introduce" placeholder="对提问内容的补充" style="width: 90%;margin-top: 8px" rows="3"></textarea>
+                    </div>
+                    <div class="flex" style="margin-top: 8px;margin-left: 16px">
+                        <div class="flex" style="margin-top: 12px;margin-right: 6px">问题封面(封面):</div>
+                        <div class="flex">
+                            <input hidden="hidden" id="picture" name="picture">
+                            <img id="image-preview" class="m-cover" th:src="@{/image/questionPicture.png}">
+                        </div>
                     </div>
                     <div style="margin-top: 16px;text-align: right;margin-right: 8px;margin-bottom: 8px">
                         <button type="button" id="raise_cancel">取消</button>
@@ -80,6 +90,13 @@
                         <input type="text" hidden="true" id="question_id" name="id">
                         <input type="text" name="title" id="question_title" required maxlength="40" minlength="1" placeholder="输入提问的内容" style="width: 90%">
                         <textarea name="introduce" id="question_introduce" placeholder="对提问内容的补充" style="width: 90%;margin-top: 8px"></textarea>
+                        <input hidden="hidden" id="picture2" name="picture">
+                    </div>
+                    <div class="flex" style="margin-top: 8px;margin-left: 16px">
+                        <div class="flex" style="margin-top: 12px;margin-right: 6px">问题封面(封面):</div>
+                        <div class="flex">
+                            <img id="image-preview2" style="border-radius: 50%;width: 50px;height: 50px">
+                        </div>
                     </div>
                     <div style="margin-top: 16px;text-align: right;margin-right: 8px;margin-bottom: 8px">
                         <button type="button" id="edit_cancel">取消</button>
@@ -89,9 +106,10 @@
             </div>
         </div>
     </div>
-
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<!-- 引入 layui.js -->
+<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
 <script>
     $("[name='eachQuestion']").click(function () {
         document.location.href = "/question/questionAnswer/" + this.previousElementSibling.value
@@ -141,12 +159,58 @@
             let question_id = document.getElementById("question_id");
             let question_title = document.getElementById("question_title" + questionId);
             let question_introduce = document.getElementById("question_introduce" + questionId);
+            let question_picture =  document.getElementById("question_picture" + questionId);
             question_id.value = questionId;
             question_id.nextElementSibling.value = question_title.value;
             question_id.nextElementSibling.nextElementSibling.value = question_introduce.value;
+            question_id.nextElementSibling.nextElementSibling.nextElementSibling.value=question_picture.value
+            $("#image-preview2")[0].src = question_picture.value
 
         })
     }
+    //图片上传
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#image-preview,#image-preview2' //绑定元素
+            ,url: '/upload' //上传接口
+            ,auto: true //选择文件后自动上传
+            ,bindAction: '#save' //指向一个按钮触发上传
+            ,choose: function(obj){
+                //将每次选择的文件追加到文件队列
+                var files = obj.pushFile();
+
+                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+                obj.preview(function(index, file, result) {
+                    console.log(index); //得到文件索引
+                    console.log(file); //得到文件对象
+                    console.log(result)
+                    //上传图片预览
+                    if($("#edit_question")[0].hidden){
+                        $("#image-preview")[0].src = result;
+                    }else{
+                        $("#image-preview2")[0].src = result;
+                    }
+                })
+            }
+            ,done: function(res){
+                //文件url
+                console.log(res.data)
+                if($("#edit_question")[0].hidden){
+                    $("#picture").val(res.data)
+                }else{
+                    $("#picture2").val(res.data)
+                }
+
+                //上传完毕回调
+            }
+            ,error: function(){
+
+                //请求异常回调
+            }
+        });
+    });
 
 </script>
 </html>

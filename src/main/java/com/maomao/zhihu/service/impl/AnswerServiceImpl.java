@@ -45,10 +45,11 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
 
     @Override
     @Transactional
-    public boolean createAnswer(String content, Long questionId, Long userId) {
+    public boolean createAnswer(String content, Long questionId,String picture,Long userId) {
         //创建回答
         Answer answer = new Answer();
         answer.setContent(content);
+        answer.setPicture(picture);
         //自动将answer中 id 和 content注入
         boolean save = answerService.save(answer);
 

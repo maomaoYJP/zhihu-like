@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.maomao.zhihu.entity.Answer">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="views" column="views" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>

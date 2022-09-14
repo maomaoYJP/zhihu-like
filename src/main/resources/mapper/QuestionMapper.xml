@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="picture" column="picture" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="isDelete" column="is_delete" jdbcType="BIT"/>
@@ -29,6 +30,7 @@
         <id property="id" column="question_id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
@@ -52,6 +54,7 @@
         <id property="id" column="question_id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
@@ -65,6 +68,7 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
@@ -74,16 +78,16 @@
         <collection property="answers" select="com.maomao.zhihu.mapper.AnswerMapper.getAnswerById" column="id"/>
     </resultMap>
     <select id="getQuestionById" resultMap="QuestionAnswerResultMap">
-        SELECT a.user_id,a.question_id,answer_id,title,introduce,a.create_time,a.update_time,a.is_delete,b.content,b.views,b.create_time,b.update_time,b.is_delete
- FROM(SELECT * FROM
-(SELECT question_id,a.user_id FROM answer_user a LEFT JOIN question_answer b ON a.answer_id = b.answer_id
-WHERE a.user_id = #{id}) a LEFT JOIN question b ON a.question_id = b.id) a
-LEFT JOIN
-(SELECT question_id,user_id,answer_id,content,views,create_time,update_time,is_delete
-FROM (SELECT question_id, user_id,a.answer_id FROM question_answer a LEFT JOIN answer_user b
-ON a.answer_id = b.answer_id WHERE user_id = #{id}) a
-LEFT JOIN answer b ON a.answer_id = b.id) b
-ON a.question_id = b.question_id
+        SELECT a.user_id,a.question_id,answer_id,title,introduce,a.picture,a.create_time,a.update_time,a.is_delete,b.content,b.views,b.create_time,b.update_time,b.is_delete
+         FROM(SELECT * FROM
+        (SELECT question_id,a.user_id FROM answer_user a LEFT JOIN question_answer b ON a.answer_id = b.answer_id
+        WHERE a.user_id = #{id}) a LEFT JOIN question b ON a.question_id = b.id) a
+        LEFT JOIN
+        (SELECT question_id,user_id,answer_id,content,views,create_time,update_time,is_delete
+        FROM (SELECT question_id, user_id,a.answer_id FROM question_answer a LEFT JOIN answer_user b
+        ON a.answer_id = b.answer_id WHERE user_id = #{id}) a
+        LEFT JOIN answer b ON a.answer_id = b.id) b
+        ON a.question_id = b.question_id
     </select>
     <select id="getManyQuestion" resultMap="ManyQuestionResultMap">
         SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
@@ -97,6 +101,7 @@ ON a.question_id = b.question_id
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
@@ -116,6 +121,7 @@ ON a.question_id = b.question_id
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>

@@ -18,7 +18,7 @@
             <div class="flex column m-mg8">
                 <input th:value="${follow.getId()}" hidden="true" name="followId"/>
                 <div th:text="${follow.getNickname()}" style="font-size: 13px" >毛毛</div>
-                <div th:text="${follow.getIntroduce()}" class="m-font-gray" style="font-size: 10px">这是关注列表</div>
+                <div th:text="${follow.getIntroduce().length() > 11 ? follow.getIntroduce().substring(0,11) : follow.getIntroduce()}" class="m-font-gray" style="font-size: 10px">这是关注列表</div>
             </div>
             <div class="flex1" style="text-align: right">
                 <button th:if="${followStat.index <= followSize - 1}" value="1" name="follow-btn" class="m-cancelFollow" style="margin-right: 8px;margin-top: 14px">取关</button>

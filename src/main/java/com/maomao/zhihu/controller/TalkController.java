@@ -44,6 +44,7 @@ public class TalkController {
         Long id = user.getId();
         User userinfo = userService.getUserinfoById(id);
         List<Talk> talks = userinfo.getTalk();
+        sortList.sortTalk(talks);
         model.addAttribute("talks",talks);
         return "talk_manage";
     }

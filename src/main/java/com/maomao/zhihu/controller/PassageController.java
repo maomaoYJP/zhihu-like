@@ -37,8 +37,16 @@ public class PassageController {
         Long id = user.getId();
         User userinfo = userService.getUserinfoById(id);
         List<Passage> passages = userinfo.getPassage();
+        sortList.sortPassage(passages);
         model.addAttribute("passages",passages);
         return "passage_manage";
+    }
+
+    @GetMapping("/passage/update/{passageId}")
+    public String updatePassage(@PathVariable("passageId")Long passageId, Model model){
+        Passage passage = passageService.getById(passageId);
+        model.addAttribute("passage", passage);
+        return "update_passage";
     }
 
     @GetMapping("/passage/delete/{passageId}")

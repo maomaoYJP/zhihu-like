@@ -27,11 +27,11 @@
             <input type="text" hidden="hidden" th:value="${question.getAnswers().get(0).getId()}">
             <div class="flex flex1" style="margin-left: 8px" name="eachAnswer">
                 <div class="flex column" style="flex: 3">
-                    <div th:text="${question.getAnswers().get(0).getContent().length() > 30 ? question.getAnswers().get(0).getContent().substring(0,30) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                    <div th:text="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 6px">2022-08-09</div>
                 </div>
-                <div>
-                    <img alt="" style="width: 80px;height: 60px;margin-right: 8px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                <div th:if="${!#strings.isEmpty(question.getPicture())}">
+                    <img alt="" class="m-cardPicture" th:src="${question.getPicture()}">
                 </div>
             </div>
             <div class="flex" style="justify-content: space-between">

@@ -71,10 +71,10 @@
                                 <div th:text="${question.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:utext="${question.getAnswers().get(0).getContent().length() > 30 ? question.getAnswers().get(0).getContent().substring(0,30) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:utext="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
-                                    <div style="flex: 1">
-                                        <img alt="" class="m-cardPicture" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                                    <div class="flex1" th:if="${!#strings.isEmpty(question.getAnswers().get(0).getPicture())}">
+                                        <img alt="" class="m-cardPicture" th:src="${question.getAnswers().get(0).getPicture()}">
                                     </div>
                                 </div>
                                 <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
@@ -98,10 +98,10 @@
                                 <div th:text="${passage.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:utext="${passage.getContent().length() > 30 ? passage.getContent().substring(0,30) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:utext="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
-                                    <div style="flex: 1">
-                                        <img alt="" style="width: 60px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                                    <div class="flex1" th:if="${!#strings.isEmpty(passage.getPicture())}">
+                                        <img alt="" class="m-cardPicture" th:src="${passage.getPicture()}">
                                     </div>
                                 </div>
                                 <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>

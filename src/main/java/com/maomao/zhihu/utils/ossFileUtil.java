@@ -3,6 +3,11 @@ package com.maomao.zhihu.utils;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.ObjectMetadata;
+import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -12,12 +17,19 @@ import java.io.InputStream;
  * @author maomao
  * 2022/9/12 14:54
  */
+@Component
+@Data
 public class ossFileUtil {
-    public static String uploadAliyun(MultipartFile file, String fileName) throws IOException {
+    @Value("${aliyun.oss.accessKey}")
+    private String accessKeyId;
+    @Value("${aliyun.oss.accessSecret}")
+    private String accessKeySecret;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    public String uploadAliyun(MultipartFile file, String fileName) throws IOException {
         // 1 获取上传需要的固定值
         String endpoint ="oss-cn-guangzhou.aliyuncs.com";      //你的站点
-        String accessKeyId = "LTAI5tA7EDQXcfZjQdaE8bcG";  //你的acess_key_id
-        String accessKeySecret = "xkfXhQllxXfkkd1lOlSFvARRI8pzjc"; //你的acess_key_secret
         String bucketName = "maomao-image";		//你的bucket_name
         //外面获取文件输入流，最后方便关闭
         InputStream in = file.getInputStream();

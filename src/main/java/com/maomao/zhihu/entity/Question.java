@@ -32,6 +32,11 @@ public class Question implements Serializable {
     private String introduce;
 
     /**
+     * 问题图片
+     */
+    private String picture;
+
+    /**
      * 创建时间
      */
     private Date createTime;

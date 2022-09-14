@@ -27,6 +27,11 @@ public class Answer implements Serializable {
     private String content;
 
     /**
+     * 图片
+     */
+    private String picture;
+
+    /**
      * 浏览量
      */
     private Long views;

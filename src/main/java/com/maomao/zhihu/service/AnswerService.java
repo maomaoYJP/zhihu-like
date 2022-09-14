@@ -19,7 +19,7 @@ public interface AnswerService extends IService<Answer> {
     boolean deleteAnswer(Long answerId);
 
     //创建回答
-    boolean createAnswer(String content,Long questionId, Long UserId);
+    boolean createAnswer(String content,Long questionId, String picture ,Long UserId);
 
     //创建回答评论
     boolean createAnswerComment(Long userId, Long answerId, Comment comment);

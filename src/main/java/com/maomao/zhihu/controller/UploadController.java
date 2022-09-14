@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,10 @@ import java.util.Random;
  */
 @Controller
 public class UploadController {
+
+    @Resource
+    ossFileUtil ossFileUtil;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping("/upload")

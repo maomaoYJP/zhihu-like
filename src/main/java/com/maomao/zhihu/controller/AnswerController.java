@@ -45,6 +45,7 @@ public class AnswerController {
         Long id = user.getId();
         User userinfo = userService.getUserinfoById(id);
         List<Question> questions = userinfo.getQuestion();
+        sortList.sortQuestion(questions);
         model.addAttribute("questions",questions);
         return "answer_manage";
     }
@@ -99,7 +100,7 @@ public class AnswerController {
     //创建回答
     @PostMapping("/answer/add")
     @ResponseBody
-    public String answerAdd(String content,Long questionId, HttpSession session){
+    public String answerAdd(String content,Long questionId,String picture, HttpSession session){
         //用户未登录
         if(session.getAttribute("user") == null){
             return "redirect:/login";
@@ -108,7 +109,7 @@ public class AnswerController {
         Long id = user.getId();
 
         //保存回答，及建立表对应关系
-        boolean answer = answerService.createAnswer(content, questionId, id);
+        boolean answer = answerService.createAnswer(content, questionId, picture ,id);
         return String.valueOf(questionId);
     }
 }
