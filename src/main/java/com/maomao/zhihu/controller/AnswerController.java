@@ -1,12 +1,10 @@
 package com.maomao.zhihu.controller;
 
-import com.maomao.zhihu.entity.Comment;
-import com.maomao.zhihu.entity.Passage;
-import com.maomao.zhihu.entity.Question;
-import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.entity.*;
 import com.maomao.zhihu.service.AnswerService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
+import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,19 +34,43 @@ public class AnswerController {
     QuestionService questionService;
 
     @GetMapping("/answer/manage")
-    public String answerManager(HttpSession session, Model model){
+    public String answerManager(HttpSession session, Model model) {
         //用户未登录
-        if(session.getAttribute("user") == null){
+        if (session.getAttribute("user") == null) {
             return "personal";
         }
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         Long id = user.getId();
         User userinfo = userService.getUserinfoById(id);
         List<Question> questions = userinfo.getQuestion();
         sortList.sortQuestion(questions);
-        model.addAttribute("questions",questions);
+        for (Question question : questions) {
+            question.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question.getAnswers().get(0).getContent()));
+        }
+        model.addAttribute("questions", questions);
         return "answer_manage";
     }
+
+    //修改回答页面
+    @GetMapping("/answer/update/{questionId}/{answerId}")
+    public String updatePassage(@PathVariable("questionId")Long questionId,@PathVariable("answerId")Long answerId, Model model){
+        Answer answer = answerService.getById(answerId);
+        Question question = questionService.getById(questionId);
+        model.addAttribute("answer", answer);
+        model.addAttribute("question", question);
+        return "update_answer";
+    }
+
+    @PostMapping("/answer/update")
+    @ResponseBody
+    public String updatePassage(Answer answer, Model model){
+        if(answerService.updateById(answer)){
+            return "success";
+        }else{
+            return "error";
+        }
+    }
+
 
     //删除回答
     @GetMapping("/answer/delete/{answerId}")

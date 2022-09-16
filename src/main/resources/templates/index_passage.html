@@ -43,7 +43,7 @@
                             <img th:src="${passage.getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                             <span th:text="${passage.getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
                         </div>
-                        <div th:utext="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                        <div th:text="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     </div>
                     <div th:if="${!#strings.isEmpty(passage.getPicture())}">
                         <img alt="" class="m-cardPicture" th:src="${passage.getPicture()}">

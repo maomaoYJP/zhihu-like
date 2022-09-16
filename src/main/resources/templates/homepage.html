@@ -58,7 +58,7 @@
             <div id="creation">
                 <!--回答-->
                 <div th:fragment="answerCart" id="answerCart">
-                    <div class="flex flex1 column m-backcolor" th:if="${!#strings.isEmpty(questions)}" style="margin-bottom: 10px" th:each="question : ${questions}">
+                    <div class="flex flex1 column m-backcolor" th:if="${!#strings.isEmpty(questions)}" style="margin-bottom: 6px" th:each="question : ${questions}">
                         <div class="m-mg8 flex flex1">
                             <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" th:src="${question.getAnswers().get(0).getUser().getPortrait()}" alt="">
                             <div th:text="${question.getAnswers().get(0).getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
@@ -71,7 +71,7 @@
                                 <div th:text="${question.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:utext="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:text="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
                                     <div class="flex1" th:if="${!#strings.isEmpty(question.getAnswers().get(0).getPicture())}">
                                         <img alt="" class="m-cardPicture" th:src="${question.getAnswers().get(0).getPicture()}">
@@ -79,13 +79,12 @@
                                 </div>
                                 <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px">100 赞同 100收藏</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <!--文章-->
                 <div th:fragment="passageCart" id="passageCart">
-                    <div class="flex flex1 column m-backcolor" style="margin-bottom: 10px" th:each="passage : ${passages}">
+                    <div class="flex flex1 column m-backcolor" style="margin-bottom: 6px" th:each="passage : ${passages}">
                         <div class="m-mg8 flex flex1">
                             <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" th:src="${passage.getUser().getPortrait()}" alt="">
                             <div th:text="${passage.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
@@ -98,7 +97,7 @@
                                 <div th:text="${passage.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                                 <div class="flex flex1" style="margin-left: 8px">
                                     <div class="flex column" style="flex: 3">
-                                        <div th:utext="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                        <div th:text="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                                     </div>
                                     <div class="flex1" th:if="${!#strings.isEmpty(passage.getPicture())}">
                                         <img alt="" class="m-cardPicture" th:src="${passage.getPicture()}">

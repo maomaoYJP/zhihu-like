@@ -1,8 +1,10 @@
 package com.maomao.zhihu.controller;
 
+import com.maomao.zhihu.entity.Answer;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.QuestionService;
+import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +66,9 @@ public class QuestionController {
     @GetMapping("/question/questionAnswer/{questionId}")
     public String questionAnswer(@PathVariable("questionId")Long questionId, Model model){
         Question question = questionService.getQuestionByQuestionId(questionId);
-        System.out.println(question);
+        for (Answer answer : question.getAnswers()) {
+            answer.setContent(HTMLFilter.delHTMLTag(answer.getContent()));
+        }
         model.addAttribute("question", question);
         return "answer_list";
     }

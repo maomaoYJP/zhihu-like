@@ -2,6 +2,7 @@ package com.maomao.zhihu.controller;
 
 import com.maomao.zhihu.entity.*;
 import com.maomao.zhihu.service.*;
+import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,11 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model){
         List<Question> questions = questionService.getManyQuestion();
+        for (Question question : questions) {
+            if(question.getAnswers().size() != 0){
+                question.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question.getAnswers().get(0).getContent()));
+            }
+        }
         model.addAttribute("questions", questions);
         return "index";
     }
@@ -50,6 +56,9 @@ public class IndexController {
     @RequestMapping("/passage")
     public String indexPassage(Model model){
         List<Passage> passageList = passageService.getAllPassage();
+        for (Passage passage : passageList) {
+            passage.setContent(HTMLFilter.delHTMLTag(passage.getContent()));
+        }
         model.addAttribute("passageList",passageList);
         return "index_passage";
     }
@@ -112,9 +121,15 @@ public class IndexController {
         String[] split = request.getRequestURL().toString().split("/");
         String requestURL = split[split.length - 1];
         if(requestURL.equals("answer")){
+            for (Question question1 : question) {
+                question1.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question1.getAnswers().get(0).getContent()));
+            }
             model.addAttribute("questions",question);
             return "follow :: answerCart";
         }else if(requestURL.equals("passage")){
+            for (Passage passage1 : passage) {
+                passage1.setContent(HTMLFilter.delHTMLTag(passage1.getContent()));
+            }
             model.addAttribute("passages",passage);
             return "follow :: passageCart";
         }else if(requestURL.equals("talk")){
@@ -123,6 +138,9 @@ public class IndexController {
             }
             model.addAttribute("talks",talk);
             return "follow :: talkCart";
+        }
+        for (Question question1 : question) {
+            question1.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question1.getAnswers().get(0).getContent()));
         }
         model.addAttribute("questions",question);
         return "follow";
@@ -147,7 +165,9 @@ public class IndexController {
         //浏览数
         int views = 0;
         for (Question question : userinfo.getQuestion()) {
-            views += question.getAnswers().get(0).getViews();
+            if(question.getAnswers().size() != 0){
+                views += question.getAnswers().get(0).getViews();
+            }
         }
         for (Passage passage : userinfo.getPassage()) {
             views += passage.getViews();
@@ -159,6 +179,17 @@ public class IndexController {
         return "personal";
     }
 
+    //找到我
+    @GetMapping("/findMe")
+    public String findMe(){
+        return "find_me";
+    }
+
+    //问题建议
+    @GetMapping("/help")
+    public String suggestion(){
+        return "help";
+    }
 }
 
 class sortList{

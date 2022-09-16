@@ -28,7 +28,7 @@
     </delete>
 
     <select id="getAnswerById" resultMap="BaseResultMap">
-         SELECT a.id, a.content, a.views, a.create_time, a.update_time, a.is_delete, c.user_id FROM answer a
+         SELECT a.id, a.content,a.picture, a.views, a.create_time, a.update_time, a.is_delete, c.user_id FROM answer a
         LEFT JOIN question_answer b ON a.id = b.answer_id
         LEFT JOIN answer_user c ON c.answer_id = a.id
         WHERE b.question_id = #{id}

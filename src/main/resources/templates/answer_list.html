@@ -35,7 +35,7 @@
                 </div>
                 <input hidden="true" th:value="${answer.getId()}">
                 <div class="flex flex1 m-answerInfo" style="margin-top: 8px">
-                    <div th:utext="${answer.getContent().length() > 60 ? answer.getContent().substring(0,60) : answer.getContent()}" style="font-size: 10px;flex: 3">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                    <div th:text="${answer.getContent().length() > 60 ? answer.getContent().substring(0,60) : answer.getContent()}" style="font-size: 10px;flex: 3">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     <div th:if="${!#strings.isEmpty(answer.getPicture())}">
                         <img alt="" class="m-cardPicture" th:src="${answer.getPicture()}">
                     </div>

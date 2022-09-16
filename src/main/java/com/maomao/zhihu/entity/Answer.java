@@ -61,15 +61,4 @@ public class Answer implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    @Override
-    public String toString() {
-        return "Answer{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", isDelete=" + isDelete +
-                ", user=" + user +
-                '}';
-    }
 }

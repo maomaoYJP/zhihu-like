@@ -6,6 +6,7 @@ import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.service.UserService;
+import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,9 @@ public class PassageController {
         Long id = user.getId();
         User userinfo = userService.getUserinfoById(id);
         List<Passage> passages = userinfo.getPassage();
+        for (Passage passage : passages) {
+            passage.setContent(HTMLFilter.delHTMLTag(passage.getContent()));
+        }
         sortList.sortPassage(passages);
         model.addAttribute("passages",passages);
         return "passage_manage";
@@ -47,6 +51,16 @@ public class PassageController {
         Passage passage = passageService.getById(passageId);
         model.addAttribute("passage", passage);
         return "update_passage";
+    }
+
+    @PostMapping("/passage/update")
+    @ResponseBody
+    public String updatePassage(Passage passage, Model model){
+        if(passageService.updateById(passage)){
+            return "success";
+        }else{
+            return "error";
+        }
     }
 
     @GetMapping("/passage/delete/{passageId}")

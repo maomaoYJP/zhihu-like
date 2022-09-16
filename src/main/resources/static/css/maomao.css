@@ -35,6 +35,12 @@
     color: #222222;
 }
 
+/*字体*/
+.m-content-font{
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
 /*布局*/
 .m-mg8{
     margin-left: 8px;

@@ -45,7 +45,9 @@ public class CreationController {
         //获得浏览量
         int views = 0;
         for (Question question : userinfo.getQuestion()) {
-            views += question.getAnswers().get(0).getViews();
+            if(question.getAnswers().size() > 0){
+                views += question.getAnswers().get(0).getViews();
+            }
         }
         for (Passage passage : userinfo.getPassage()) {
             views += passage.getViews();

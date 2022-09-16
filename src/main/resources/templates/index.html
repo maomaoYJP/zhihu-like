@@ -44,7 +44,7 @@
                                     <img th:src="${question.getAnswers().get(0).getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                                     <span th:text="${question.getAnswers().get(0).getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
                                 </div>
-                                <div th:utext="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                <div th:text="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                             </div>
                             <div th:if="${!#strings.isEmpty(question.getAnswers().get(0).getPicture())}">
                                 <img alt="" class="m-cardPicture" th:src="${question.getAnswers().get(0).getPicture()}">

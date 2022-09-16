@@ -7,6 +7,7 @@ import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.CommentService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
+import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -55,6 +56,9 @@ public class PersonalController {
         //sortList.sortPassage(userinfo.getPassage());
         //sortList.sortTalk(userinfo.getTalk());
 
+        for (Question question : userinfo.getQuestion()) {
+            question.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question.getAnswers().get(0).getContent()));
+        }
         model.addAttribute("questions",userinfo.getQuestion());
         //model.addAttribute("passages",userinfo.getPassage());
         //model.addAttribute("talks",userinfo.getTalk());
@@ -68,6 +72,9 @@ public class PersonalController {
     public String homeAnswer(@PathVariable("userId")Long userId, Model model){
         User userinfo = userService.getUserinfoById(userId);
         sortList.sortQuestion(userinfo.getQuestion());
+        for (Question question : userinfo.getQuestion()) {
+            question.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question.getAnswers().get(0).getContent()));
+        }
         model.addAttribute("questions", userinfo.getQuestion());
         return "homepage :: answerCart";
     }
@@ -76,6 +83,9 @@ public class PersonalController {
     public String homePassage(@PathVariable("userId")Long userId, Model model){
         User userinfo = userService.getUserinfoById(userId);
         sortList.sortPassage(userinfo.getPassage());
+        for (Passage passage : userinfo.getPassage()) {
+            passage.setContent(HTMLFilter.delHTMLTag(passage.getContent()));
+        }
         model.addAttribute("passages", userinfo.getPassage());
         return "homepage :: passageCart";
     }
