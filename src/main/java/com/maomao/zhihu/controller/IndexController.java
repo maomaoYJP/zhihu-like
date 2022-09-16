@@ -6,10 +6,7 @@ import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.net.ssl.HttpsURLConnection;
@@ -37,6 +34,8 @@ public class IndexController {
     UserService userService;
     @Resource
     CommentService commentService;
+    @Resource
+    SuggestionService suggestionService;
 
     //首页
     //回答页
@@ -189,6 +188,20 @@ public class IndexController {
     @GetMapping("/help")
     public String suggestion(){
         return "help";
+    }
+
+    //保存问题建议
+    @PostMapping("/help")
+    @ResponseBody
+    public String sendSuggestion(String content){
+        Suggestion suggestion = new Suggestion();
+        suggestion.setContent(content);
+        if(suggestionService.save(suggestion)){
+            return "success";
+        }else{
+            return "fail";
+        }
+
     }
 }
 
