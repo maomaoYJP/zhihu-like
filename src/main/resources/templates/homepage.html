@@ -13,7 +13,7 @@
 <body class="flex flex1 column" style="margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <a th:href="@{/personal}" class="m-font-gray m-underlineCancel">返回</a>
+            <div class="m-font-gray" id="return">返回</div>
         </div>
     </div>
     <div class="flex flex1 column">
@@ -218,6 +218,10 @@
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script>
+    //点击返回，去到上一个页面
+    $("#return").click(function () {
+        window.history.back()
+    })
     const userId = [[${user.getId()}]]
 
     //点击卡片中间区域跳转到详细内容

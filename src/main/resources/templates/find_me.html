@@ -8,35 +8,42 @@
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <div class="m-font-gray">返回</div>
-            <div class="flex1" style="text-align: center">关于我</div>
+            <div class="flex1 m-font-gray" id="return">返回</div>
+            <div class="flex1" style="text-align: center;margin-left: -25px">关于我</div>
         </div>
     </div>
     <div class="flex flex1 column">
         <div class="m-backcolor">
-            <div class="flex flex1 m-mg8">
+            <div class="flex column m-mg8">
                 <div>微信: </div>
-                <div>13168074611</div>
+                <div>maomaoYJP</div>
             </div>
         </div>
         <div class="m-backcolor" style="margin-top: 6px">
-            <div class="flex flex1 m-mg8">
+            <div class="flex column m-mg8">
                 <div>QQ: </div>
                 <div>2081498716</div>
             </div>
         </div>
         <div class="m-backcolor" style="margin-top: 6px">
-            <div class="flex flex1 m-mg8">
+            <div class="flex column m-mg8">
                 <div>邮箱: </div>
-                <div>2081498716@qq.com</div>
+                <span>2081498716@qq.com</span>
             </div>
         </div>
         <div class="m-backcolor" style="margin-top: 6px">
-            <div class="flex flex1 m-mg8">
+            <div class="flex column m-mg8">
                 <div>GitHub: </div>
-                <div></div>
+                <span>github.com/maomaoYJP/zhihu-like</span>
             </div>
         </div>
     </div>
 </body>
+<script>
+    //点击返回，去到上一个页面
+    let re = document.getElementById("return");
+    re.addEventListener("click",function () {
+        window.history.back()
+    })
+</script>
 </html>

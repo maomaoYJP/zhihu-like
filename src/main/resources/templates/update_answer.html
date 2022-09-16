@@ -19,7 +19,7 @@
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
 <div class="m-backcolor">
     <div class="flex m-mg8">
-        <a class="m-font-gray m-underlineCancel">返回</a>
+        <div class="m-font-gray" id="return">返回</div>
         <div class="flex1" style="text-align: center;margin-right: 40px">回答</div>
     </div>
 </div>
@@ -54,6 +54,10 @@
 <!-- 引入 layui.js -->
 <script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
 <script>
+    //点击返回，去到上一个页面
+    $("#return").click(function () {
+        window.history.back()
+    })
     const { createEditor, createToolbar } = window.wangEditor
 
     const editorConfig = { MENU_CONF: {} ,
