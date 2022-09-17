@@ -102,7 +102,7 @@
     answer_btn.addEventListener("click",function () {
         let answer = {"content" : editor.getHtml(), "questionId" : [[${question.getId()}]],"picture" : $("#picture").val()};
         $.ajax({
-            url:"http://localhost:8080/answer/add",
+            url:"/answer/add",
             data: answer,
             type : 'POST',
             dataType : 'text',

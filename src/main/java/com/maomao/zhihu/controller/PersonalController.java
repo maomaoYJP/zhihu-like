@@ -253,9 +253,7 @@ public class PersonalController {
 
     @PostMapping("/editData/save")
     @Transactional
-    public String saveUserData(User user,String birthdayString){
-        Date date = Date.valueOf(birthdayString);
-        user.setBirthday(date);
+    public String saveUserData(User user){
         userService.saveEditData(user);
         return "redirect:/editData";
     }

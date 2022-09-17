@@ -10,7 +10,7 @@
         <div th:if="${!#strings.isEmpty(session.get('user'))}" class="flex flex1">
             <div class="flex flex1 m-mg8">
                 <img style="border-radius: 50%;width: 40px;height: 40px" th:src="${session.get('user').getPortrait()}" alt="">
-                <div style="margin-top: 8px;margin-left: 6px">毛毛</div>
+                <div th:text="${session.get('user').getNickname()}" style="margin-top: 8px;margin-left: 6px">毛毛</div>
             </div>
             <a th:href="@{/home/{userId}(userId=${session.get('user').getId()})}" class="flex flex1 m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">个人主页</a>
         </div>

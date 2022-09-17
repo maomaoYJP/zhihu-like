@@ -3,82 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
+    <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <link rel="stylesheet" href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}"/>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        html {
-            height: 100%;
-        }
-        body {
-            height: 100%;
-        }
-        .container {
-            height: 100%;
-            background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
-        }
-        .login-wrapper {
-            background-color: #fff;
-            width: 358px;
-            height: 588px;
-            border-radius: 15px;
-            padding: 0 50px;
-            position: relative;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .header {
-            font-size: 38px;
-            font-weight: bold;
-            text-align: center;
-            line-height: 200px;
-        }
-        .input-item {
-            display: block;
-            width: 100%;
-            margin-bottom: 20px;
-            border: 0;
-            padding: 10px;
-            border-bottom: 1px solid rgb(128, 125, 125);
-            font-size: 15px;
+        .input{
+            width: 95%;
+            border-top: white;
+            border-left: white;
+            border-right: white;
+            border-bottom: 1.5px solid #d2d2d2;
             outline: none;
         }
-        .input-item:placeholder {
-            text-transform: uppercase;
+        .skip{
+            color: gray;
+            font-size: 14px;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            margin-right: 6px;
         }
-        .btn {
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            margin-top: 40px;
-            background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
-            color: #fff;
+
+        .login-btn{
+            width: 95%;
+            height: 35px;
+            border-radius: 20px;
+            border: none;
+            background-color: #e72020;
+            color: white;
+            letter-spacing: 2px;
+            text-decoration: none;
+            box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+            cursor: pointer;
+            outline: none;
+            transition-duration: 0.15s;
         }
-        .msg {
-            text-align: center;
-            line-height: 88px;
+        .login-btn:active {
+            transform: scale(0.9);
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
         }
-        a {
-            text-decoration-line: none;
-            color: #abc1ee;
+        .error-input::-webkit-input-placeholder{
+            color: #f62525;
+        }
+
+        .mg8{
+            margin-left: 8px;
+            margin-bottom: 8px;
+            -webkit-input
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="login-wrapper">
-        <div class="header">Login</div>
-        <div class="form-wrapper">
-            <form method="POST" th:action="@{/login}">
-                <input type="text" name="username" placeholder="username" class="input-item">
-                <input type="password" name="password" placeholder="password" class="input-item">
-                <button type="submit" class="btn">登录</button>
-            </form>
-
+<body class="flex column" style="justify-content: center;align-items: center;height: 100vh" >
+    <div id="login" class="flex column" style="justify-content: center;align-items: center;height: 100vh;width: 100%">
+        <div class="flex" style="flex: 2;width: 100%;align-items: flex-end">
+            <span style="font-size: 25px;letter-spacing: 16px" class="m-mg8">登录</span>
         </div>
+        <div class="flex column" style="flex: 3;justify-content: space-evenly;width: 100%;margin-top: -20px">
+            <div class="flex">
+                <label for="username"></label>
+                <input id="username" placeholder="请输入账号" class="input" style="margin: auto">
+            </div>
+            <div class="flex">
+                <label for="password"></label>
+                <input id="password" placeholder="请输入密码" class="input" style="margin: auto">
+            </div>
+            <div class="flex column">
+                <div id="register_page" class="flex skip" style="justify-content: flex-end">没有账号？注册</div>
+                <div class="flex flex1" style="justify-content: center">
+                    <button id="login_btn" class="login-btn">登录</button>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 2;width: 100%"></div>
     </div>
-</div>
+    <!--注册-->
+    <div id="register" class="flex column" style="display: none;justify-content: center;align-items: center;height: 100vh;width: 100%">
+        <div class="flex" style="flex: 2;width: 100%;align-items: flex-end">
+            <span style="font-size: 25px;letter-spacing: 16px" class="m-mg8">注册</span>
+        </div>
+        <div class="flex column" style="flex: 5;justify-content: space-evenly;width: 100%;margin-top: -20px">
+            <div class="flex">
+                <label for="nickname"></label>
+                <input id="nickname" placeholder="请输入昵称" class="input" style="margin: auto;">
+            </div>
+            <div class="flex">
+                <label for="username"></label>
+                <input id="username_register" placeholder="请输入账号" class="input" style="margin: auto">
+            </div>
+            <div class="flex">
+                <label for="password"></label>
+                <input id="password_register" placeholder="请输入密码" class="input" style="margin: auto">
+            </div>
+            <div class="flex">
+                <label for="password_check"></label>
+                <input id="password_check" placeholder="请再次输入密码" class="input" style="margin: auto">
+            </div>
+            <div class="flex column">
+                <div id="login_page" class="flex skip" style="justify-content: flex-end;margin-top: -10px">已有账号？登录</div>
+                <div class="flex flex1" style="justify-content: center">
+                    <button id="register_btn" class="login-btn">注册</button>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 2;width: 100%"></div>
+    </div>
+
 </body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script>
+    //点击登录按钮进行登录
+    $("#login_btn").click(function () {
+        let user = {"username" : $("#username").val(), "password" : $("#password").val()}
+        $.ajax({
+            url:"/login",
+            data: user,
+            type : 'POST',
+            dataType : 'text',
+            success :function(data){
+                //发送成功返回首页
+                if(data === "success"){
+                    document.location.href = "/";
+                }else{
+                    document.location.href = "/login";
+                    alert("账号或密码错误")
+                }
+            }
+        })
+    })
+
+    //判断昵称是否可用
+    $("#nickname").blur(function () {
+        let nickname = $(this).val()
+        //不为空
+        if(nickname === ''){
+            $(this).css("border-bottom-color", "#f62525")
+            $(this).addClass("error-input")
+            $(this).attr("placeholder", "昵称不可为空")
+        }else{
+            //存入变量，减少dom查找
+            let nickname1 = $("#nickname");
+            //异步查询数据库，不可以重复
+            $.ajax({
+                url:"/register/checkNickname",
+                data: {"nickname" : nickname},
+                type : 'POST',
+                dataType : 'text',
+                success :function(data){
+                    //发送成功返回首页
+                    if(data === "success"){
+                        nickname1.css("border-bottom-color", "#f62525")
+                        nickname1.addClass("error-input")
+                        nickname1.val('')
+                        nickname1.attr("placeholder",  nickname + " 已被占用")
+                    }else{
+                        nickname1.css("border-bottom-color", "#4dd734")
+                    }
+                }
+            })
+        }
+    })
+
+    //判断账号是否可用
+    $("#username_register").blur(function () {
+        let username = $("#username_register").val()
+        if(username === ''){
+            $(this).css("border-bottom-color", "#f62525")
+            $(this).addClass("error-input")
+            $(this).attr("placeholder", "账号不可为空")
+        }else{
+            let username1 = $("#username_register")
+            //异步查询数据库，不可以重复
+            $.ajax({
+                url:"/register/checkUsername",
+                data: {"username" : username},
+                type : 'POST',
+                dataType : 'text',
+                success :function(data){
+                    //发送成功返回首页
+                    if(data === "success"){
+                        username1.css("border-bottom-color", "#f62525")
+                        username1.addClass("error-input")
+                        username1.val('')
+                        username1.attr("placeholder",  username + " 已被占用")
+                    }else{
+                        username1.css("border-bottom-color", "#4dd734")
+                    }
+                }
+            })
+        }
+    })
+    //判断密码不为空
+    $("#password_register").blur(function () {
+        if($(this).val() ===''){
+            $("#password_register").css("border-bottom-color", "#f62525")
+        }else{
+            $("#password_register").css("border-bottom-color", "#4dd734")
+        }
+    })
+
+    //判断两次密码是否一样
+    $("#password_check").blur(function () {
+        if($(this).val() != $("#password_register").val()){
+            $(this).css("border-bottom-color", "#f62525")
+        }else{
+            $(this).css("border-bottom-color", "#4dd734")
+        }
+    })
+
+    //点击注册按钮，注册用户
+    $("#register_btn").click(function () {
+        let nickname = $("#nickname");
+        let username = $("#username_register");
+        let password = $("#password_register");
+        let passwordCheck = $("#password_check");
+
+        if(nickname.css("border-bottom-color") === "rgb(246, 37, 37)" ||
+            username.css("border-bottom-color") === "rgb(246, 37, 37)"||
+            password.css("border-bottom-color") === "rgb(246, 37, 37)"||
+            passwordCheck.css("border-bottom-color") === "rgb(246, 37, 37)"){
+            alert("请正确输入注册信息")
+        }else if(nickname.css("border-bottom-color") === "rgb(210, 210, 210)" ||
+            username.css("border-bottom-color") === "rgb(210, 210, 210)"||
+            password.css("border-bottom-color") === "rgb(210, 210, 210)"||
+            passwordCheck.css("border-bottom-color") === "rgb(210, 210, 210)"){
+            alert("请完整填写信息")
+        }else{
+            //注册用户
+            $.ajax({
+                url:"/register",
+                data: {"nickname" : nickname.val(),"username" : username.val(), "password" : password.val()},
+                type : 'POST',
+                dataType : 'text',
+                success :function(data){
+                    //注册成功返回登录页面
+                    if(data === "success"){
+                        alert("注册成功")
+                        $("#register").removeClass("animated bounceInRight")
+                        $("#register").addClass("animated bounceOutRight")
+                        setTimeout(function () {
+                            $("#register").css("display", 'none')
+                            $("#login").css("display", '')
+                            $("#login").removeClass("animated bounceOutLeft")
+                            $("#login").addClass("animated bounceInLeft")
+                        },300)
+                    }else{
+                        alert("注册失败，请稍后再试")
+                    }
+                }
+            })
+        }
+    })
+
+    //点击跳转到注册页面
+    $("#register_page").click(function () {
+        $("#login").removeClass("animated bounceInLeft")
+        $("#login").addClass("animated bounceOutLeft")
+        setTimeout(function () {
+            $("#login").css("display", 'none')
+            $("#register").css("display", '')
+            $("#register").removeClass("animated bounceOutRight")
+            $("#register").addClass("animated bounceInRight")
+        },300)
+    })
+
+    //点击跳转到登录页面
+    $("#login_page").click(function () {
+        $("#register").removeClass("animated bounceInRight")
+        $("#register").addClass("animated bounceOutRight")
+        setTimeout(function () {
+            $("#register").css("display", 'none')
+            $("#login").css("display", '')
+            $("#login").removeClass("animated bounceOutLeft")
+            $("#login").addClass("animated bounceInLeft")
+        },300)
+    })
+</script>
 </html>

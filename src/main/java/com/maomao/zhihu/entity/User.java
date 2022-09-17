@@ -54,7 +54,7 @@ public class User implements Serializable {
     /**
      * 生日
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * 职业
