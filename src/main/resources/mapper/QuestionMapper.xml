@@ -82,11 +82,16 @@
         SELECT c.id,c.title,c.introduce,c.picture,c.create_time,c.update_time,c.is_delete,b.question_id,d.user_id,
         a.id answerId, a.content answerContent,a.picture answerPicture,a.views answerViews,a.create_time answerCreateTime,
         a.update_time answerUpdateTime,a.is_delete answerIsDelete
-        FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id
-        LEFT JOIN question c ON b.question_id = c.id
+        FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id AND a.is_delete = 0
+        LEFT JOIN question c ON b.question_id = c.id and c.is_delete = 0
         LEFT JOIN answer_user d ON d.answer_id = a.id
         WHERE d.user_id = #{id}
     </select>
+    <select id="searchAllQuestion" resultMap="ManyQuestionResultMap">
+        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
+        WHERE is_delete = 0 AND (a.title LIKE #{keyword} OR a.introduce LIKE #{keyword})
+    </select>
+
     <select id="getManyQuestion" resultMap="ManyQuestionResultMap">
         SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
         where is_delete = 0
@@ -131,5 +136,10 @@
     <select id="getQuestionByQuestionId" resultMap="QuestionResultMap">
           SELECT id,title,introduce,create_time,update_time,is_delete  FROM question
           WHERE id = #{questionId}
+    </select>
+
+    <select id="searchUserQuestion" resultMap="ManyQuestionResultMap">
+        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
+        WHERE is_delete = 0 AND b.user_id = #{userId} and (a.title LIKE #{keyword} OR a.introduce LIKE #{keyword})
     </select>
 </mapper>

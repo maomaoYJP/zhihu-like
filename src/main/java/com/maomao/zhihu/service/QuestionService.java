@@ -15,6 +15,12 @@ public interface QuestionService extends IService<Question> {
     //获得所有问题
     List<Question> getManyQuestion();
 
+    //根据关键词搜索问题
+    List<Question> searchAllQuestion(String keyword);
+
+    //根据关键词搜索某个用户问题
+    List<Question> searchUserQuestion(Long userId,String keyword);
+
     //查询问题排行
     List<Question> getQuestionRank();
 

@@ -34,6 +34,18 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     }
 
     @Override
+    public List<Question> searchAllQuestion(String keyword) {
+        keyword = "%" + keyword  + "%";
+        return questionMapper.searchAllQuestion(keyword);
+    }
+
+    @Override
+    public List<Question> searchUserQuestion(Long userId, String keyword) {
+        keyword = "%" + keyword  + "%";
+        return questionMapper.searchUserQuestion(userId,keyword);
+    }
+
+    @Override
     public List<Question> getQuestionRank() {
         List<Question> questionList = questionMapper.getManyQuestion();
         questionList.sort(new Comparator<Question>() {

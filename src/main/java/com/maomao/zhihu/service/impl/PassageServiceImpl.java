@@ -42,6 +42,18 @@ public class PassageServiceImpl extends ServiceImpl<PassageMapper, Passage>
     }
 
     @Override
+    public List<Passage> searchAllPassage(String keyword) {
+        keyword = "%" + keyword +"%";
+        return passageMapper.searchAllPassage(keyword);
+    }
+
+    @Override
+    public List<Passage> searchUserPassage(Long userId, String keyword) {
+        keyword = "%" + keyword +"%";
+        return passageMapper.searchUserPassage(userId, keyword);
+    }
+
+    @Override
     public Passage getPassageAndUserByPassageId(Long passageId) {
         Passage passage = passageMapper.getPassageAndUserByPassageId(passageId);
         passage.setComments(commentService.getCommentsByPassageId(passageId));

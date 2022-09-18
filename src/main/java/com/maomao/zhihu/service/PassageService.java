@@ -16,6 +16,12 @@ public interface PassageService extends IService<Passage> {
     //获得所有文章
     List<Passage> getAllPassage();
 
+    //搜索所有文章
+    List<Passage> searchAllPassage(String keyword);
+
+    //搜索用户所有文章
+    List<Passage> searchUserPassage(Long userId,String keyword);
+
     //根据文章Id 获得文章和属于的用户
     Passage getPassageAndUserByPassageId(Long passageId);
 

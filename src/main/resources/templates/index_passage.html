@@ -10,9 +10,9 @@
         }
     </style>
 </head>
-<body class="flex column" style="background-color: #e8e8e8;margin: 0">
+<body class="flex column" style="background-color: #F6F6F6;margin: 0">
 <!--顶层-->
-<div class="flex flex1 m-backcolor" style="justify-content: space-evenly">
+<div class="flex flex1 white" style="justify-content: space-evenly">
     <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel">说说</a>
     <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">推荐</a>
     <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel">热榜</a>
@@ -21,20 +21,27 @@
 <div class="flex column">
     <!--标签（暂时不会做）-->
     <!--搜索框-->
-    <div style="text-align: center;margin-top: 8px;margin-bottom: 8px;">
-        <form action="">
-            <input type="text">
-            <button>搜索</button>
-        </form>
+    <div class="white">
+        <div class="flex" style="width: 80%;margin-left: 30px">
+            <div class="flex flex1 search">
+                <div style="margin-top: 3px;margin-left: 3px">
+                    <img src="../static/image/search.png" th:src="@{/image/search.png}" class="search-icon">
+                </div>
+                <div style="flex: 1;margin-left: 2px;margin-right: 2px;margin-top: 1px">
+                    <input type="text" class="search-input">
+                </div>
+                <div class="search-font">搜索</div>
+            </div>
+        </div>
     </div>
-    <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 1px;height: 25px">
+    <div class="flex white" style="justify-content: space-around;height: 25px">
         <a th:href="@{/}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">回答</a>
         <a th:href="@{/passage}" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 10px;margin-top: 4px">文章</a>
     </div>
     <!--回答卡片-->
     <div>
         <div class="flex flex1 column">
-            <div class="flex flex1 column m-backcolor" style="margin-bottom: 8px" th:each="passage : ${passageList}">
+            <div class="flex flex1 column white" style="margin-bottom: 8px" th:each="passage : ${passageList}">
                 <div class="flex1 m-mg8" th:text="${passage.getTitle()}" >标题：毛毛为何这么厉害</div>
                 <input hidden="true" th:value="${passage.getId()}">
                 <div class="flex flex1" style="margin-left: 8px" name="passageCart">
@@ -76,6 +83,13 @@
             document.location.href = "/passage/info/" + passageId
         })
     }
+
+    //搜索
+    let search = document.querySelector(".search-font");
+    let keyword = document.querySelector(".search-input");
+    search.addEventListener("click", function () {
+        document.location.href = "/search?type=passage&keyword=" + keyword.value
+    })
 </script>
 
 </html>

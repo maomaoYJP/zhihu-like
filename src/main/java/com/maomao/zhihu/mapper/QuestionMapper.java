@@ -21,6 +21,12 @@ public interface QuestionMapper extends BaseMapper<Question> {
     //查询用户提出的问题
     List<Question> getQuestionRaise(@Param("id")Long id);
 
+    //搜索所有问题
+    List<Question> searchAllQuestion(@Param("keyword")String keyword);
+
+    //搜索用户自己的问题
+    List<Question> searchUserQuestion(@Param("userId")Long userId ,@Param("keyword")String keyword);
+
     //查询全部问题
     List<Question> getManyQuestion();
 

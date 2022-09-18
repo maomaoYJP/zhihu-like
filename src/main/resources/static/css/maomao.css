@@ -188,6 +188,38 @@
     text-decoration: none;
 }
 
+.white{
+    background-color: white;
+}
+
+.search{
+    height: 26px;
+    border-radius: 12px;
+    width: 80%;
+    background-color: #F6F6F6;
+}
+
+.search-font{
+    font-size: 13px;
+    margin-right: 6px;
+    margin-top: 3px;
+    letter-spacing: 2px;
+    color: #0c81d7;
+}
+
+.search-icon{
+    width: 20px;
+    height: 20px;
+}
+
+.search-input{
+    width: 100%;
+    height: 15px;
+    outline: none;
+    border: none;
+    background-color: #F6F6F6;
+}
+
 
 /*选择*/
 .m-edit{

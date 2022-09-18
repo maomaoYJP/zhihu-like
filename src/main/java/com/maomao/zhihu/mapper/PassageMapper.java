@@ -20,6 +20,12 @@ public interface PassageMapper extends BaseMapper<Passage> {
     //获得所有文章
     List<Passage> getManyPassage();
 
+    //搜索所有的文章
+    List<Passage> searchAllPassage(@Param("keyword")String keyword);
+
+    //所有用户所有的文章
+    List<Passage> searchUserPassage(@Param("userId")Long userId, @Param("keyword")String keyword);
+
     //根据passageId 删除文章与user对应关系
     boolean deletePassageUser(Long passageId);
 
