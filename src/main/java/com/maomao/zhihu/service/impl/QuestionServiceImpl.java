@@ -70,6 +70,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     }
 
     @Override
+    public int getQuestionCountByAnswerId(Long answerId) {
+        return questionMapper.getQuestionCountByAnswerId(answerId);
+    }
+
+    @Override
     public boolean createQuestion(Question question, Long userId) {
         questionService.saveOrUpdate(question);
         return questionMapper.createUserQuestion(question.getId(),userId);

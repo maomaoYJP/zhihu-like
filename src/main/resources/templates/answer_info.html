@@ -19,7 +19,7 @@
     </div>
     <div class="flex column" style="border-bottom: 1px solid #eeeeee;padding-bottom: 10px">
         <h4 th:text="${question.getTitle()}" id="title">学习真的没有尽头吗?</h4>
-        <div th:text="${question.getAnswers().size()} + 回答" class="m-font-gray" style="font-size: 10px;margin-top: -20px"> 10 个回答</div>
+        <div th:text="${count} + 回答" class="m-font-gray" style="font-size: 10px;margin-top: -20px"> 10 个回答</div>
     </div>
     <div class="flex flex1" style="margin-top: 16px">
         <div>

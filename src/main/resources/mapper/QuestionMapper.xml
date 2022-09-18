@@ -138,8 +138,19 @@
           WHERE id = #{questionId}
     </select>
 
-    <select id="searchUserQuestion" resultMap="ManyQuestionResultMap">
-        SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
-        WHERE is_delete = 0 AND b.user_id = #{userId} and (a.title LIKE #{keyword} OR a.introduce LIKE #{keyword})
+    <select id="searchUserQuestion" resultMap="QuestionAnswerResultMap">
+        SELECT c.id,c.title,c.introduce,c.picture,c.create_time,c.update_time,c.is_delete,b.question_id,d.user_id,
+        a.id answerId, a.content answerContent,a.picture answerPicture,a.views answerViews,a.create_time answerCreateTime,
+        a.update_time answerUpdateTime,a.is_delete answerIsDelete
+        FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id
+        LEFT JOIN question c ON b.question_id = c.id
+        LEFT JOIN answer_user d ON d.answer_id = a.id
+        WHERE d.user_id = #{userId} AND a.is_delete = 0 AND c.is_delete = 0 and (c.title like #{keyword} OR c.introduce LIKE #{keyword})
+    </select>
+    <select id="getQuestionCountByAnswerId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM question_answer a LEFT JOIN
+        (SELECT b.question_id FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id
+        WHERE a.id = #{answerId}) b ON a.question_id = b.question_id
+        WHERE b.question_id IS NOT NULL
     </select>
 </mapper>

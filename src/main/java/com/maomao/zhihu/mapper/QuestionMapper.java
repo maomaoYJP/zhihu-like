@@ -18,6 +18,9 @@ public interface QuestionMapper extends BaseMapper<Question> {
     //根据用户id 获得问题
     List<Question> getQuestionById(@Param("id")Long id);
 
+    //根据问题id获得问题的回答数量
+    int getQuestionCountByAnswerId(@Param("answerId")Long answerId);
+
     //查询用户提出的问题
     List<Question> getQuestionRaise(@Param("id")Long id);
 

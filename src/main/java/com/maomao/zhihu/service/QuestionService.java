@@ -27,6 +27,9 @@ public interface QuestionService extends IService<Question> {
     //查询用户提出的问题
     List<Question> getUserRaiseQuestion(Long userId);
 
+    //根据answerId获得问题的回答数
+    int getQuestionCountByAnswerId(Long answerId);
+
     //创建新问题
     boolean createQuestion(Question question, Long userId);
 

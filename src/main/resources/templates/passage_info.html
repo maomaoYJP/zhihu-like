@@ -146,7 +146,7 @@
     })
     //点击用户名跳转到主页
     $("#user").click(function () {
-        document.location.href = "/home/" + [[${passage.getId()}]]
+        document.location.href = "/home/" + [[${passage.getUser().getId()}]]
     })
 
     $("#replySend").click(function () {

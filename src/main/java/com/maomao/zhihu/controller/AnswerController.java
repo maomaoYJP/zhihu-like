@@ -90,7 +90,9 @@ public class AnswerController {
         Long id = user.getId();
         List<User> follows = userService.getFollowsById(id);
         boolean isFollow = follows.contains(question.getAnswers().get(0).getUser());
+        int count = questionService.getQuestionCountByAnswerId(answerId);
 
+        model.addAttribute("count", count);
         model.addAttribute("question", question);
         model.addAttribute("isFollow", isFollow);
         return "answer_info";

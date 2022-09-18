@@ -10,21 +10,32 @@
         }
     </style>
 </head>
-<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
-    <div class="m-backcolor">
+<body class="flex flex1 column" style="background-color: #F6F6F6;margin: 0">
+    <div class="white">
         <div class="flex m-mg8">
             <a th:href="@{/creation}" class="m-font-gray m-underlineCancel">返回</a>
             <div class="flex1" style="text-align: center">文章管理</div>
             <div class="m-font-gray" id="search_btn" style="margin-right: 8px">搜索</div>
         </div>
     </div>
-    <div id="search_area" hidden="false" style="text-align: center" class="m-backcolor">
-        <label for="creationSearch"></label>
-        <input type="text" id="creationSearch" placeholder="搜索">
+    <div id="search_area" hidden="false" style="text-align: center">
+        <div class="white">
+            <div class="flex" style="width: 80%;margin-left: 30px">
+                <div class="flex flex1 search">
+                    <div style="margin-top: 3px;margin-left: 3px">
+                        <img src="../static/image/search.png" th:src="@{/image/search.png}" class="search-icon">
+                    </div>
+                    <div style="flex: 1;margin-left: 2px;margin-right: 2px;margin-top: 1px">
+                        <input type="text" class="search-input">
+                    </div>
+                    <div class="search-font">搜索</div>
+                </div>
+            </div>
+        </div>
     </div>
     <!--卡片-->
-    <div>
-        <div class="flex flex1 column m-backcolor" style="margin-bottom: 6px" th:each="passage : ${passages}">
+    <div th:fragment="passage_manage" id="passage_manage">
+        <div class="flex flex1 column white" style="margin-bottom: 6px" th:each="passage : ${passages}">
             <div class="flex flex1 m-mg8">
                 <div class="m-passage" style="margin-right: 4px">文章</div>
                 <div th:text="${passage.getTitle()}">标题：毛毛为何这么厉害</div>
@@ -61,45 +72,46 @@
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 <script type="text/javascript">
+    $(".search-font").click(function () {
+        $("#passage_manage").load("/search/manage",{
+            "type" : "passage",
+            "keyword" : $(".search-input").val()
+        },function (responseTxt, statusTxt, xhr) {
+        })
+    })
+
     let search_btn = document.getElementById("search_btn");
     let search_area = document.getElementById("search_area");
-    let delete_open = document.querySelectorAll(".m-more");
 
-    //去除html标签.只显示文本
-    function delHtmlTag(str) {
-        return str.replace(/<[^>]+>/g, "");
-    }
-
-    //点击跳转到文章详情
-    $("[name='eachPassage']").click(function () {
+    //点击卡片中间区域跳转到详细内容
+    $(document).on("click", "[name='eachPassage']",function () {
         document.location.href = "/passage/info/" + this.previousElementSibling.value
     })
-
     //点击编辑按钮跳转到编辑界面
-    $("[name='edit']").click(function () {
+    $(document).on("click", "[name='edit']",function () {
         document.location.href = "/passage/update/" + $(this).next().val()
     })
+
 
     //点击搜索显示或关闭搜索框
     search_btn.addEventListener("click", function () {
         search_area.hidden = search_area.hidden ? false : true;
     })
-    //点击开启编辑按钮
-    for (let i = 0; i < delete_open.length; i++){
-        delete_open[i].addEventListener("click",function () {
-            let edit = delete_open[i].parentElement.nextElementSibling;
-            edit.hidden = edit.hidden ? false : true;
-            let deleteTip = edit.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.lastElementChild;
-            let passageId = deleteTip.previousElementSibling.value;
-            deleteTip.addEventListener("click",function () {
-                if(confirm("确定要删除吗？")){
-                    deleteTip.href = "/passage/delete/" + passageId;
-                    return true;
-                }else{
-                    return false;
-                }
-            })
+
+    $(document).on("click", ".m-more",function () {
+        let edit = this.parentElement.nextElementSibling;
+        edit.hidden = edit.hidden ? false : true;
+        let deleteTip = edit.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.lastElementChild;
+        let passageId = deleteTip.previousElementSibling.value;
+        deleteTip.addEventListener("click",function () {
+            if(confirm("确定要删除吗？")){
+                deleteTip.href = "/passage/delete/" + passageId;
+                return true;
+            }else{
+                return false;
+            }
         })
-    }
+    })
+
 </script>
 </html>
