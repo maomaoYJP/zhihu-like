@@ -5,6 +5,7 @@
     <title>登录</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
     <link rel="stylesheet" href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         .input{
             width: 95%;
@@ -17,7 +18,7 @@
         .skip{
             color: gray;
             font-size: 14px;
-            margin-top: -20px;
+            margin-top: -60px;
             margin-bottom: 20px;
             margin-right: 6px;
         }
@@ -43,32 +44,26 @@
         .error-input::-webkit-input-placeholder{
             color: #f62525;
         }
-
-        .mg8{
-            margin-left: 8px;
-            margin-bottom: 8px;
-            -webkit-input
-        }
     </style>
 </head>
 <body class="flex column" style="justify-content: center;align-items: center;height: 100vh" >
     <div id="login" class="flex column" style="justify-content: center;align-items: center;height: 100vh;width: 100%">
         <div class="flex" style="flex: 2;width: 100%;align-items: flex-end">
-            <span style="font-size: 25px;letter-spacing: 16px" class="m-mg8">登录</span>
+            <span style="font-size: 2rem;letter-spacing: 16px" class="m-mg8">登录</span>
         </div>
         <div class="flex column" style="flex: 3;justify-content: space-evenly;width: 100%;margin-top: -20px">
             <div class="flex">
                 <label for="username"></label>
-                <input id="username" placeholder="请输入账号" class="input" style="margin: auto">
+                <input id="username" placeholder="请输入账号" class="input m-rem1" style="margin: auto">
             </div>
             <div class="flex">
                 <label for="password"></label>
-                <input id="password" placeholder="请输入密码" class="input" style="margin: auto">
+                <input id="password" placeholder="请输入密码" class="input m-rem1" style="margin: auto">
             </div>
             <div class="flex column">
                 <div id="register_page" class="flex skip" style="justify-content: flex-end">没有账号？注册</div>
                 <div class="flex flex1" style="justify-content: center">
-                    <button id="login_btn" class="login-btn">登录</button>
+                    <button id="login_btn" class="login-btn m-rem-ret">登录</button>
                 </div>
             </div>
         </div>
@@ -77,29 +72,29 @@
     <!--注册-->
     <div id="register" class="flex column" style="display: none;justify-content: center;align-items: center;height: 100vh;width: 100%">
         <div class="flex" style="flex: 2;width: 100%;align-items: flex-end">
-            <span style="font-size: 25px;letter-spacing: 16px" class="m-mg8">注册</span>
+            <span style="font-size: 2rem;letter-spacing: 16px" class="m-mg8">注册</span>
         </div>
         <div class="flex column" style="flex: 5;justify-content: space-evenly;width: 100%;margin-top: -20px">
             <div class="flex">
                 <label for="nickname"></label>
-                <input id="nickname" placeholder="请输入昵称" class="input" style="margin: auto;">
+                <input id="nickname" placeholder="请输入昵称" type="text" class="input m-rem1" style="margin: auto;">
             </div>
             <div class="flex">
                 <label for="username"></label>
-                <input id="username_register" placeholder="请输入账号" class="input" style="margin: auto">
+                <input id="username_register" placeholder="请输入账号" class="input m-rem1" style="margin: auto">
             </div>
             <div class="flex">
                 <label for="password"></label>
-                <input id="password_register" placeholder="请输入密码" class="input" style="margin: auto">
+                <input id="password_register" placeholder="请输入密码" class="input m-rem1" style="margin: auto">
             </div>
             <div class="flex">
                 <label for="password_check"></label>
-                <input id="password_check" placeholder="请再次输入密码" class="input" style="margin: auto">
+                <input id="password_check" placeholder="请再次输入密码" class="input m-rem1" style="margin: auto">
             </div>
             <div class="flex column">
-                <div id="login_page" class="flex skip" style="justify-content: flex-end;margin-top: -10px">已有账号？登录</div>
+                <div id="login_page" class="flex skip" style="justify-content: flex-end;margin-top: -40px">已有账号？登录</div>
                 <div class="flex flex1" style="justify-content: center">
-                    <button id="register_btn" class="login-btn">注册</button>
+                    <button id="register_btn" class="login-btn m-rem-ret">注册</button>
                 </div>
             </div>
         </div>

@@ -4,56 +4,57 @@
     <meta charset="UTF-8">
     <title>文章</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         [name=commentContent] p{
             margin: 0;
         }
     </style>
 </head>
-<body class="flex flex1 column">
+<body class="flex flex1 column" style="font-size: 62.5%">
     <div style="margin: -8px">
         <div class="flex m-mg8">
-            <div class="m-font-gray" id="return">返回</div>
+            <div class="m-font-gray m-rem-ret" id="return">返回</div>
         </div>
     </div>
     <div>
-        <h4 th:text="${passage.getTitle()}">学习，永无止尽</h4>
+        <h4 class="m-title" th:text="${passage.getTitle()}">学习，永无止尽</h4>
     </div>
     <div class="flex flex1" style="margin-top: 16px">
-        <div>
+        <div style="margin-top: 4px">
             <img class="m-headPicture-circle" th:src="${passage.getUser().getPortrait()}" alt="">
         </div>
         <div class="flex1" style="margin-left: 8px" id="user">
-            <div th:text="${passage.getUser().getNickname()}" style="font-size: 12px">毛毛</div>
-            <div th:text="${passage.getUser().getIntroduce()}" class="m-font-gray" style="font-size: 10px">你要去兜风吗</div>
+            <div th:text="${passage.getUser().getNickname()}" class="m-rem1">毛毛</div>
+            <div th:text="${passage.getUser().getIntroduce()}" class="m-font-gray m-rem1">你要去兜风吗</div>
         </div>
-        <div th:fragment="followBtn" id="followBtn">
-            <button type="button" th:hidden="${isFollow}" value="0" class="m-edit" id="follow">关注</button>
-            <button type="button" th:hidden="${!isFollow}" value="1" class="m-cancelFollow m-edit" id="cancelFollow" >取关</button>
+        <div th:fragment="followBtn" id="followBtn" style="margin-top: 8px">
+            <button type="button" th:hidden="${isFollow}" value="0" class="m-edit m-rem1" id="follow">关注</button>
+            <button type="button" th:hidden="${!isFollow}" value="1" class="m-cancelFollow m-rem1 m-edit" id="cancelFollow" >取关</button>
         </div>
     </div>
     <!--内容-->
     <div th:utext="${passage.getContent()}" class="m-content-font" style="margin-top: 10px">我是内容我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br>我是内容<br></div>
     <div class="flex flex1">
-        <div class="m-font-gray" style="font-size: 10px">编辑于&nbsp</div>
-        <div th:text="${#dates.format(passage.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px"> 2022-08-09</div>
-        <div class="m-font-gray" style="font-size: 10px">&nbsp · &nbsp著作权归作者所有</div>
+        <div class="m-font-gray" style="font-size: 14px">编辑于&nbsp</div>
+        <div th:text="${#dates.format(passage.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px"> 2022-08-09</div>
+        <div class="m-font-gray" style="font-size: 14px">&nbsp · &nbsp著作权归作者所有</div>
     </div>
     <!--评论-->
     <div id="comment-form" class="flex flex1" style="margin-bottom: 100px">
         <div class="flex flex1 column" style="margin-bottom: 50px">
             <div class="flex" style="margin-top: 8px;margin-bottom: 8px">
-                <div>留言</div>
+                <div style="font-size: 1.2rem">留言</div>
             </div>
             <!--留言-->
             <div id="commentArea">
-                <input type="text" hidden="hidden" name="parentCommentId" id="parentCommentId" value="-1">
+                <input type="text" hidden="hidden" class="m-rem1" name="parentCommentId" id="parentCommentId" value="-1">
                 <div style="text-align: center">
                     <label for="content"></label>
-                    <textarea id="content" name="content" style="width: 98%;height: 100px"></textarea>
+                    <textarea id="content" name="content" class="m-rem1" style="width: 98%;height: 100px"></textarea>
                 </div>
                 <div class="flex" style="justify-content: flex-end;margin-top: 10px">
-                    <button id="commentBtn">留言</button>
+                    <button id="commentBtn" style="font-size: 1.2rem">留言</button>
                 </div>
             </div>
             <!--评论区-->
@@ -62,7 +63,7 @@
                     <!--左边头像，右边评论内容-->
                     <div class="flex flex1" style="margin-top: 12px" th:each="comment : ${passage.getComments()}">
                         <!--头像-->
-                        <div style="flex: 1">
+                        <div style="flex: 1;margin-top: -4px">
                             <img class="m-comment-picture" th:src="${comment.getUser().getPortrait()}" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                         </div>
                         <!--评论内容(分为上下两部分,评论人信息、评论内容)-->

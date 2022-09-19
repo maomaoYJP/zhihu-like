@@ -5,6 +5,7 @@
     <title>修改文章</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
     <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <!-- 引入 layui.css -->
     <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
     <style>
@@ -22,17 +23,17 @@
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
 <div class="m-backcolor">
     <div class="flex m-mg8">
-        <div class="m-font-gray" id="return">返回</div>
-        <div class="flex1" style="text-align: center;margin-right: 40px">写文章</div>
+        <div class="m-font-gray m-rem-ret" id="return">返回</div>
+        <div class="flex1 m-rem-ret" style="text-align: center;margin-right: 40px">写文章</div>
     </div>
 </div>
 <form class="m-backcolor">
     <div class="m-mg8">
         <label for="title"></label>
-        <input type="text" th:value="${passage.getTitle()}" id="title" name="title" placeholder="标题" style="height: 25px;width: 70%">
+        <input type="text" class="m-rem-ret" th:value="${passage.getTitle()}" id="title" name="title" placeholder="标题" style="height: 25px;width: 70%">
     </div>
     <div class="flex m-mg8">
-        <div style="margin-top: 20px;margin-right: 8px">封面(可选)</div>
+        <div class="m-rem1" style="margin-top: 20px;margin-right: 8px">封面(可选)</div>
         <input type="text" hidden="hidden" name="picture" id="picture" th:value="${passage.getPicture()}">
         <div th:if="${#strings.isEmpty(passage.getPicture())}">
             <i id="cover" class="layui-icon layui-icon-picture" style="font-size: 60px"></i>
@@ -47,7 +48,7 @@
         <div id="editor-container"><!-- 编辑器 --></div>
     </div>
     <div class="m-mg8" style="text-align: right;margin-right: 8px">
-        <button type="button" id="passage">提交</button>
+        <button type="button" class="m-rem-ret" id="passage">提交</button>
     </div>
 </form>
 

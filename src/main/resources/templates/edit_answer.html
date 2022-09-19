@@ -5,6 +5,7 @@
     <title>写回答</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
     <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <!-- 引入 layui.css -->
     <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
     <style>
@@ -16,30 +17,30 @@
         #editor-container { height: 500px; }
     </style>
 </head>
-<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
+<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0;font-size: 62.5%">
 <div class="m-backcolor">
     <div class="flex m-mg8">
-        <a class="m-font-gray m-underlineCancel" th:href="@{/creation}">返回</a>
-        <div class="flex1" style="text-align: center;margin-right: 40px">回答</div>
+        <a class="m-font-gray m-rem-ret m-underlineCancel" th:href="@{/creation}">返回</a>
+        <div class="flex1 m-rem-ret" style="text-align: center;margin-right: 40px">回答</div>
     </div>
 </div>
 <form class="m-backcolor">
     <div class="m-mg8" style="margin-bottom: 12px">
-        <h3 th:text="${question.getTitle()}">哈哈哈哈</h3>
-        <div th:text="${question.getIntroduce()}" class="m-font-gray" style="font-size: 10px"> 回答简介</div>
+        <h3 class="m-title" th:text="${question.getTitle()}">哈哈哈哈</h3>
+        <div  th:text="${question.getIntroduce()}" class="m-font-gray m-rem1"> 回答简介</div>
     </div>
     <div class="flex m-mg8">
-        <div style="margin-top: 20px;margin-right: 8px">封面(可选):</div>
+        <div class="m-rem1" style="margin-top: 20px;margin-right: 8px">封面(可选):</div>
         <input type="text" hidden="hidden" name="picture" id="picture">
         <img id="preview" src="" alt="" class="m-cover" style="display: none;margin-top: 5px">
-        <i id="cover" class="layui-icon layui-icon-picture" style="font-size: 40px;margin-top: 10px"></i>
+        <i id="cover" class="layui-icon layui-icon-picture" style="font-size: 60px;margin-top: 10px"></i>
     </div>
     <div id="editor—wrapper">
         <div id="toolbar-container"><!-- 工具栏 --></div>
         <div id="editor-container"><!-- 编辑器 --></div>
     </div>
     <div class="m-mg8" style="text-align: right;margin-right: 8px">
-        <button type="button" id="answer">提交</button>
+        <button type="button" class="m-rem-ret" id="answer">提交</button>
     </div>
 </form>
 

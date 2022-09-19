@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <title>关注</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         p{
             margin: 0;
         }
     </style>
 </head>
-<body class="flex flex1 column" style="margin: 0">
-    <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 1px;height: 25px">
-        <a id="answer_btn" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 10px;margin-top: 4px">回答</a>
-        <a id="passage_btn" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">文章</a>
-        <a id="talk_btn" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">说说</a>
+<body class="flex flex1 column" style="margin: 0;font-size: 62.5%">
+    <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 1px">
+        <a id="answer_btn" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 1.5rem;margin-top: 4px">回答</a>
+        <a id="passage_btn" class="m-font-gray m-underlineCancel" style="font-size: 1.5rem;margin-top: 4px">文章</a>
+        <a id="talk_btn" class="m-font-gray m-underlineCancel" style="font-size: 1.5rem;margin-top: 4px">说说</a>
     </div>
     <div th:if="${#strings.isEmpty(session.get('user'))}">
         <div class="flex flex1" style="justify-content: center">
-            <div>请先 </div>
-            <a th:href="@{/login}" class="btn">登录</a>
+            <div class="m-title">请先：</div>
+            <a th:href="@{/login}" class="m-title">登录</a>
         </div>
     </div>
 
@@ -29,23 +30,23 @@
                 <input type="text" hidden="hidden" th:value="${question.getAnswers().get(0).getUser().getId()}">
                 <div class="m-mg8 flex flex1" name="user">
                     <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" th:src="${question.getAnswers().get(0).getUser().getPortrait()}" alt="">
-                    <div th:text="${question.getAnswers().get(0).getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
-                    <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
-                    <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了回答</div>
+                    <div th:text="${question.getAnswers().get(0).getUser().getNickname()}" class="m-font-gray" style="font-size: 1rem;margin-left: 5px;margin-top: 4px" >毛毛</div>
+                    <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 1rem;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
+                    <div class="m-font-gray" style="font-size: 1rem;margin-left: 5px;margin-top: 4px" > · 发布了回答</div>
                 </div>
                 <input type="text" hidden="hidden" th:value="${question.getAnswers().get(0).getId()}">
                 <div class="flex1" name="eachAnswer">
                     <div style="margin-left: 25px">
-                        <div th:text="${question.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
+                        <div th:text="${question.getTitle()}" class="flex1 m-mg8 m-title" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                         <div class="flex flex1" style="margin-left: 8px">
                             <div class="flex column" style="flex: 3">
-                                <div th:text="${question.getAnswers().get(0).getContent().length() > 50 ? question.getAnswers().get(0).getContent().substring(0,50) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                <div th:text="${question.getAnswers().get(0).getContent().length() > 50 ? question.getAnswers().get(0).getContent().substring(0,50) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 1rem">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                             </div>
                             <div class="flex1" th:if="${!#strings.isEmpty(question.getAnswers().get(0).getPicture())}">
                                 <img alt="" class="m-cardPicture" th:src="${question.getAnswers().get(0).getPicture()}">
                             </div>
                         </div>
-                        <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px;margin-top: 10px">100 赞同 100收藏</div>
+                        <div class="flex1 m-font-gray m-mgl8" style="font-size: 1rem;margin-top: 10px">100 赞同 100收藏</div>
                     </div>
                 </div>
             </div>
@@ -55,23 +56,23 @@
                 <input type="text" hidden="hidden" th:value="${passage.getUser().getId()}">
                 <div class="m-mg8 flex flex1" name="user">
                     <img class="m-headPicture-circle" style="border-radius: 50%;width: 23px;height: 23px" th:src="${passage.getUser().getPortrait()}" alt="">
-                    <div th:text="${passage.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >毛毛</div>
-                    <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" >2022-08-09</div>
-                    <div class="m-font-gray" style="font-size: 10px;margin-left: 5px;margin-top: 4px" > · 发布了文章</div>
+                    <div th:text="${passage.getUser().getNickname()}" class="m-font-gray m-rem1" style="margin-left: 5px;margin-top: 4px" >毛毛</div>
+                    <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray m-rem1" style="margin-left: 5px;margin-top: 4px" >2022-08-09</div>
+                    <div class="m-font-gray m-rem1" style="margin-left: 5px;margin-top: 4px" > · 发布了文章</div>
                 </div>
                 <input type="text" hidden="hidden" th:value="${passage.getId()}">
                 <div class="flex1" name="eachPassage">
                     <div style="margin-left: 25px">
-                        <div th:text="${passage.getTitle()}" class="flex1 m-mg8" style="margin-top: 0">标题：毛毛为何这么厉害</div>
+                        <div th:text="${passage.getTitle()}" class="flex1 m-mg8 m-title" style="margin-top: 0">标题：毛毛为何这么厉害</div>
                         <div class="flex flex1" style="margin-left: 8px">
                             <div class="flex column" style="flex: 3">
-                                <div th:text="${passage.getContent().length() > 50 ? passage.getContent().substring(0,50) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                <div th:text="${passage.getContent().length() > 50 ? passage.getContent().substring(0,50) : passage.getContent()}" class="m-font-gray m-rem1">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                             </div>
                             <div class="flex1" th:if="${!#strings.isEmpty(passage.getPicture())}">
                                 <img alt="" class="m-cardPicture" th:src="${passage.getPicture()}">
                             </div>
                         </div>
-                        <div class="flex1 m-font-gray m-mgl8" style="font-size: 10px;margin-top: 10px">100 赞同 100收藏</div>
+                        <div class="flex1 m-font-gray m-mgl8 m-rem1" style="margin-top: 10px">100 赞同 100收藏</div>
                     </div>
 
                 </div>
@@ -84,7 +85,7 @@
                     <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                 </div>
                 <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-                    <div th:text="${talk.getUser().getNickname()}">毛毛</div>
+                    <div th:text="${talk.getUser().getNickname()}" class="m-rem1">毛毛</div>
                     <input type="text" hidden="hidden" th:value="${talk.getId()}">
                     <input hidden="hidden" value="-1">
                     <input hidden="hidden" th:value="${talk.getUser().getNickname()}">
@@ -100,13 +101,13 @@
                                         <div  style="flex: 9;margin-left: 6px">
                                             <div style="font-size: 0">
                                                 <!--评论人信息-->
-                                                <span th:text="${comment.getUser().getNickname()} + '：'" class="m-comment-content" style="color: #389393">毛毛：</span>
+                                                <span th:text="${comment.getUser().getNickname()} + '：'" class="m-comment-content" style="color: #389393;font-size: 14px">毛毛：</span>
                                                 <!--评论内容-->
                                                 <input type="text" hidden="hidden" th:value="${talk.getId()}">
                                                 <input hidden="hidden" th:value="${comment.getId()}">
                                                 <input hidden="hidden" th:value="${comment.getUser().getNickname()}">
                                                 <span name="commentContent">
-                                            <span th:text="${comment.getContent()}" class="m-comment-content">
+                                            <span style="font-size: 14px" th:text="${comment.getContent()}" class="m-comment-content">
                                                 我来组成内容,感觉应该还可以吧，应该还行吧,嘿嘿
                                             </span>
                                         </span >
@@ -119,16 +120,16 @@
                                                         <div style="font-size: 0">
                                                             <!--评论人信息-->
                                                             <span>
-                                                        <span th:text="${reply.getUser().getNickname()}" class="m-comment-content" style="color: #389393">毛毛</span>
-                                                        <span class="m-comment-content">回复</span>
-                                                        <span th:text="${reply.getParentComment().getUser().getNickname()} + '：'" class="m-comment-content" style="color: #389393">毛毛：</span>
+                                                        <span th:text="${reply.getUser().getNickname()}" class="m-comment-content" style="font-size: 14px;color: #389393">毛毛</span>
+                                                        <span class="m-comment-content" style="font-size: 14px">回复</span>
+                                                        <span th:text="${reply.getParentComment().getUser().getNickname()} + '：'" class="m-comment-content m-rem1" style="font-size: 14px;color: #389393">毛毛：</span>
                                                     </span>
                                                             <!--评论内容-->
                                                             <input type="text" hidden="hidden" th:value="${talk.getId()}">
                                                             <input hidden="hidden" th:value="${reply.getId()}">
                                                             <input hidden="hidden" th:value="${reply.getUser().getNickname()}">
                                                             <span name="commentContent">
-                                                        <span th:text="${reply.getContent()}" class="m-comment-content">
+                                                        <span style="font-size: 14px" th:text="${reply.getContent()}" class="m-comment-content">
                                                             我来组成内容,感觉应该还可以吧，应该还行吧,嘿嘿
                                                         </span>
                                                     </span >
@@ -147,6 +148,7 @@
             </div>
         </div>
     </div>
+    <div style="text-align: center;margin-top: 1.8rem" class="m-rem-ret">没有更多了！</div>
 
     <!--点击回复跳出输入框-->
     <div id="replyBox" style="position: absolute">
@@ -163,9 +165,9 @@
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a th:href="@{/}" class="m-underlineCancel">首页</a>
-                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+                <a th:href="@{/}" class="m-underlineCancel m-title">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel m-title">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel m-title">我的</a>
             </div>
         </div>
     </div>

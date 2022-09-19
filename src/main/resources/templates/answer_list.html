@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <title>回答列表</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         p{
             margin: 0;
         }
     </style>
 </head>
-<body class="flex flex1 column">
+<body class="flex flex1 column" style="font-size: 62.5%">
     <div style="margin: -8px">
         <div class="flex m-mg8">
-            <div class="m-font-gray" id="return">返回</div>
-            <div class="flex1" style="text-align: right;margin-right: 8px" id="createAnswer">写回答</div>
+            <div class="m-font-gray" style="font-size: 1.2rem;" id="return">返回</div>
+            <div class="flex1" style="font-size: 1.2rem;text-align: right;margin-right: 8px" id="createAnswer">写回答</div>
         </div>
     </div>
     <div class="flex column" style="border-bottom: 1px solid #eeeeee;padding-bottom: 10px">
-        <h4 th:text="${question.getTitle()}" >学习真的没有尽头吗?</h4>
-        <div th:text="${question.getIntroduce()}" class="m-font-gray" style="font-size: 10px;margin-top: -15px"> 回答简介</div>
+        <h4 class="m-title" th:text="${question.getTitle()}" >学习真的没有尽头吗?</h4>
+        <div  th:text="${question.getIntroduce()}" class="m-font-gray m-rem1" style="margin-top: -15px"> 回答简介</div>
         <div class="flex">
             <button class="m-pill" style="margin-top: 8px;font-size: 10px;margin-right: 6px">哈哈</button>
             <button class="m-pill" style="margin-top: 8px;font-size: 10px;margin-right: 6px">哈哈</button>
@@ -30,23 +31,24 @@
         <div class="flex flex1 column" style="border-bottom: 4px solid #f6f6f6">
             <div class="flex flex1 column" >
                 <div class="flex">
-                    <img alt="" style="border-radius: 50%;width: 20px;height: 20px" th:src="${answer.getUser().getPortrait()}">
-                    <span th:text="${answer.getUser().getNickname()}" class="m-font-gray" style="font-size: 10px;margin-top: 3px;margin-left: 2px">毛毛</span>
+                    <img alt="" style="border-radius: 50%;width: 28px;height: 28px" th:src="${answer.getUser().getPortrait()}">
+                    <span th:text="${answer.getUser().getNickname()}" class="m-font-gray m-rem1" style="margin-top: 5px;margin-left: 2px">毛毛</span>
                 </div>
                 <input hidden="true" th:value="${answer.getId()}">
                 <div class="flex flex1 m-answerInfo" style="margin-top: 8px">
-                    <div th:text="${answer.getContent().length() > 60 ? answer.getContent().substring(0,60) : answer.getContent()}" style="font-size: 10px;flex: 3">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                    <div th:text="${answer.getContent().length() > 30 ? answer.getContent().substring(0,30) : answer.getContent()}" class="m-rem1" style="flex: 3">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     <div th:if="${!#strings.isEmpty(answer.getPicture())}">
                         <img alt="" class="m-cardPicture" th:src="${answer.getPicture()}">
                     </div>
                 </div>
             </div>
-            <div class="flex" style="justify-content: space-between;margin-bottom: -8px;margin-top: 6px">
-                <div class="m-font-gray" style="font-size: 10px;margin-bottom: 12px">100 赞同 100收藏</div>
-                <div th:text="${#dates.format(answer.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;">2022-08-10</div>
+            <div class="flex" style="justify-content: space-between;margin-top: 6px">
+                <div class="m-font-gray m-rem1" style="margin-bottom: 12px"></div>
+                <div th:text="${#dates.format(answer.getCreateTime(), 'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px">2022-08-10</div>
             </div>
         </div>
     </div>
+    <div style="text-align: center;margin-top: 1.8rem" class="m-rem-ret">没有更多了！</div>
 </body>
 <script>
     //点击返回，去到上一个页面

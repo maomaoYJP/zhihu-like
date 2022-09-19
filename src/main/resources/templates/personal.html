@@ -4,80 +4,80 @@
     <meta charset="UTF-8">
     <title>我的</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
-<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
+<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0;font-size: 62.5%">
     <div class="flex flex1 m-backcolor">
         <div th:if="${!#strings.isEmpty(session.get('user'))}" class="flex flex1">
             <div class="flex flex1 m-mg8">
-                <img style="border-radius: 50%;width: 40px;height: 40px" th:src="${session.get('user').getPortrait()}" alt="">
-                <div th:text="${session.get('user').getNickname()}" style="margin-top: 8px;margin-left: 6px">毛毛</div>
+                <img th:src="${picture}" style="border-radius: 50%;width: 40px;height: 40px" alt="">
+                <div th:text="${session.get('user').getNickname()}" class="m-rem-ret" style="margin-top: 8px;margin-left: 6px">毛毛</div>
             </div>
-            <a th:href="@{/home/{userId}(userId=${session.get('user').getId()})}" class="flex flex1 m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">个人主页</a>
+            <a th:href="@{/home/{userId}(userId=${session.get('user').getId()})}" class="flex flex1 m-underlineCancel m-rem-ret" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">个人主页</a>
         </div>
         <div th:if="${#strings.isEmpty(session.get('user'))}" class="flex flex1">
             <div class="flex flex1 m-mg8">
                 <img style="border-radius: 50%;width: 40px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
-                <div style="margin-top: 8px;margin-left: 6px">未登录</div>
+                <div class="m-rem-ret" style="margin-top: 8px;margin-left: 6px">未登录</div>
             </div>
-            <a th:href="@{/login}" class="flex flex1 btn m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">登录</a>
+            <a th:href="@{/login}" class="flex flex1 m-rem-ret m-underlineCancel" style="justify-content: flex-end;margin-right: 16px;margin-top: 16px">登录</a>
         </div>
 
     </div>
 
     <div class="flex flex1 m-backcolor" style="justify-content: space-around">
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-            <div th:text="${createNum}" >10</div>
-            <a th:href="@{/creation}" class="m-underlineCancel m-black">创作</a>
+            <div class="m-rem-ret" th:text="${createNum}" >10</div>
+            <a th:href="@{/creation}" class="m-underlineCancel m-black m-rem-ret">创作</a>
         </div>
         <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
             <div th:if="${!#strings.isEmpty(session.get('user'))}">
-                <div th:text="${followNum}" >10</div>
-                <a th:href="@{'/followList/' + ${session.get('user').getId()}}" class="m-underlineCancel m-black">关注</a>
+                <div class="m-rem-ret" th:text="${followNum}" >10</div>
+                <a th:href="@{'/followList/' + ${session.get('user').getId()}}" class="m-underlineCancel m-rem-ret m-black">关注</a>
             </div>
             <div th:if="${#strings.isEmpty(session.get('user'))}">
-                <div th:text="${followNum}" >10</div>
-                <a class="m-underlineCancel m-black">关注</a>
+                <div class="m-rem-ret" th:text="${followNum}" >10</div>
+                <a class="m-underlineCancel m-rem-ret m-black">关注</a>
             </div>
         </div>
         <div class="flex column m-mg8" style="text-align: center">
-            <div class="m-font-gray" style="font-size: 12px">敬请期待</div>
-            <div>收藏</div>
+            <div class="m-font-gray m-rem-ret">敬请期待</div>
+            <div class="m-rem-ret">收藏</div>
         </div>
     </div>
     <div class="flex flex1 column m-backcolor" style="margin-top: 10px">
-        <div class="m-mg8">创作数据</div>
+        <div class="m-mg8 m-rem-ret">创作数据</div>
         <div class="flex flex1" style="justify-content: space-around">
             <div class="flex column m-mg8" style="text-align: center ;border-right: 1px solid #EBEBEB;padding-right: 40px">
                 <div class="flex">
-                    <div class="m-font-gray" style="font-size: 12px">999(假的)</div>
+                    <div class="m-font-gray m-rem1">999(假的)</div>
                 </div>
-
-                <div>浏览量</div>
+                <div class="m-rem1">浏览量</div>
             </div>
             <div class="flex column m-mg8" style="text-align: center;border-right: 1px solid #EBEBEB;padding-right: 40px">
-                <div class="m-font-gray" style="font-size: 12px">请期待</div>
-                <div>赞同数</div>
+                <div class="m-font-gray m-rem1">请期待</div>
+                <div class="m-rem1">赞同数</div>
             </div>
             <div class="flex column m-mg8" style="text-align: center">
-                <div class="m-font-gray" style="font-size: 12px">期待</div>
-                <div>收藏数</div>
+                <div class="m-font-gray m-rem1">期待</div>
+                <div class="m-rem1">收藏数</div>
             </div>
         </div>
     </div>
     <div class="flex flex1 column m-backcolor" style="margin-top: 10px">
-        <div class="m-mg8">更多</div>
-        <div id="findMe" class="m-mg8" style="margin-left: 20px">找到我</div>
-        <div id="help" class="m-mg8" style="margin-left: 20px">问题建议</div>
-        <a th:href="@{/logout}" th:if="${!#strings.isEmpty(session.get('user'))}" class="m-mg8 m-underlineCancel" style="margin-left: 20px">注销</a>
+        <div class="m-mg8 m-rem-ret">更多</div>
+        <div id="findMe" class="m-mg8 m-rem1" style="margin-left: 20px">找到我</div>
+        <div id="help" class="m-mg8 m-rem1" style="margin-left: 20px">问题建议</div>
+        <a th:href="@{/logout}" th:if="${!#strings.isEmpty(session.get('user'))}" class="m-mg8 m-rem1 m-underlineCancel" style="margin-left: 20px">注销</a>
         <div class="m-mg8" style="margin-left: 20px"></div>
     </div>
     <!--底部导航-->
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a th:href="@{/}" class="m-underlineCancel">首页</a>
-                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+                <a th:href="@{/}" class="m-underlineCancel" style="font-size: 1.5rem">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel" style="font-size: 1.5rem">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel" style="font-size: 1.5rem">我的</a>
             </div>
         </div>
     </div>

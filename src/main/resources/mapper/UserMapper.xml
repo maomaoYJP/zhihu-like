@@ -71,11 +71,11 @@
     </select>
 
     <select id="getUserinfoById" resultMap="AmpleResultMap">
-        select * from user where is_delete = 0 and id = #{id}
+        select * from `user` where is_delete = 0 and id = #{id}
     </select>
 
     <select id="getBeFollowedByFollowId" resultType="com.maomao.zhihu.entity.User">
-        SELECT * FROM USER a LEFT JOIN user_follow b ON a.id = b.user_id AND b.user_id != #{id}
+        SELECT * FROM `user` a LEFT JOIN user_follow b ON a.id = b.user_id AND b.user_id != #{id}
         WHERE b.follow_id = #{id}
     </select>
 

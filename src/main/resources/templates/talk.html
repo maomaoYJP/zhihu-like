@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>说说</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
-<body class="flex flex1 column m-backcolor">
+<body class="flex flex1 column m-backcolor" style="font-size: 62.5%">
     <div class="flex flex1 m-backcolor" style="justify-content: space-evenly">
         <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">说说</a>
         <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel">推荐</a>
@@ -21,7 +22,7 @@
     </div>
     <input type="text" hidden="hidden" id="userId" th:value="${user.getId()}">
     <div class="flex" style="justify-content: flex-end">
-        <div th:text="${user.getNickname()}" style="margin-right: 6px;margin-top: 6px"></div>
+        <div th:text="${user.getNickname()}" class="m-rem-ret" style="margin-right: 6px;margin-top: 6px">毛毛</div>
         <img id="user" th:src="${user.getPortrait()}" alt="" style="border-radius: 3px;width: 40px;height: 40px">
     </div>
     <div class="flex flex1" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB" th:each="talk : ${talks}">
@@ -30,12 +31,12 @@
             <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
         </div>
         <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-            <div th:text="${talk.getUser().getNickname()}">毛毛</div>
+            <div class="m-rem-ret" th:text="${talk.getUser().getNickname()}">毛毛</div>
             <input type="text" hidden="hidden" th:value="${talk.getId()}">
             <input type="text" hidden="hidden" value="-1">
             <input type="text" hidden="hidden" th:value="${talk.getUser().getNickname()}">
-            <div name="talk" th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
-            <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
+            <div name="talk" th:text="${talk.getContent()}" class="m-content-font">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
+            <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px;margin-top: 8px">2022-08-08</div>
             <div th:if="${talk.getComments().size() > 0}" style="background-color: #eeeeee;border-radius: 3px;margin-top: 6px">
                 <div style="margin-bottom: 6px">
                     <div th:fragment="comment-container" id="comment-container">
@@ -91,6 +92,7 @@
             <div style="height: 6px"></div>
         </div>
     </div>
+    <div style="text-align: center;margin-top: 1.8rem" class="m-rem-ret">没有更多了！</div>
 
     <!--点击回复跳出输入框-->
     <div id="replyBox" style="position: absolute">
@@ -106,9 +108,9 @@
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a th:href="@{/}" class="m-underlineCancel">首页</a>
-                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+                <a th:href="@{/}" class="m-underlineCancel" style="font-size: 1.5rem">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel" style="font-size: 1.5rem">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel" style="font-size: 1.5rem">我的</a>
             </div>
         </div>
     </div>

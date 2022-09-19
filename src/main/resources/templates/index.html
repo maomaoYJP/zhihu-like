@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         p{
             margin: 0;
         }
     </style>
 </head>
-<body class="flex column" style="background-color: #F6F6F6;margin: 0">
+<body class="flex column" style="background-color: #F6F6F6;margin: 0;font-size: 62.5%">
     <!--顶层-->
     <div class="flex flex1 white" style="justify-content: space-evenly">
         <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel">说说</a>
@@ -35,32 +36,32 @@
             </div>
         </div>
 
-        <div class="flex white" style="justify-content: space-around;height: 25px">
-            <a th:href="@{/}" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 10px;margin-top: 4px">回答</a>
-            <a th:href="@{/passage}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">文章</a>
+        <div class="flex white" style="justify-content: space-around;">
+            <a th:href="@{/}" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 1.3rem;margin-top: 4px">回答</a>
+            <a th:href="@{/passage}" class="m-font-gray m-underlineCancel" style="font-size: 1.3rem;margin-top: 4px">文章</a>
         </div>
         <!--回答卡片-->
         <div>
             <div class="flex flex1 column">
                 <div class="flex flex1 column white" style="margin-bottom: 8px;" th:each="question : ${questions}">
                     <input type="text" hidden="true" name="answerId" th:if="${question.getAnswers().size() > 0}" th:value="${question.getAnswers().get(0).getId()}">
-                    <div class="flex1 m-mg8" th:text="${question.getTitle()}">毛毛为何这么厉害</div>
+                    <div class="flex1 m-mg8 m-title" th:text="${question.getTitle()}">毛毛为何这么厉害</div>
                     <div th:if="${question.getAnswers().size() > 0}" class="m-answerInfo">
                         <div th:if="${question.getAnswers().size() > 0}" class="flex flex1" style="margin-left: 8px">
                             <div class="flex column" style="flex: 3">
                                 <div>
                                     <img th:src="${question.getAnswers().get(0).getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                                    <span th:text="${question.getAnswers().get(0).getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
+                                    <span th:text="${question.getAnswers().get(0).getUser().getNickname()}"  class="m-rem1" style="position: absolute;margin-left: 2px">毛毛</span>
                                 </div>
-                                <div th:text="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                                <div th:text="${question.getAnswers().get(0).getContent().length() > 60 ? question.getAnswers().get(0).getContent().substring(0,60) : question.getAnswers().get(0).getContent()}" class="m-font-gray" style="font-size: 1rem">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                             </div>
                             <div th:if="${!#strings.isEmpty(question.getAnswers().get(0).getPicture())}">
                                 <img alt="" class="m-cardPicture" th:src="${question.getAnswers().get(0).getPicture()}">
                             </div>
                         </div>
                         <div class="flex" style="justify-content: space-between">
-                            <div class="flex1 m-mg8 m-font-gray" style="font-size: 10px">100 赞同 100收藏</div>
-                            <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px;margin-right: 5px" >2022-08-11</div>
+                            <div class="flex1 m-mg8 m-font-gray" style="font-size: 1rem"></div>
+                            <div th:text="${#dates.format(question.getAnswers().get(0).getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 1rem;margin-top: 8px;margin-right: 5px" >2022-08-11</div>
                         </div>
                     </div>
                     <div th:if="${question.getAnswers().size() == 0}" class="flex flex1" style="margin-left: 8px">
@@ -68,9 +69,9 @@
                         <div class="flex column" style="flex: 3" name="noAnswerQuestion">
                             <div>
                                 <img th:src="${question.getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                                <span th:text="${question.getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
+                                <span th:text="${question.getUser().getNickname()}"  class="m-rem1" style="position: absolute;margin-left: 2px">毛毛</span>
                             </div>
-                            <div class="m-font-gray" style="font-size: 10px;margin-top: 6px">还没有回答！！</div>
+                            <div class="m-font-gray" style="font-size: 1rem;margin-top: 6px">还没有回答！！</div>
                         </div>
                         <div th:if="${!#strings.isEmpty(question.getPicture())}">
                             <img alt="" class="m-cardPicture" th:src="${question.getPicture()}">
@@ -79,14 +80,15 @@
                 </div>
             </div>
         </div>
+        <div style="text-align: center;margin-top: 1.8rem" class="m-rem-ret">没有更多了！</div>
     </div>
     <!--底部导航-->
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a th:href="@{/}" class="m-underlineCancel">首页</a>
-                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+                <a th:href="@{/}" class="m-underlineCancel" style="font-size: 1.5rem">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel" style="font-size: 1.5rem">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel" style="font-size: 1.5rem">我的</a>
             </div>
         </div>
     </div>

@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>问题</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
-<body class="flex flex1 column" style="background-color: #F6F6F6;margin: 0">
+<body class="flex flex1 column" style="background-color: #F6F6F6;margin: 0;font-size: 62.5%">
     <div class="white">
         <div class="flex m-mg8 column">
             <div class="flex">
-                <a th:href="@{/creation}" class="m-font-gray m-underlineCancel">返回</a>
-                <div class="flex1" style="text-align: center">问题</div>
-                <div class="m-font-gray" id="search_btn" style="margin-right: 8px">搜索</div>
+                <a th:href="@{/creation}" class="m-font-gray m-rem-ret m-underlineCancel">返回</a>
+                <div class="flex1 m-rem-ret" style="text-align: center">问题</div>
+                <div class="m-font-gray m-rem-ret" id="search_btn" style="margin-right: 8px">搜索</div>
             </div>
             <div id="search_area" hidden="false" style="text-align: center;margin-top: 8px">
                 <div class="white">
@@ -34,17 +35,18 @@
         <div class="flex flex1 column white" style="margin-bottom: 5px" th:each="question : ${questions}">
             <div>
                 <img alt="" class="m-headPicture-circle m-mg8" th:src="${question.getUser().getPortrait()}">
-                <span th:text="${question.user.getNickname()}" class="m-font-gray" style="position: absolute;margin-top: 12px;margin-left: 3px;font-size: 10px">毛毛</span>
+                <span th:text="${question.user.getNickname()}" class="m-font-gray m-rem1" style="position: absolute;margin-top: 15px;margin-left: 3px">毛毛</span>
             </div>
             <input type="text" th:value="${question.getId()}" hidden="hidden">
-            <div th:text="${question.getTitle()}" name="question" style="margin-left: 8px;">
+            <div th:text="${question.getTitle()}" name="question" class="m-title" style="margin-left: 8px;">
                 JavaScript怎么学?
             </div>
             <div class="m-mg8">
-                <div th:text="${question.getAnswers().size()} + 回答" class="m-font-gray" style="font-size: 10px" >10 回答</div>
+                <div th:text="${question.getAnswers().size()} + 回答" class="m-font-gray m-rem1">10 回答</div>
             </div>
         </div>
     </div>
+    <div style="text-align: center;margin-top: 1.8rem" class="m-rem-ret">没有更多了！</div>
 
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
