@@ -172,6 +172,7 @@ public class IndexController {
             views += passage.getViews();
         }
 
+        model.addAttribute("picture", user.getPortrait());
         model.addAttribute("createNum", createNum);
         model.addAttribute("followNum", followNum);
         model.addAttribute("views", views);
