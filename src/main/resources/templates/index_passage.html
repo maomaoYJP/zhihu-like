@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         p{
             margin: 0;
@@ -13,9 +14,9 @@
 <body class="flex column" style="background-color: #F6F6F6;margin: 0">
 <!--顶层-->
 <div class="flex flex1 white" style="justify-content: space-evenly">
-    <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel">说说</a>
+    <a th:href="@{/talk}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">说说</a>
     <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">推荐</a>
-    <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel">热榜</a>
+    <a th:href="@{/rank}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">热榜</a>
 </div>
 <!--中间内容-->
 <div class="flex column">
@@ -34,43 +35,44 @@
             </div>
         </div>
     </div>
-    <div class="flex white" style="justify-content: space-around;height: 25px">
-        <a th:href="@{/}" class="m-font-gray m-underlineCancel" style="font-size: 10px;margin-top: 4px">回答</a>
-        <a th:href="@{/passage}" class="m-font-gray m-underlineCancel m-activeDown-while" style="font-size: 10px;margin-top: 4px">文章</a>
+    <div class="flex white" style="justify-content: space-around">
+        <a th:href="@{/}" class="m-font-gray m-underlineCancel m-card-title" style="margin-top: 4px">回答</a>
+        <a th:href="@{/passage}" class="m-font-gray m-underlineCancel m-activeDown-while m-card-title" style="margin-top: 4px">文章</a>
     </div>
     <!--回答卡片-->
     <div>
         <div class="flex flex1 column">
             <div class="flex flex1 column white" style="margin-bottom: 8px" th:each="passage : ${passageList}">
-                <div class="flex1 m-mg8" th:text="${passage.getTitle()}" >标题：毛毛为何这么厉害</div>
+                <div class="flex1 m-mg8 m-card-title" th:text="${passage.getTitle()}" >标题：毛毛为何这么厉害</div>
                 <input hidden="true" th:value="${passage.getId()}">
                 <div class="flex flex1" style="margin-left: 8px" name="passageCart">
                     <div class="flex column" style="flex: 3">
                         <div>
-                            <img th:src="${passage.getUser().getPortrait()}" alt="" style="border-radius: 50%;width: 20px;height: 20px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-                            <span th:text="${passage.getUser().getNickname()}"  style="font-size: 10px;position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
+                            <img th:src="${passage.getUser().getPortrait()}" alt="" class="m-headPicture-circle" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                            <span th:text="${passage.getUser().getNickname()}" class="m-card-introduce"  style="position: absolute;margin-top: 3px;margin-left: 2px">毛毛</span>
                         </div>
-                        <div th:text="${passage.getContent().length() > 60 ? passage.getContent().substring(0,60) : passage.getContent()}" class="m-font-gray" style="font-size: 10px">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
+                        <div th:text="${passage.getContent().length() > 50 ? passage.getContent().substring(0,50) : passage.getContent()}" class="m-font-gray m-card-introduce">内容我就是内容，我就是内容，内容就是我，冲冲冲，我就是内容</div>
                     </div>
                     <div th:if="${!#strings.isEmpty(passage.getPicture())}">
                         <img alt="" class="m-cardPicture" th:src="${passage.getPicture()}">
                     </div>
                 </div>
                 <div class="flex" style="justify-content: space-between">
-                    <div class="flex1 m-mg8 m-font-gray" style="font-size: 10px">100 赞同 100收藏</div>
-                    <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px;margin-right: 5px" >2022-08-11</div>
+                    <div class="flex1 m-mg8 m-font-gray" style="font-size: 10px"></div>
+                    <div th:text="${#dates.format(passage.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px;margin-top: 8px;margin-right: 5px" >2022-08-11</div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="flex flex1" style="justify-content: center;margin-top: 20px">已经到底了！</div>
 </div>
 <!--底部导航-->
 <div style="margin-top: 50px">
     <div style="position: fixed;bottom: 0;width: 100%">
         <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-            <a th:href="@{/}" class="m-underlineCancel">首页</a>
-            <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-            <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+            <a th:href="@{/}" class="m-underlineCancel m-card-title">首页</a>
+            <a th:href="@{/follow}" class="m-underlineCancel m-card-title">关注</a>
+            <a th:href="@{/personal}" class="m-underlineCancel m-card-title">我的</a>
         </div>
     </div>
 </div>

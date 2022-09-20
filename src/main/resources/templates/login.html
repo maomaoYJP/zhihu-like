@@ -5,6 +5,7 @@
     <title>登录</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
     <link rel="stylesheet" href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
     <style>
         .input{
             width: 95%;
@@ -17,7 +18,6 @@
         .skip{
             color: gray;
             font-size: 14px;
-            margin-top: -20px;
             margin-bottom: 20px;
             margin-right: 6px;
         }
@@ -97,7 +97,7 @@
                 <input id="password_check" placeholder="请再次输入密码" class="input" style="margin: auto">
             </div>
             <div class="flex column">
-                <div id="login_page" class="flex skip" style="justify-content: flex-end;margin-top: -10px">已有账号？登录</div>
+                <div id="login_page" class="flex skip" style="justify-content: flex-end">已有账号？登录</div>
                 <div class="flex flex1" style="justify-content: center">
                     <button id="register_btn" class="login-btn">注册</button>
                 </div>

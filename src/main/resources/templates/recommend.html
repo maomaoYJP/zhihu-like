@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <title>推荐</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
 <body class="flex flex1 m-backcolor column">
     <div class="flex flex1 m-backcolor" style="justify-content: space-evenly">
-        <a th:href="@{/talk}" class="m-font-gray m-mg8 m-underlineCancel">说说</a>
-        <a th:href="@{/}" class="m-font-gray m-mg8 m-underlineCancel">推荐</a>
+        <a th:href="@{/talk}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">说说</a>
+        <a th:href="@{/}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">推荐</a>
         <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">热榜</a>
     </div>
     <div class="flex flex1" style="margin-top: 10px;border-bottom: 1px solid #EBEBEB;min-height: 80px" th:each="question : ${questionRank}">
-        <div th:text="${questionStat.count}" style="margin-right: 8px">1</div>
+        <div th:text="${questionStat.count}" class="m-card-title" style="margin-right: 8px">1</div>
         <input type="text" hidden="hidden" th:value="${question.getId()}">
         <div class="flex flex1 column" name="questionCart">
             <div class="flex flex1">
-                <div th:text="${question.getTitle()}" style="flex: 4">我是标题我是标题我是标题我是标题我就是标题</div>
+                <div class="m-card-title" th:text="${question.getTitle()}" style="flex: 4">我是标题我是标题我是标题我是标题我就是标题</div>
                 <div th:if="${!#strings.isEmpty(question.getPicture())}" style="flex: 1">
                     <img th:if="${question.getAnswers().size() > 0}" th:src="${question.getPicture()}" class="m-cardPicture" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/pdx.jpg" alt="">
                 </div>
             </div>
             <div class="flex" style="justify-content: space-between">
-                <div class="flex1 m-font-gray" style="font-size: 10px">100 赞同 100收藏</div>
-                <div th:text="${#dates.format(question.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-right: 5px" >2022-08-11</div>
+                <div class="flex1 m-font-gray" style="font-size: 10px"></div>
+                <div th:text="${#dates.format(question.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px;margin-right: 5px" >2022-08-11</div>
             </div>
         </div>
     </div>
@@ -32,9 +33,9 @@
     <div style="margin-top: 50px">
         <div style="position: fixed;bottom: 0;width: 100%">
             <div class="m-backcolor flex flex1" style="justify-content: space-evenly;align-items: center ;height: 50px">
-                <a th:href="@{/}" class="m-underlineCancel">首页</a>
-                <a th:href="@{/follow}" class="m-underlineCancel">关注</a>
-                <a th:href="@{/personal}" class="m-underlineCancel">我的</a>
+                <a th:href="@{/}" class="m-underlineCancel m-card-title">首页</a>
+                <a th:href="@{/follow}" class="m-underlineCancel m-card-title">关注</a>
+                <a th:href="@{/personal}" class="m-underlineCancel m-card-title">我的</a>
             </div>
         </div>
     </div>

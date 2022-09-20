@@ -42,7 +42,7 @@
     </insert>
 
     <select id="getTopCommentByPassageIdOrderByTime" resultMap="BaseResultMap">
-        SELECT * FROM COMMENT a LEFT JOIN passage_comment b ON a.id = b.comment_id
+        SELECT * FROM `comment` a LEFT JOIN passage_comment b ON a.id = b.comment_id
         LEFT JOIN user_comment c ON a.id = c.comment_id
         WHERE b.passage_id = #{passageId} AND a.parent_comment_id IS NULL AND is_delete = 0
         ORDER BY a.create_time DESC
@@ -60,24 +60,24 @@
         </association>
     </resultMap>
     <select id="getParentCommentByParentCommentId" resultMap="ParentCommentResultMap">
-        SELECT * FROM COMMENT a LEFT JOIN user_comment b ON a.id=b.comment_id
+        SELECT * FROM `comment` a LEFT JOIN user_comment b ON a.id=b.comment_id
         WHERE a.id = #{parentCommentId} and is_delete = 0
     </select>
 
     <select id="getDirectReplyByCommentId" resultMap="BaseResultMap">
-        SELECT * FROM COMMENT LEFT JOIN user_comment b ON id = b.comment_id
+        SELECT * FROM `comment` LEFT JOIN user_comment b ON id = b.comment_id
         WHERE parent_comment_id = #{commentId} AND parent_comment_id IS NOT NULL AND is_delete = 0
     </select>
 
     <select id="getTopCommentByAnswerIdOrderByTime" resultMap="BaseResultMap">
-        SELECT * FROM COMMENT a LEFT JOIN answer_comment b ON a.id = b.comment_id
+        SELECT * FROM `comment` a LEFT JOIN answer_comment b ON a.id = b.comment_id
         LEFT JOIN user_comment c ON a.id = c.comment_id
         WHERE b.answer_id = #{answerId} AND a.parent_comment_id IS NULL AND is_delete = 0
         ORDER BY a.create_time DESC
     </select>
 
     <select id="getTopCommentByTalkIdOrderByTime" resultMap="BaseResultMap">
-        SELECT * FROM COMMENT a LEFT JOIN talk_comment b ON a.id = b.comment_id
+        SELECT * FROM `comment` a LEFT JOIN talk_comment b ON a.id = b.comment_id
         LEFT JOIN user_comment c ON a.id = c.comment_id
         WHERE b.talk_id = #{talkId} AND a.parent_comment_id IS NULL AND is_delete = 0
         ORDER BY a.create_time DESC

@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <title>问题建议</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
 <body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
 <div class="m-backcolor">
-    <div class="flex m-mg8">
-        <div class="flex1 m-font-gray" id="return">返回</div>
-        <div class="flex1" style="text-align: center;margin-right: 40px">问题建议</div>
+    <div class="flex m-mg8" id="return">
+        <div class="m-font-gray m-card-title">返回</div>
+        <div class="flex1 m-card-title" style="text-align: center;margin-right: 40px">问题建议</div>
     </div>
 </div>
 <form action="" class="m-backcolor">
     <div style="text-align: center">
         <label for="help"></label>
-        <textarea required name="help" id="help" cols="30" rows="10" style="width: 90%" placeholder="对于本项目有任何问题建议，或者有任何话想对我说，都可以在此发送（不为其他人所见）"></textarea>
+        <textarea required name="help" id="help" cols="30" rows="10" style="width: 90%" class="m-card-title" placeholder="对于本项目有任何问题建议，或者有任何话想对我说，都可以在此发送（不为其他人所见）"></textarea>
     </div>
     <div class="m-mg8" style="text-align: right;margin-right: 8px">
-        <button id="help-btn">提交</button>
+        <button id="help-btn" class="m-card-title">提交</button>
     </div>
 </form>
 

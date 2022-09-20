@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>内容管理</title>
     <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 </head>
 <body class="flex flex1 column" style="margin: 0">
     <div class="m-backcolor">
         <div class="flex m-mg8">
-            <a th:href="@{/creation}" class="m-font-gray m-underlineCancel">返回</a>
-            <div class="flex1" style="text-align: center">说说管理</div>
+            <a th:href="@{/creation}" class="m-font-gray m-card-title m-underlineCancel">返回</a>
+            <div class="flex1 m-card-title" style="text-align: center">说说管理</div>
         </div>
     </div>
     <div id="search_area" hidden="false" style="text-align: center" class="m-backcolor">
@@ -21,14 +22,14 @@
         <div class="flex flex1 column" style="margin-top: 16px;border-bottom: 1px solid #EBEBEB;margin-right: 10px;margin-left: 10px" th:each="talk : ${talks}">
             <div class="flex flex1">
                 <div>
-                    <img th:src="${talk.getUser().getPortrait()}" alt="" style="border-radius: 3px;width: 30px;height: 30px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
+                    <img th:src="${talk.getUser().getPortrait()}" alt="" class="m-talk-picture" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
                 </div>
                 <div class="flex flex1 column" style="margin-left: 4px;margin-top: -2px">
-                    <div th:text="${talk.getUser().getNickname()}">毛毛</div>
-                    <div th:text="${talk.getContent()}" style="font-size: 14px">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
+                    <div class="m-talk-username" th:text="${talk.getUser().getNickname()}">毛毛</div>
+                    <div th:text="${talk.getContent()}" class="m-talk-content">今天差不多就是写了两个页面，在写第一个页面的时候都已经感觉很想放弃了，但是还是坚持了下来，其实就是这样，在自我怀疑中前进，不断进步</div>
                     <div class="flex" style="justify-content: space-between">
-                        <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 10px;margin-top: 8px">2022-08-08</div>
-                        <span class="m-more" style="margin-right: 8px;user-select: none" >. . .</span>
+                        <div th:text="${#dates.format(talk.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray" style="font-size: 14px;margin-top: 8px">2022-08-08</div>
+                        <span class="m-more" style="font-weight: bolder;margin-right: 8px;user-select: none" >. . .</span>
                     </div>
                 </div>
             </div>
@@ -36,10 +37,10 @@
             <div hidden="true" style="margin-top: 10px">
                 <div style="width: 100%">
                     <div class="flex flex1 column" style="background-color: white;border-radius: 10px">
-                        <div style="margin-left: 10px;margin-top: 10px;margin-bottom: 20px">操作</div>
+                        <div class="m-card-title" style="margin-left: 10px;margin-top: 10px;margin-bottom: 20px">操作</div>
                         <div class="flex flex1 column" style="margin-right: 20px">
                             <input type="text" hidden="true" th:value="${talk.getId()}">
-                            <a class="m-underlineCancel m-black" style="margin-left: 20px;margin-bottom: 12px;font-size: 15px;border-bottom: 1px solid #EBEBEB">删除</a>
+                            <a class="m-underlineCancel m-card-title m-black" style="margin-left: 20px;margin-bottom: 12px;border-bottom: 1px solid #EBEBEB">删除</a>
                         </div>
                     </div>
                 </div>
@@ -48,14 +49,8 @@
     </div>
 </body>
 <script type="text/javascript">
-    let search_btn = document.getElementById("search_btn");
-    let search_area = document.getElementById("search_area");
     let delete_open = document.querySelectorAll(".m-more");
 
-    //点击搜索显示或关闭搜索框
-    search_btn.addEventListener("click", function () {
-        search_area.hidden = search_area.hidden ? false : true;
-    })
     //点击开启删除按钮
     for (let i = 0; i < delete_open.length; i++){
         delete_open[i].addEventListener("click",function () {
@@ -63,7 +58,8 @@
             edit.hidden = edit.hidden ? false : true;
             let deleteTip = edit.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.lastElementChild;
             let talkId = deleteTip.previousElementSibling.value;
-            deleteTip.addEventListener("click",function () {
+            deleteTip.addEventListener("click",function (e) {
+                e.stopPropagation()
                 if(confirm("确定要删除吗？")){
                     deleteTip.href = "/talk/delete/" + talkId;
                     return true;
