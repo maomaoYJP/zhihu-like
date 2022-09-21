@@ -85,6 +85,6 @@ public class TalkController {
         User user = (User)session.getAttribute("user");
         talk.setUser(user);
         talkService.createTalk(talk);
-        return "redirect:/talk/manage";
+        return "redirect:/talk";
     }
 }
