@@ -16,7 +16,7 @@
     <div class="flex flex1 column">
         <div th:each="follow,followStat : ${follows}" class="flex m-backcolor" style="margin-bottom: 1px">
             <img th:src="${follow.getPortrait()}" alt="" class="m-headPicture-circle m-mg8" style="width: 40px;height: 40px" src="https://maomao-image.oss-cn-guangzhou.aliyuncs.com/img/20220801204640.png">
-            <div class="flex column m-mg8">
+            <div class="flex column m-mg8" name="user">
                 <input th:value="${follow.getId()}" hidden="true" name="followId"/>
                 <div th:text="${follow.getNickname()}" class="m-card-title">毛毛</div>
                 <div th:text="${follow.getIntroduce().length() > 11 ? follow.getIntroduce().substring(0,11) : follow.getIntroduce()}" class="m-font-gray m-card-introduce">这是关注列表</div>
@@ -34,6 +34,11 @@
     $("#return").click(function () {
         window.history.back()
     })
+    //点击头像去往主页
+    $("[name='user']").click(function (){
+        document.location.href = "/home/" + $(this)[0].firstElementChild.value
+    })
+
     $("[name= 'follow-btn']").click(function (e) {
         this.value === "0" ? addFollow(e) : removeFollow(e);
     })
