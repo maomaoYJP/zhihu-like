@@ -133,11 +133,6 @@
     </div>
 
     <!--底部栏-->
-    <div class="m-backcolor flex flex1" style="margin-left: -8px;position: fixed;bottom: 0;width: 100%;justify-content: space-evenly;align-items: center ;height: 50px;border-top: 1.5px solid #eeeeee">
-        <button>赞同 100</button>
-        <button>收藏 100</button>
-        <button>评论 100</button>
-    </div>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
 </body>
 <script>
@@ -155,11 +150,15 @@
         if($("#reply").val() === ''){
             return alert("评论不可为空")
         }
+        //设置按钮不可点击
+        $(this).prop("disabled", "true");
         $("#comment-container").load("/passage/" + [[${passage.getId()}]] + "/comment",{
             "content" : $("#reply").val(),
             "parentCommentId" : $("#replyCommentId").val()
         },function (responseTxt, statusTxt, xhr) {
             cleanContent()
+            //设置按钮可以点击
+            $("#replySend").removeAttr("disabled");
             $("#reply").hide();
             $("#replySend").hide()
         })
@@ -199,11 +198,15 @@
         if($("#content").val() === ''){
             return alert("评论不可为空")
         }
+        //设置按钮不可点击
+        $("#commentBtn").prop("disabled", "true");
         $("#comment-container").load("/passage/" + [[${passage.getId()}]] + "/comment",{
             "content" : $("#content").val(),
             "parentCommentId" : $("#parentCommentId").val()
         },function (responseTxt, statusTxt, xhr) {
             cleanContent()
+            //设置按钮可以点击
+            $("#commentBtn").removeAttr("disabled");
         })
     }
 
