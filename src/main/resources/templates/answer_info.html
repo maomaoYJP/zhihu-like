@@ -189,6 +189,10 @@
     }
 
     $("#replySend").click(function () {
+        //判断内容不可为空
+        if($("#reply").val() === ''){
+            return alert("评论不可为空")
+        }
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#reply").val(),
             "parentCommentId" : $("#replyCommentId").val()
@@ -229,6 +233,10 @@
     }
 
     postComment = function (){
+        //判断内容不可为空
+        if($("#content").val() === ''){
+            return alert("评论不可为空")
+        }
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#content").val(),
             "parentCommentId" : $("#parentCommentId").val()
