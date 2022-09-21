@@ -257,11 +257,9 @@ public class PersonalController {
         return "user_info";
     }
 
-    @GetMapping("/lookUserInfo")
-    public String lookUserInfo(HttpSession session, Model model){
-        User user = (User)session.getAttribute("user");
-        Long id = user.getId();
-        User userInfo = userService.getUserinfoById(id);
+    @GetMapping("/lookUserInfo/{userId}")
+    public String lookUserInfo(@PathVariable("userId")Long userId,Model model){
+        User userInfo = userService.getUserinfoById(userId);
         model.addAttribute("userInfo",userInfo);
         model.addAttribute("my", false);
         return "user_info";

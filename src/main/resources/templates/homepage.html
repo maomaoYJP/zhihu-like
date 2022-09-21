@@ -44,7 +44,7 @@
                 <button type="button" th:hidden="${!isFollow}" value="1" class="m-cancelFollow m-card-title m-edit" id="cancelFollow" >取关</button>
             </div>
             <a th:if="${myHome == true}" th:href="@{/editData}" class="m-underlineCancel m-black m-card-title" style="margin-right: 8px;margin-bottom: 8px">编辑资料</a>
-            <a th:if="${myHome == false}" th:href="@{/lookUserInfo}" class="m-underlineCancel m-card-title m-black" style="margin-right: 8px;margin-bottom: 8px">查看资料</a>
+            <a th:if="${myHome == false}" th:href="@{/lookUserInfo/{userId}(userId = ${user.getId()})}" class="m-underlineCancel m-card-title m-black" style="margin-right: 8px;margin-bottom: 8px">查看资料</a>
         </div>
 
         <div class="flex m-backcolor" style="justify-content: space-around;margin-top: 8px;height: 30px">
