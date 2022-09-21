@@ -21,7 +21,7 @@
         <div class="m-card-title" style="margin-top: 8px">基本资料</div>
         <div th:if="${my == true}">
             <form th:action="@{/editData/save}" method="post">
-                <input type="text" hidden="true" name="portrait" id="portrait">
+                <input type="text" hidden="true" name="portrait" th:value="${userInfo.getPortrait()}" id="portrait">
                 <input type="text" hidden="true" th:value="${userInfo.getId()}" name="id">
                 <div class="flex flex1" style="margin-top: 26px">
                     <label class="m-font-gray m-card-title" style="margin-right: 8px" for="nickname">昵称</label>
