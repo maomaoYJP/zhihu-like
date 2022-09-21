@@ -39,6 +39,10 @@
         </div>
         <div class="flex m-backcolor" style="justify-content: space-between">
             <div th:text="${user.getNickname()}" class="m-card-title" style="margin-left: 8px">毛毛</div>
+            <div th:fragment="followBtn" id="followBtn" style="margin-right: -130px">
+                <button type="button" th:hidden="${isFollow}" value="0" class="m-edit m-card-title" id="follow">关注</button>
+                <button type="button" th:hidden="${!isFollow}" value="1" class="m-cancelFollow m-card-title m-edit" id="cancelFollow" >取关</button>
+            </div>
             <a th:if="${myHome == true}" th:href="@{/editData}" class="m-underlineCancel m-black m-card-title" style="margin-right: 8px;margin-bottom: 8px">编辑资料</a>
             <a th:if="${myHome == false}" th:href="@{/lookUserInfo}" class="m-underlineCancel m-card-title m-black" style="margin-right: 8px;margin-bottom: 8px">查看资料</a>
         </div>
@@ -228,6 +232,33 @@
         window.history.back()
     })
     const userId = [[${user.getId()}]]
+
+    if([[${isFollow}]]){
+        $("#followBtn").on("click", ".m-edit" ,function (e) {
+            this.value === "0" ? addFollow(e) : removeFollow(e);
+        })
+    }else{
+        $("#followBtn").on("click", ".m-edit" ,function (e) {
+            this.value === "0" ? addFollow(e) : removeFollow(e);
+        })
+    }
+
+
+    addFollow = function(e) {
+        $("#follow").load("/addFollow",{
+            "followId" : [[${user.getId()}]]
+        },function (responseTxt, statusTxt, xhr) {
+            console.log($("#followBtn").html(responseTxt))
+        });
+    }
+
+    removeFollow = function (e) {
+        $("#cancelFollow").load("/cancelFollow",{
+            "followId" : [[${user.getId()}]]
+        },function (responseTxt, statusTxt, xhr) {
+            console.log($("#followBtn").html(responseTxt))
+        });
+    }
 
     //点击卡片中间区域跳转到详细内容
     $("[name='eachAnswer']").click(function () {

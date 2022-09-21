@@ -35,6 +35,7 @@ public class PersonalController {
     public String home(@PathVariable("userId")Long userId, Model model, HttpSession session){
         User loginUser = (User)session.getAttribute("user");
         Long id = loginUser.getId();
+        //判断是否是自己的主页
         if(userId.equals(id)){
             model.addAttribute("myHome", true);
         }else{
@@ -47,6 +48,21 @@ public class PersonalController {
         //获得粉丝数和关注数
         int followSize = followsById.size();
         int beFollowedSize = beFollowedById.size();
+
+        //判断是否是自己的关注
+        List<User> follows = userService.getFollowsById(id);
+        int count = 0;
+        for (User follow : follows) {
+            if(follow.getId().equals(userId)) {
+                break;
+            }
+            count++;
+        }
+        if(count != follows.size()){
+            model.addAttribute("isFollow",true);
+        }else{
+            model.addAttribute("isFollow",false);
+        }
 
         //获取用户回答、文章、说说
         //通过用户的id获得用户信息
