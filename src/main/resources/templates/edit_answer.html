@@ -17,7 +17,7 @@
         #editor-container { height: 500px; }
     </style>
 </head>
-<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0">
+<body class="flex flex1 column" style="background-color: #e8e8e8;margin: 0;height: 100vh">
 <div class="m-backcolor">
     <div class="flex m-mg8">
         <a class="m-font-gray m-card-title m-underlineCancel" th:href="@{/creation}">返回</a>
@@ -39,8 +39,8 @@
         <div id="toolbar-container"><!-- 工具栏 --></div>
         <div id="editor-container"><!-- 编辑器 --></div>
     </div>
-    <div class="m-mg8" style="text-align: right;margin-right: 8px">
-        <button type="button" class="m-card-title" id="answer">提交</button>
+    <div class="m-mg8" style="text-align: center;margin-right: 8px">
+        <button type="button" class="m-card-title" style="width: 90%" id="answer">提交</button>
     </div>
 </form>
 
