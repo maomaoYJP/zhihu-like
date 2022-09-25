@@ -94,7 +94,10 @@
     </div>
 </body>
 <script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script type="text/javascript" src="../static/js/utils.js" th:src="@{/js/utils.js}"></script>
 <script>
+    //下拉刷新
+    //pullUpLoad()
     let answer_btn = document.querySelectorAll(".m-answerInfo");
     for(let i = 0; i < answer_btn.length ; i++ ){
         answer_btn[i].addEventListener("click",function () {

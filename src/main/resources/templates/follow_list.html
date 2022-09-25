@@ -37,7 +37,7 @@
             <div class="flex column m-mg8" name="user">
                 <input th:value="${follow.getId()}" hidden="true"/>
                 <div th:text="${follow.getNickname()}" class="m-card-title">毛毛</div>
-                <div th:text="${follow.getIntroduce()}" class="m-font-gray m-card-introduce">这是关注列表</div>
+                <div th:text="${follow.getIntroduce().length() > 11 ? follow.getIntroduce().substring(0,11) : follow.getIntroduce()}" class="m-font-gray m-card-introduce">这是关注列表</div>
             </div>
             <div th:if="${session.get('user').getId() == userId}" class="flex1" style="text-align: right">
                 <input th:value="${follow.getId()}" hidden="true" name="followId"/>

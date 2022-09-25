@@ -49,6 +49,7 @@ public class PassageController {
     @GetMapping("/passage/update/{passageId}")
     public String updatePassage(@PathVariable("passageId")Long passageId, Model model){
         Passage passage = passageService.getById(passageId);
+        passage.setContent(passage.getContent().replaceAll("'","\\\\'").replaceAll("\"", "\\\\\""));
         model.addAttribute("passage", passage);
         return "update_passage";
     }

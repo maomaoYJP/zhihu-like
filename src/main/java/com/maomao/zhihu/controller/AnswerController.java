@@ -55,6 +55,7 @@ public class AnswerController {
     @GetMapping("/answer/update/{questionId}/{answerId}")
     public String updatePassage(@PathVariable("questionId")Long questionId,@PathVariable("answerId")Long answerId, Model model){
         Answer answer = answerService.getById(answerId);
+        answer.setContent(answer.getContent().replaceAll("'","\\\\'").replaceAll("\"", "\\\\\""));
         Question question = questionService.getById(questionId);
         model.addAttribute("answer", answer);
         model.addAttribute("question", question);
