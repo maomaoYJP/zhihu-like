@@ -7,6 +7,7 @@ import com.maomao.zhihu.entity.Passage;
 import com.maomao.zhihu.entity.Talk;
 import com.maomao.zhihu.entity.User;
 import com.maomao.zhihu.service.CommentService;
+import com.maomao.zhihu.service.CommentTipService;
 import com.maomao.zhihu.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +34,8 @@ public class TalkMapperTest {
     CommentMapper commentMapper;
     @Resource
     UserService userService;
+    @Resource
+    CommentTipService commentTipService;
 
     @Test
     public void getAllTalk() {
@@ -50,5 +53,9 @@ public class TalkMapperTest {
 //        wrapper.eq("nickname", "毛");
 //        User user = userService.getOne(wrapper);
 //        System.out.println(user);
+//        List<Comment> myPassageTip = commentTipService.getMyPassageTip(1L);
+//        List<Comment> myAnswerTip = commentTipService.getMyAnswerTip(1L);
+//        myAnswerTip.forEach(System.out::println);
+//        myPassageTip.forEach(System.out::println);
     }
 }

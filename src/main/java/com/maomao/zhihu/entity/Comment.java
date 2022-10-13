@@ -51,6 +51,12 @@ public class Comment implements Serializable {
     private User user;
 
     /**
+     * 评论是否被读过
+     */
+    @TableField(exist = false)
+    private Long isRead;
+
+    /**
      * 该评论的父评论
      */
     @TableField(exist = false)

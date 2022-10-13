@@ -1,9 +1,7 @@
 package com.maomao.zhihu.controller;
 
-import com.maomao.zhihu.entity.Comment;
-import com.maomao.zhihu.entity.Passage;
-import com.maomao.zhihu.entity.Question;
-import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.entity.*;
+import com.maomao.zhihu.service.CommentTipService;
 import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.utils.HTMLFilter;
@@ -27,6 +25,9 @@ public class PassageController {
 
     @Resource
     PassageService passageService;
+
+    @Resource
+    CommentTipService commentTipService;
 
     @GetMapping("/passage/manage")
     public String answerManager(HttpSession session, Model model){
@@ -113,6 +114,15 @@ public class PassageController {
         Long userId = user.getId();
         //创建保存评论
         passageService.createPassageComment(userId, passageId, comment);
+
+        //插入comment_tip
+        CommentTip commentTip = new CommentTip();
+        commentTip.setCommentId(comment.getId());
+        commentTip.setPassageId(passageId);
+        commentTip.setAnswerId(null);
+        commentTip.setUserId(comment.getUser().getId());
+        commentTip.setIsRead(0L);
+        commentTipService.save(commentTip);
 
         //查询文章
         Passage passage = passageService.getPassageAndUserByPassageId(passageId);

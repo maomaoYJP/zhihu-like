@@ -37,8 +37,11 @@ public class IndexController {
     @Resource
     SuggestionService suggestionService;
 
-    //首页
-    //回答页
+    /**
+     *
+     * @param model 传入前端
+     * @return 返回首页面
+     */
     @RequestMapping("/")
     public String index(Model model){
         List<Question> questions = questionService.getManyQuestion();
@@ -47,6 +50,7 @@ public class IndexController {
                 question.getAnswers().get(0).setContent(HTMLFilter.delHTMLTag(question.getAnswers().get(0).getContent()));
             }
         }
+        sortList.sortQuestion(questions);
         model.addAttribute("questions", questions);
         return "index";
     }
