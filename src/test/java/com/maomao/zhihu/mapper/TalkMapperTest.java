@@ -53,9 +53,9 @@ public class TalkMapperTest {
 //        wrapper.eq("nickname", "毛");
 //        User user = userService.getOne(wrapper);
 //        System.out.println(user);
-//        List<Comment> myPassageTip = commentTipService.getMyPassageTip(1L);
-//        List<Comment> myAnswerTip = commentTipService.getMyAnswerTip(1L);
-//        myAnswerTip.forEach(System.out::println);
-//        myPassageTip.forEach(System.out::println);
+        List<Comment> myPassageTip = commentTipService.getMyPassageTip(1L);
+        List<Comment> myAnswerTip = commentTipService.getMyAnswerTip(1L);
+        myAnswerTip.forEach(System.out::println);
+        myPassageTip.forEach(System.out::println);
     }
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ZH-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>消息</title>
+    <link rel="stylesheet" href="../static/css/maomao.css" th:href="@{/css/maomao.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="flex column" style="background-color: #F6F6F6;margin: 0">
+<div class="white">
+    <div class="flex m-mg8">
+        <a th:href="@{/}" class="m-font-gray m-underlineCancel m-card-title">返回</a>
+        <div class="m-card-title flex1" style="text-align: center">消息</div>
+        <div style="visibility: hidden">返回</div>
+    </div>
+</div>
+<!--中间内容-->
+<div class="flex column">
+    <div th:if="${isRead == 0}" class="flex white" style="justify-content: space-around">
+        <a th:href="@{/tip}" class="m-font-gray m-underlineCancel m-activeDown-while m-card-title"  style="margin-top: 4px">未读</a>
+        <a th:href="@{/tip/read}" class="m-font-gray m-underlineCancel m-card-title" style="margin-top: 4px">已读</a>
+    </div>
+    <div th:if="${isRead == 1}" class="flex white" style="justify-content: space-around">
+        <a th:href="@{/tip}" class="m-font-gray m-underlineCancel m-card-title"  style="margin-top: 4px">未读</a>
+        <a th:href="@{/tip/read}" class="m-font-gray m-underlineCancel m-activeDown-while m-card-title" style="margin-top: 4px">已读</a>
+    </div>
+    <!--消息卡片-->
+    <div name="tip" class="flex m-mg8" style="margin-top: 16px" th:each="tip : ${commentTips}">
+        <input hidden="hidden" th:if="${!#strings.isEmpty(tip.getPassage())}" th:value="${tip.getPassage().getId() + '+passage'}">
+        <input hidden="hidden" th:if="${!#strings.isEmpty(tip.getAnswer())}" th:value="${tip.getAnswer().getId()} + '+answer'">
+        <input hidden="hidden" th:value="${tip.getTipId()}">
+        <div><img th:src="${tip.getUser().getPortrait()}" class="m-tip-picture"></div>
+        <div class="flex column flex1" style="margin-left: 8px">
+            <div class="flex">
+                <div th:text="${tip.getUser().getNickname()}">毛毛</div>
+                <div th:text="${#dates.format(tip.getCreateTime(),'yyyy-MM-dd')}" class="m-font-gray m-mgl8">2022-10-13</div>
+            </div>
+            <!--回复评论-->
+            <div th:if="${!#strings.isEmpty(tip.getParentComment())}">
+                <div class="m-card-content" style="margin-top: 8px">
+                    <span>回复了你的评论：</span>
+                    <span th:text="${tip.getContent()}">发哈交电话费几哈低耦合覅OAhi复合机打火机法哈德金风科技阿帆</span>
+                </div>
+                <div class="m-card-content m-font-gray" style="margin-top: 8px">
+                    <span th:text="${tip.getUser().getNickname() + '：'}">毛毛：</span>
+                    <span th:text="${tip.getParentComment().getContent()}">真好</span>
+                </div>
+            </div>
+            <!--评论文章-->
+            <div th:if="${#strings.isEmpty(tip.getParentComment())}">
+                <div class="m-card-content" style="margin-top: 8px">
+                    <span th:if="${#strings.isEmpty(tip.getPassage())}">评论了你的回答：</span>
+                    <span th:if="${!#strings.isEmpty(tip.getPassage())}">评论了你的文章：</span>
+                    <span th:text="${tip.getContent()}">真不错</span>
+                </div>
+            </div>
+            <!--评论属于的回答或文章-->
+            <div class="m-card-content" style="margin-top: 8px">
+                <div th:if="${#strings.isEmpty(tip.getPassage())}">
+                    <span class="m-answer">回答</span>
+                    <span th:text="${tip.getQuestion().getTitle()}" style="position: relative;top: 2px">为什么毛毛这么厉害</span>
+                </div>
+                <div th:if="${!#strings.isEmpty(tip.getPassage())}">
+                    <span class="m-passage">文章</span>
+                    <span th:text="${tip.getPassage().getTitle()}" style="position: relative;top: 2px">为什么毛毛这么厉害</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="flex flex1" style="justify-content: center;margin-top: 20px;margin-bottom: 20px">已经到底了！</div>
+
+</body>
+<script type="text/javascript" src="../static/js/jquery-2.0.3.js" th:src="@{/js/jquery-2.0.3.js}"></script>
+<script>
+    $("[name='tip']").click(function () {
+        let a = $(this)[0].firstElementChild.value
+        let tipId = $(this)[0].firstElementChild.nextElementSibling.value;
+        let split = a.split("+");
+        //发送请求，更新这个评论为已读
+
+        $.ajax({
+            url:"/tip/update",
+            data: {tipId : tipId},
+            type : 'POST',
+            dataType : 'text',
+            success :function(data){
+                console.log(data)
+            }
+        })
+
+        if(split[1] === 'answer'){
+            document.location.href = "/answer/info/" + split[0];
+        }else{
+            document.location.href = "/passage/info/" + split[0];
+        }
+    })
+</script>
+</html>

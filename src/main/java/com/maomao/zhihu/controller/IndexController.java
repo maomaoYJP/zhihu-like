@@ -36,6 +36,8 @@ public class IndexController {
     CommentService commentService;
     @Resource
     SuggestionService suggestionService;
+    @Resource
+    CommentTipService commentTipService;
 
     /**
      *
@@ -43,7 +45,14 @@ public class IndexController {
      * @return 返回首页面
      */
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model,HttpSession session){
+        //用户未登录
+        if(session.getAttribute("user") == null){
+            return "login";
+        }
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
+
         List<Question> questions = questionService.getManyQuestion();
         for (Question question : questions) {
             if(question.getAnswers().size() != 0){
@@ -51,17 +60,23 @@ public class IndexController {
             }
         }
         sortList.sortQuestion(questions);
+        int tipNum = commentTipService.getMyPassageTipCount(userId) + commentTipService.getMyAnswerTipCount(userId);
         model.addAttribute("questions", questions);
+        model.addAttribute("tipNum", tipNum);
         return "index";
     }
 
     //首页文章页
     @RequestMapping("/passage")
-    public String indexPassage(Model model){
+    public String indexPassage(Model model,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
         List<Passage> passageList = passageService.getAllPassage();
         for (Passage passage : passageList) {
             passage.setContent(HTMLFilter.delHTMLTag(passage.getContent()));
         }
+        int tipNum = commentTipService.getMyPassageTipCount(userId) + commentTipService.getMyAnswerTipCount(userId);
+        model.addAttribute("tipNum", tipNum);
         model.addAttribute("passageList",passageList);
         return "index_passage";
     }
@@ -78,6 +93,8 @@ public class IndexController {
         User user = userService.getById(id);
         List<Talk> talks = talkService.getManyTalk();
         sortList.sortTalk(talks);
+        int tipNum = commentTipService.getMyPassageTipCount(id) + commentTipService.getMyAnswerTipCount(id);
+        model.addAttribute("tipNum", tipNum);
         model.addAttribute("talks", talks);
         model.addAttribute("user", user);
         return "talk";
@@ -85,8 +102,12 @@ public class IndexController {
 
     //热榜
     @RequestMapping("/rank")
-    public String getRank(Model model){
+    public String getRank(Model model,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        Long userId = user.getId();
         List<Question> questionRank = questionService.getQuestionRank();
+        int tipNum = commentTipService.getMyPassageTipCount(userId) + commentTipService.getMyAnswerTipCount(userId);
+        model.addAttribute("tipNum", tipNum);
         model.addAttribute("questionRank",questionRank);
         return "recommend";
     }

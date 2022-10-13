@@ -115,14 +115,17 @@ public class PassageController {
         //创建保存评论
         passageService.createPassageComment(userId, passageId, comment);
 
-        //插入comment_tip
-        CommentTip commentTip = new CommentTip();
-        commentTip.setCommentId(comment.getId());
-        commentTip.setPassageId(passageId);
-        commentTip.setAnswerId(null);
-        commentTip.setUserId(comment.getUser().getId());
-        commentTip.setIsRead(0L);
-        commentTipService.save(commentTip);
+        //如果是自己的评论就不提示
+        if(!userId.equals(comment.getUser().getId())){
+            //插入comment_tip
+            CommentTip commentTip = new CommentTip();
+            commentTip.setCommentId(comment.getId());
+            commentTip.setPassageId(passageId);
+            commentTip.setAnswerId(null);
+            commentTip.setUserId(comment.getUser().getId());
+            commentTip.setIsRead(0L);
+            commentTipService.save(commentTip);
+        }
 
         //查询文章
         Passage passage = passageService.getPassageAndUserByPassageId(passageId);

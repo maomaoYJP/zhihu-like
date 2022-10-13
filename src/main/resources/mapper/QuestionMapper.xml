@@ -153,4 +153,10 @@
         WHERE a.id = #{answerId}) b ON a.question_id = b.question_id
         WHERE b.question_id IS NOT NULL
     </select>
+
+    <select id="getSingleQuestionByAnswerId" resultType="com.maomao.zhihu.entity.Question">
+        SELECT * FROM question_answer a
+        LEFT JOIN question b ON a.question_id = b.id
+        WHERE a.answer_id = #{answerId}
+    </select>
 </mapper>

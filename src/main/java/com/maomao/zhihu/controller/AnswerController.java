@@ -2,6 +2,7 @@ package com.maomao.zhihu.controller;
 
 import com.maomao.zhihu.entity.*;
 import com.maomao.zhihu.service.AnswerService;
+import com.maomao.zhihu.service.CommentTipService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.utils.HTMLFilter;
@@ -32,6 +33,9 @@ public class AnswerController {
 
     @Resource
     QuestionService questionService;
+
+    @Resource
+    CommentTipService commentTipService;
 
     @GetMapping("/answer/manage")
     public String answerManager(HttpSession session, Model model) {
@@ -107,6 +111,19 @@ public class AnswerController {
         Long userId = user.getId();
         //创建保存评论
         answerService.createAnswerComment(userId,answerId,comment);
+
+        //如果是自己的评论，就不提示
+        if(!userId.equals(comment.getUser().getId())){
+            //插入comment_tip
+            CommentTip commentTip = new CommentTip();
+            commentTip.setCommentId(comment.getId());
+            commentTip.setPassageId(null);
+            commentTip.setAnswerId(answerId);
+            commentTip.setUserId(comment.getUser().getId());
+            commentTip.setIsRead(0L);
+            commentTipService.save(commentTip);
+        }
+
 
         //查询文章
         Question question = questionService.getQuestionByAnswerId(answerId);

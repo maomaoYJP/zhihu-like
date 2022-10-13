@@ -17,6 +17,9 @@ public interface PassageMapper extends BaseMapper<Passage> {
     //根据id获得文章
     List<Passage> getPassageById(@Param("id")Long id);
 
+    //根据passageId获取单个文章
+    Passage getSinglePassageByPassageId(@Param("passage_id")Long passageId);
+
     //获得所有文章
     List<Passage> getManyPassage();
 

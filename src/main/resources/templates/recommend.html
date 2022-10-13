@@ -11,6 +11,7 @@
         <a th:href="@{/talk}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">说说</a>
         <a th:href="@{/}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">推荐</a>
         <a th:href="@{/rank}" class="m-font-gray m-mg8 m-underlineCancel m-headActive">热榜</a>
+        <a th:href="@{/tip}" class="m-font-gray m-card-title m-mg8 m-underlineCancel">消息 <span th:text="${tipNum}" class="m-tip-count">10</span></a>
     </div>
     <div class="flex flex1" style="margin-top: 10px;border-bottom: 1px solid #EBEBEB;min-height: 80px" th:each="question : ${questionRank}">
         <div th:text="${questionStat.count}" class="m-card-title" style="margin-right: 8px">1</div>

@@ -36,6 +36,7 @@
         <result property="parentCommentId" column="parent_comment_id" jdbcType="BIGINT"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="isDelete" column="is_delete" jdbcType="BIT"/>
+        <result property="tipId" column="tip_id" jdbcType="VARCHAR"/>
         <association property="user"
                      select="com.maomao.zhihu.mapper.UserMapper.getUserById"
                      column="user_id">
@@ -44,9 +45,18 @@
                      select="com.maomao.zhihu.mapper.CommentMapper.getParentCommentByParentCommentId"
                      column="parent_comment_id">
         </association>
+        <association property="question"
+                     select="com.maomao.zhihu.mapper.QuestionMapper.getSingleQuestionByAnswerId"
+                     column="answer_id"/>
+        <association property="answer"
+                     select="com.maomao.zhihu.mapper.AnswerMapper.getSingleAnswerByAnswerId"
+                     column="answer_id"/>
+        <association property="passage"
+                     select="com.maomao.zhihu.mapper.PassageMapper.getSinglePassageByPassageId"
+                     column="passage_id"/>
     </resultMap>
     <select id="getMyAnswerTip" resultMap="CommentResultMap">
-        SELECT b.id,b.content,b.parent_comment_id,b.create_time,b.is_delete,a.is_read,a.user_id
+        SELECT b.id,b.content,b.parent_comment_id,b.create_time,b.is_delete,a.is_read,a.user_id,a.answer_id,a.passage_id,a.id tip_id
         FROM comment_tip a
         LEFT JOIN `comment` b ON a.comment_id = b.id
         WHERE a.passage_id IS NULL AND b.is_delete = 0 AND a.user_id = #{userId}
@@ -54,7 +64,7 @@
     </select>
 
     <select id="getMyPassageTip" resultMap="CommentResultMap">
-        SELECT b.id,b.content,b.parent_comment_id,b.create_time,b.is_delete,a.is_read,a.user_id
+        SELECT b.id,b.content,b.parent_comment_id,b.create_time,b.is_delete,a.is_read,a.user_id,a.answer_id,a.passage_id,a.id tip_id
         FROM comment_tip a
         LEFT JOIN `comment` b ON a.comment_id = b.id
         WHERE a.answer_id IS NULL AND b.is_delete = 0 AND a.user_id = #{userId}

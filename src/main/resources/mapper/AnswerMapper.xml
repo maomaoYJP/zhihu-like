@@ -48,4 +48,8 @@
         order by a.create_time desc
     </select>
 
+    <select id="getSingleAnswerByAnswerId" resultType="com.maomao.zhihu.entity.Answer">
+        select * from answer where id = #{answerId}
+    </select>
+
 </mapper>

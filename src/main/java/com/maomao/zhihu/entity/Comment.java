@@ -57,6 +57,30 @@ public class Comment implements Serializable {
     private Long isRead;
 
     /**
+     * 评论属于的问题
+     */
+    @TableField(exist = false)
+    private Question question;
+
+    /**
+     * 评论属于的回答
+     */
+    @TableField(exist = false)
+    private Answer answer;
+
+    /**
+     * 评论属于的文章
+     */
+    @TableField(exist = false)
+    private Passage passage;
+
+    /**
+     * 评论的tip
+     */
+    @TableField(exist = false)
+    private Long tipId;
+
+    /**
      * 该评论的父评论
      */
     @TableField(exist = false)

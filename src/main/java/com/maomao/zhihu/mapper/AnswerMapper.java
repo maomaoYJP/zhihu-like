@@ -20,6 +20,9 @@ public interface AnswerMapper extends BaseMapper<Answer> {
     //根据questionId 查询回答
     List<Answer> getAnswerByQuestionId(@Param("id")Long id);
 
+    //根据answerId查询回答
+    Answer getSingleAnswerByAnswerId(@Param("answer_id")Long answerId);
+
     //根据answerId删除回答
     boolean deleteAnswer(Long answerId);
 

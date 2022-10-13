@@ -45,6 +45,9 @@ public interface QuestionMapper extends BaseMapper<Question> {
     //根据questionId 和 answerId 建立对应关系
     boolean createQuestionAnswerMap(Long questionId, Long answerId);
 
+    //根据answerId，获得问题
+    Question getSingleQuestionByAnswerId(@Param("answer_id")Long answerId);
+
 }
 
 

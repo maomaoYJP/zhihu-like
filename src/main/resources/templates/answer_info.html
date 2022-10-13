@@ -192,6 +192,7 @@
         $(this).prop("disabled", "true");
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#reply").val(),
+            "user.id" : [[${question.getAnswers().get(0).getUser().getId()}]],
             "parentCommentId" : $("#replyCommentId").val()
         },function (responseTxt, statusTxt, xhr) {
             cleanContent()
@@ -240,6 +241,7 @@
         $("#commentBtn").prop("disabled", "true");
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#content").val(),
+            "user.id" : [[${question.getAnswers().get(0).getUser().getId()}]],
             "parentCommentId" : $("#parentCommentId").val()
         },function (responseTxt, statusTxt, xhr) {
             cleanContent()

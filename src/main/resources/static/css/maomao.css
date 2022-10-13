@@ -36,6 +36,11 @@
 }
 
 /*字体*/
+.m-tip-count{
+    color: #ec1f38;
+    font-size: 17px;
+}
+
 .m-content-font{
     font-size: 12px;
     letter-spacing: 1.5px;
@@ -71,6 +76,12 @@
     padding: 4px;
     height: 25px;
     font-size: 16px;
+}
+
+.m-tip-picture{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }
 
 

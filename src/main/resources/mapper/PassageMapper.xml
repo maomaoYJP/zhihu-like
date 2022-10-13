@@ -67,5 +67,8 @@
         SELECT * FROM passage a LEFT JOIN passage_user b ON a.id = b.passage_id
         WHERE is_delete = 0 AND b.user_id = #{userId} and (title LIKE #{keyword} OR content LIKE #{keyword})
     </select>
+    <select id="getSinglePassageByPassageId" resultType="com.maomao.zhihu.entity.Passage">
+        select * from passage where id = #{passageId}
+    </select>
 
 </mapper>
