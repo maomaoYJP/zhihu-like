@@ -84,5 +84,12 @@
          FROM question_user a LEFT JOIN `user` b ON a.user_id = b.id WHERE a.question_id = #{questionId}
     </select>
 
+    <select id="getUserByCommentId" resultType="com.maomao.zhihu.entity.User">
+        SELECT c.id,c.nickname,c.portrait
+        FROM comment_tip a
+        LEFT JOIN user_comment b ON a.comment_id = b.comment_id
+        LEFT JOIN `user` c ON b.user_id = c.id LIMIT 1
+    </select>
+
 
 </mapper>

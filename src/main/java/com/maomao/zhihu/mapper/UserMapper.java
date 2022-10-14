@@ -17,6 +17,9 @@ public interface UserMapper extends BaseMapper<User> {
     //通过id查询用户
     User getUserById(@Param("user_id")Long id);
 
+    //通过commentId查询用户
+    User getUserByCommentId(@Param("comment_id") Long commentId);
+
     //通过id获得问题属于哪个用户
     User getPassageUserById(@Param("question_id")Long questionId);
 

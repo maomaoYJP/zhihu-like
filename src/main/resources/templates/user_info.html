@@ -32,6 +32,10 @@
                     <input th:value="${userInfo.getIntroduce()}" type="text" name="introduce" id="introduce" placeholder="介绍">
                 </div>
                 <div class="flex flex1" style="margin-top: 16px">
+                    <label class="m-font-gray m-card-title" style="margin-right: 8px" for="introduce">邮箱</label>
+                    <input th:value="${userInfo.getEmail()}" type="text" name="email" id="email" placeholder="邮箱">
+                </div>
+                <div class="flex flex1" style="margin-top: 16px">
                     <label class="m-font-gray m-card-title" style="margin-right: 8px" for="sex">性别</label>
                     <input th:value="${userInfo.getSex()}" type="text" name="sex" id="sex" placeholder="性别">
                 </div>
@@ -58,6 +62,10 @@
                 <div class="flex flex1" style="margin-top: 8px">
                     <label class="m-font-gray m-card-title" style="margin-right: 8px" for="introduce">介绍</label>
                     <input th:value="${userInfo.getIntroduce()}" type="text" name="introduce" id="introduce" placeholder="介绍" disabled="disabled">
+                </div>
+                <div class="flex flex1" style="margin-top: 16px">
+                    <label class="m-font-gray m-card-title" style="margin-right: 8px" for="introduce">邮箱</label>
+                    <input th:value="${userInfo.getEmail()}" type="text" name="email" id="email" placeholder="邮箱" disabled>
                 </div>
                 <div class="flex flex1" style="margin-top: 8px">
                     <label class="m-font-gray m-card-title" style="margin-right: 8px" for="sex">性别</label>

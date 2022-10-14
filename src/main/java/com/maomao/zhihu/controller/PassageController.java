@@ -5,6 +5,7 @@ import com.maomao.zhihu.service.CommentTipService;
 import com.maomao.zhihu.service.PassageService;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.utils.HTMLFilter;
+import com.maomao.zhihu.utils.MailSend;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -137,6 +138,10 @@ public class PassageController {
             commentTip.setUserId(comment.getUser().getId());
             commentTip.setIsRead(0L);
             commentTipService.save(commentTip);
+            //开启新线程，邮箱提示
+            User receive = userService.getById(comment.getUser().getId());
+            MailSend mailSend = new MailSend(receive.getEmail(), comment.getContent());
+            mailSend.start();
         }
 
         //查询文章

@@ -6,6 +6,7 @@ import com.maomao.zhihu.service.CommentTipService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.service.UserService;
 import com.maomao.zhihu.utils.HTMLFilter;
+import com.maomao.zhihu.utils.MailSend;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -136,6 +137,11 @@ public class AnswerController {
             commentTip.setUserId(comment.getUser().getId());
             commentTip.setIsRead(0L);
             commentTipService.save(commentTip);
+
+            User receive = userService.getById(comment.getUser().getId());
+            //开启新线程，邮箱提示
+            MailSend mailSend = new MailSend(receive.getEmail(), comment.getContent());
+            mailSend.start();
         }
 
 

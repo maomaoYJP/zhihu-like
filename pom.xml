@@ -15,6 +15,12 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
         <!--web开发相关依赖-->
         <!--Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container-->
         <dependency>
