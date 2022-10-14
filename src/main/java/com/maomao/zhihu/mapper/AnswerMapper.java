@@ -23,7 +23,7 @@ public interface AnswerMapper extends BaseMapper<Answer> {
     //根据answerId查询回答
     Answer getSingleAnswerByAnswerId(@Param("answer_id")Long answerId);
 
-    //根据answerId删除回答
+    //根据answerId删除answer和user，answer和question对应关系
     boolean deleteAnswer(Long answerId);
 
     //根据answerId查询回答（单个）

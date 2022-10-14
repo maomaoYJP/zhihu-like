@@ -3,16 +3,20 @@ package com.maomao.zhihu.controller;
 import com.maomao.zhihu.entity.Answer;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.entity.User;
+import com.maomao.zhihu.service.AnswerService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.utils.HTMLFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +28,8 @@ import java.util.List;
 public class QuestionController {
     @Resource
     QuestionService questionService;
+    @Resource
+    AnswerService answerService;
 
     @GetMapping("/question/manage")
     public String questionManage(HttpSession session, Model model){
@@ -71,5 +77,26 @@ public class QuestionController {
         }
         model.addAttribute("question", question);
         return "answer_list";
+    }
+
+    //删除问题
+    @GetMapping("/question/delete/{questionId}")
+    @Transactional
+    public String questionDelete(@PathVariable("questionId")Long questionId){
+        //删除问题
+        boolean b = questionService.removeById(questionId);
+        //批量删除问题中的回答,即对应关系
+        List<Long> answerId = new ArrayList<>();
+        for (Answer answer : questionService.getQuestionByQuestionId(questionId).getAnswers()) {
+            answerId.add(answer.getId());
+        }
+
+        for (Long id : answerId) {
+            answerService.deleteAnswer(id);
+        }
+        //删除对应关系
+        questionService.deleteQuestionMap(questionId);
+
+        return "redirect:/question/manage";
     }
 }

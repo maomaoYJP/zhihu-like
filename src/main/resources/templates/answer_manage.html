@@ -102,7 +102,7 @@
         let edit = this.parentElement.nextElementSibling;
         edit.hidden = edit.hidden ? false : true;
         let deleteTip = edit.firstElementChild.firstElementChild.firstElementChild.nextElementSibling.lastElementChild;
-        let answerId = deleteTip.previousElementSibling.value;
+        let answerId = deleteTip.previousElementSibling.previousElementSibling.value;
         deleteTip.addEventListener("click",function (e) {
             e.stopPropagation()
             if(confirm("确定要删除吗？")){

@@ -7,6 +7,7 @@ import com.maomao.zhihu.service.CommentService;
 import com.maomao.zhihu.service.QuestionService;
 import com.maomao.zhihu.mapper.QuestionMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Comparator;
@@ -95,6 +96,15 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     @Override
     public Question getQuestionByQuestionId(Long questionId) {
         return questionMapper.getQuestionByQuestionId(questionId);
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteQuestionMap(Long questionId) {
+        //删除问题和user对应关系
+        questionMapper.deleteQuestionAnswerMap(questionId);
+        //删除问题和answer对应关系
+        return questionMapper.deleteQuestionUserMap(questionId);
     }
 
 }

@@ -146,6 +146,7 @@
             let questionId = deleteTip.previousElementSibling.value;
             deleteTip.addEventListener("click",function () {
                 if(confirm("确定要删除吗？")){
+                    //console.log(questionId)
                     deleteTip.href = "/question/delete/" + questionId;
                     return true;
                 }else{

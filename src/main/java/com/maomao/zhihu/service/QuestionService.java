@@ -42,4 +42,9 @@ public interface QuestionService extends IService<Question> {
     //根据问题Id，查询问题及回答
     Question getQuestionByQuestionId(Long questionId);
 
+    //删除问题和user对应关系
+    //删除问题和answer对应关系
+    boolean deleteQuestionMap(Long questionId);
+
+
 }

@@ -48,6 +48,12 @@ public interface QuestionMapper extends BaseMapper<Question> {
     //根据answerId，获得问题
     Question getSingleQuestionByAnswerId(@Param("answer_id")Long answerId);
 
+    //删除question_user对应关系
+    boolean deleteQuestionUserMap(Long questionId);
+
+    //删除question_answer对应关系
+    boolean deleteQuestionAnswerMap(Long questionId);
+
 }
 
 

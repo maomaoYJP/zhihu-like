@@ -77,6 +77,7 @@
                                 <span th:text="${#dates.format(comment.getCreateTime(),'yyyy-MM-dd')}" class="m-comment-userInfo">2022-08-02</span>
                             </div>
                             <!--评论内容-->
+                            <input hidden="hidden" th:value="${comment.getUser().getId()}">
                             <input hidden="hidden" th:value="${comment.getId()}">
                             <input hidden="hidden" th:value="${comment.getUser().getNickname()}">
                             <div name="commentContent" class="flex flex1 column">
@@ -104,6 +105,7 @@
                                                 <span th:text="${#dates.format(reply.getCreateTime(),'yyyy-MM-dd')}" class="m-comment-userInfo">2022-08-02</span>
                                             </div>
                                             <!--评论内容-->
+                                            <input hidden="hidden" th:value="${reply.getUser().getId()}">
                                             <input hidden="hidden" th:value="${reply.getId()}">
                                             <input hidden="hidden" th:value="${reply.getUser().getNickname()}">
                                             <div name="commentContent" class="flex flex1" style="margin-left: 4px">
@@ -128,6 +130,7 @@
     <!--点击回复跳出输入框-->
     <div id="replyBox" style="position: absolute">
         <div class="flex">
+            <input type="text" hidden="hidden" id="replyUserId">
             <input type="text" hidden="hidden" id="replyCommentId">
             <label for="reply"></label>
             <input type="text" name="content" id="reply" style="width: 200px;padding: 4px" hidden="hidden">
@@ -193,6 +196,7 @@
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#reply").val(),
             "user.id" : [[${question.getAnswers().get(0).getUser().getId()}]],
+            "parentComment.user.id" : $("#replyUserId").val(),
             "parentCommentId" : $("#replyCommentId").val()
         },function (responseTxt, statusTxt, xhr) {
             cleanContent()
@@ -217,7 +221,9 @@
         $("#replyBox").css({left:'6px',top:(e.target.offsetHeight + e.target.offsetTop) + 'px'})
         let replyUser = this.previousElementSibling.value
         let replyCommentId = this.previousElementSibling.previousElementSibling.value
+        let replyUserId = this.previousElementSibling.previousElementSibling.previousElementSibling.value
         $("#replyCommentId").val(replyCommentId)
+        $("#replyUserId").val(replyUserId)
         $("#reply").attr("placeholder", "回复" + replyUser + "：")
         $("#reply").focus()
     })

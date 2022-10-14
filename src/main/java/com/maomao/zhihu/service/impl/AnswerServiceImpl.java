@@ -1,8 +1,11 @@
 package com.maomao.zhihu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maomao.zhihu.entity.Answer;
 import com.maomao.zhihu.entity.Comment;
+import com.maomao.zhihu.entity.CommentTip;
 import com.maomao.zhihu.entity.Question;
 import com.maomao.zhihu.mapper.*;
 import com.maomao.zhihu.queryvo.QuestionAnswer;
@@ -35,12 +38,21 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer>
     CommentMapper commentMapper;
     @Resource
     CommentService commentService;
+    @Resource
+    CommentTipService commentTipService;
 
     @Override
     @Transactional
     public boolean deleteAnswer(Long answerId) {
+        //删除answer_user,question_answer
         answerMapper.deleteAnswer(answerId);
-        return answerService.removeById(answerId);
+        //删除回答
+        answerService.removeById(answerId);
+        //删除comment_tip
+        QueryWrapper<CommentTip> wrapper = new QueryWrapper<>();
+        wrapper.eq("answer_id",answerId);
+        boolean remove = commentTipService.remove(wrapper);
+        return remove;
     }
 
     @Override

@@ -112,13 +112,25 @@ public class PassageController {
         //获取用户id
         User user = (User)session.getAttribute("user");
         Long userId = user.getId();
+        boolean noTipCondition;
+        //不是回复
+        if(comment.getParentComment() == null){
+            noTipCondition = userId.equals(comment.getUser().getId()) && comment.getParentCommentId() == -1;
+            //回复
+        }else{
+            noTipCondition =
+                    (userId.equals(comment.getUser().getId()) && comment.getParentCommentId() == -1) ||
+                            (comment.getParentComment().getUser().getId().equals(userId));
+        }
+
         //创建保存评论
         passageService.createPassageComment(userId, passageId, comment);
 
-        //如果是自己的评论就不提示
-        if(!userId.equals(comment.getUser().getId())){
+        CommentTip commentTip = new CommentTip();
+        //如果是自己的评论就不提示,但是如果是在自己的文章回复别人需要提示
+
+        if(!noTipCondition){
             //插入comment_tip
-            CommentTip commentTip = new CommentTip();
             commentTip.setCommentId(comment.getId());
             commentTip.setPassageId(passageId);
             commentTip.setAnswerId(null);

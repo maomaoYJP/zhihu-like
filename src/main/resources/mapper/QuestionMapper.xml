@@ -26,6 +26,12 @@
     <insert id="createQuestionAnswerMap">
         insert into question_answer(question_id, answer_id) values(#{questionId}, #{answerId})
     </insert>
+    <delete id="deleteQuestionUserMap">
+        DELETE FROM question_user WHERE question_id = #{questionId}
+    </delete>
+    <delete id="deleteQuestionAnswerMap">
+        DELETE FROM question_answer WHERE question_id = #{questionId}
+    </delete>
     <resultMap id="QuestionAnswerResultMap" type="com.maomao.zhihu.entity.Question">
         <id property="id" column="question_id" jdbcType="BIGINT"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
@@ -85,7 +91,7 @@
         FROM answer a LEFT JOIN question_answer b ON a.id = b.answer_id AND a.is_delete = 0
         LEFT JOIN question c ON b.question_id = c.id and c.is_delete = 0
         LEFT JOIN answer_user d ON d.answer_id = a.id
-        WHERE d.user_id = #{id}
+        WHERE d.user_id = #{id} and a.is_delete = 0
     </select>
     <select id="searchAllQuestion" resultMap="ManyQuestionResultMap">
         SELECT * FROM question a LEFT JOIN question_user b ON a.id = b.question_id
