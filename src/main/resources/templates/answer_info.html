@@ -195,7 +195,7 @@
         $(this).prop("disabled", "true");
         $("#comment-container").load("/answer/" + [[${question.getAnswers().get(0).getId()}]] + "/comment",{
             "content" : $("#reply").val(),
-            "user.id" : [[${question.getAnswers().get(0).getUser().getId()}]],
+            "user.id" : $("#replyUserId").val(),
             "parentComment.user.id" : $("#replyUserId").val(),
             "parentCommentId" : $("#replyCommentId").val()
         },function (responseTxt, statusTxt, xhr) {

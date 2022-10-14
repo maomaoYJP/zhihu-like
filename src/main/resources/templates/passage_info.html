@@ -157,7 +157,7 @@
         $(this).prop("disabled", "true");
         $("#comment-container").load("/passage/" + [[${passage.getId()}]] + "/comment",{
             "content" : $("#reply").val(),
-            "user.id" : [[${passage.getUser().getId()}]],
+            "user.id" : $("#replyUserId").val(),
             "parentComment.user.id" : $("#replyUserId").val(),
             "parentCommentId" : $("#replyCommentId").val()
         },function (responseTxt, statusTxt, xhr) {

@@ -88,7 +88,8 @@
         SELECT c.id,c.nickname,c.portrait
         FROM comment_tip a
         LEFT JOIN user_comment b ON a.comment_id = b.comment_id
-        LEFT JOIN `user` c ON b.user_id = c.id LIMIT 1
+        LEFT JOIN `user` c ON b.user_id = c.id
+        WHERE a.comment_id = #{commentId}
     </select>
 
 
